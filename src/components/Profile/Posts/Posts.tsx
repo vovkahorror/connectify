@@ -1,13 +1,14 @@
 import React from "react";
-import { Post } from "./Post/Post";
+import {Post} from "./Post/Post";
 import styles from './Posts.module.css';
 
 export const Posts = () => {
   return (
-    <div>
-      My posts
+    <div className={styles.postsBlock}>
+      <h3>My posts</h3>
       <div>
-        New post
+        <div><textarea></textarea></div>
+        <button>Add post</button>
       </div>
       <div>
         <Post message={'I\'m glad to see you here'} likes={5}/>
