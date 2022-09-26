@@ -17,9 +17,11 @@ export const Posts = () => {
         <button>Add post</button>
       </div>
       <div>
-        <Post message={'I\'m glad to see you here'} likes={5}/>
-        <Post message={'Hello! How are you?'} likes={4}/>
-        <Post message={'It\'s my firs post'} likes={3}/>
+        {postsData.map(post => {
+          return (
+            <Post key={post.id} message={post.message} likes={post.likes}/>
+          )
+        })}
       </div>
     </div>
   )
