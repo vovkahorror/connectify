@@ -2,14 +2,19 @@ import React from "react";
 import {Post} from "./Post/Post";
 import styles from './Posts.module.css';
 
-export const Posts = () => {
-  const postsData = [
-    {id: 1, message: 'I\'m glad to see you here', likes: 5},
-    {id: 2, message: 'Hello! How are you?', likes: 4},
-    {id: 3, message: 'It\'s my firs post', likes: 3},
-  ];
+export type PostsDataType = {
+  id: number;
+  message: string;
+  likes: number;
+}
+type PostsPropsType = {
+  postsData: Array<PostsDataType>;
+}
 
-  const postsElements = postsData.map(post => <Post key={post.id} message={post.message} likes={post.likes}/>);
+export const Posts = (props: PostsPropsType) => {
+  const postsElements = props.postsData.map(post => {
+    return <Post key={post.id} message={post.message} likes={post.likes}/>
+  });
 
   return (
     <div className={styles.postsBlock}>
