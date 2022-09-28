@@ -2,11 +2,11 @@ import styles from './Dialogs.module.css';
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
 
-type DialogsDataType = {
+export type DialogsDataType = {
   id: number;
   name: string;
 }
-type MessagesDataType = {
+export type MessagesDataType = {
   id: number;
   message: string;
 }

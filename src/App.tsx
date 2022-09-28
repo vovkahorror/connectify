@@ -4,40 +4,25 @@ import "./App.css";
 import {Header} from "./components/Header/Header";
 import {Navbar} from "./components/Navbar/Navbar";
 import {Profile} from "./components/Profile/Profile";
-import {Dialogs} from "./components/Dialogs/Dialogs";
+import {Dialogs, DialogsDataType, MessagesDataType} from "./components/Dialogs/Dialogs";
 import {BrowserRouter, Route} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
+import {PostsDataType} from "./components/Profile/Posts/Posts";
 
-const postsData = [
-  {id: 1, message: 'I\'m glad to see you here', likes: 5},
-  {id: 2, message: 'Hello! How are you?', likes: 4},
-  {id: 3, message: 'It\'s my firs post', likes: 3},
-];
+type AppPropsType = {
+  postsData: Array<PostsDataType>;
+  dialogsData: Array<DialogsDataType>;
+  messagesData: Array<MessagesDataType>;
+}
 
-const dialogsData = [
-  {id: 1, name: 'Nastya'},
-  {id: 2, name: 'Vova'},
-  {id: 3, name: 'Pavlik'},
-  {id: 4, name: 'Natasha'},
-  {id: 5, name: 'Sasha'},
-  {id: 6, name: 'Nila'},
-];
-
-const messagesData = [
-  {id: 1, message: 'I\'m OK'},
-  {id: 2, message: 'How are you?'},
-  {id: 3, message: 'Hi!'},
-  {id: 4, message: 'It is my family'},
-];
-
-function App() {
+function App(props: AppPropsType) {
   const PostsRender = () => {
-    return <Profile postsData={postsData}/>
+    return <Profile postsData={props.postsData}/>
   }
   const DialogsRender = () => {
-    return <Dialogs dialogsData={dialogsData} messagesData={messagesData}/>
+    return <Dialogs dialogsData={props.dialogsData} messagesData={props.messagesData}/>
   }
 
   return (
