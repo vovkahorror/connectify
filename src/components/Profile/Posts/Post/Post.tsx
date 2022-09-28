@@ -1,7 +1,7 @@
 import React from "react";
 import styles from './Post.module.css'
 
-type PostType = {
+export type PostType = {
   message: string;
   likes: number;
 }

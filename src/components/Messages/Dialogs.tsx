@@ -43,13 +43,16 @@ export const Dialogs = () => {
     {id: 4, message: 'It is my family'},
   ];
 
+  const dialogsElements = dialogsData.map(dialog => <DialogItem key={dialog.id} name={dialog.name} id={dialog.id}/>);
+  const messagesElements = messagesData.map(message => <Message key={message.id} message={message.message}/>);
+
   return (
     <div className={styles.dialogs}>
       <div className={styles.dialogs__items}>
-        {dialogsData.map(dialog => <DialogItem key={dialog.id} name={dialog.name} id={dialog.id}/>)}
+        {dialogsElements}
       </div>
       <div className={styles.dialogs__messages}>
-        {messagesData.map(message => <Message key={message.id} message={message.message}/>)}
+        {messagesElements}
       </div>
     </div>
   )
