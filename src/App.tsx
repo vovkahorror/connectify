@@ -11,18 +11,27 @@ import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import {PostsDataType} from "./components/Profile/Posts/Posts";
 
-type AppPropsType = {
+export type ProfilePageType = {
   postsData: Array<PostsDataType>;
+}
+export type DialogsPageType = {
   dialogsData: Array<DialogsDataType>;
   messagesData: Array<MessagesDataType>;
+}
+type StateType = {
+  profilePage: ProfilePageType;
+  dialogsPage: DialogsPageType;
+}
+type AppPropsType = {
+  state: StateType;
 }
 
 function App(props: AppPropsType) {
   const PostsRender = () => {
-    return <Profile postsData={props.postsData}/>
+    return <Profile profileState={props.state.profilePage}/>
   }
   const DialogsRender = () => {
-    return <Dialogs dialogsData={props.dialogsData} messagesData={props.messagesData}/>
+    return <Dialogs dialogsState={props.state.dialogsPage}/>
   }
 
   return (
@@ -33,9 +42,9 @@ function App(props: AppPropsType) {
         <div className={'app-wrapper__content'}>
           <Route path={'/profile'} render={PostsRender}/>
           <Route path={'/dialogs'} render={DialogsRender}/>
-          <Route path={'/news'} component={News}/>
-          <Route path={'/music'} component={Music}/>
-          <Route path={'/settings'} component={Settings}/>
+          <Route path={'/news'} render={News}/>
+          <Route path={'/music'} render={Music}/>
+          <Route path={'/settings'} render={Settings}/>
         </div>
       </div>
     </BrowserRouter>

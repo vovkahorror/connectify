@@ -1,6 +1,7 @@
 import styles from './Dialogs.module.css';
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
+import {DialogsPageType} from "../../App";
 
 export type DialogsDataType = {
   id: number;
@@ -11,15 +12,14 @@ export type MessagesDataType = {
   message: string;
 }
 type DialogsPropsType = {
-  dialogsData: Array<DialogsDataType>;
-  messagesData: Array<MessagesDataType>;
+  dialogsState: DialogsPageType;
 }
 
 export const Dialogs = (props: DialogsPropsType) => {
-  const dialogsElements = props.dialogsData.map(dialog => {
+  const dialogsElements = props.dialogsState.dialogsData.map(dialog => {
     return <DialogItem key={dialog.id} name={dialog.name} id={dialog.id}/>
   });
-  const messagesElements = props.messagesData.map(message => {
+  const messagesElements = props.dialogsState.messagesData.map(message => {
     return <Message key={message.id} message={message.message}/>
   });
 

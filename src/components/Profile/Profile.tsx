@@ -1,17 +1,18 @@
 import React from "react";
 import styles from './Profile.module.css'
-import {Posts, PostsDataType} from "./Posts/Posts";
+import {Posts} from "./Posts/Posts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
+import {ProfilePageType} from "../../App";
 
 type ProfilePropsType = {
-  postsData: Array<PostsDataType>;
+  profileState: ProfilePageType;
 }
 
 export const Profile = (props: ProfilePropsType) => {
   return (
     <main>
       <ProfileInfo/>
-      <Posts postsData={props.postsData}/>
+      <Posts postsData={props.profileState.postsData}/>
     </main>
   )
 }
