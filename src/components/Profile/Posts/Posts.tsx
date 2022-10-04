@@ -1,4 +1,4 @@
-import React from "react";
+import React, {RefObject} from "react";
 import {Post} from "./Post/Post";
 import styles from './Posts.module.css';
 
@@ -15,13 +15,21 @@ export const Posts = (props: PostsPropsType) => {
   const postsElements = props.postsData.map(post => {
     return <Post key={post.id} message={post.message} likes={post.likes}/>
   });
+  const newPostElement: RefObject<HTMLTextAreaElement> = React.createRef();
+
+  const addPost = () => {
+      const text = newPostElement.current?.value;
+      alert(text);
+  }
 
   return (
     <div className={styles.postsBlock}>
       <h3>My posts</h3>
       <div>
-        <div><textarea></textarea></div>
-        <button>Add post</button>
+        <div>
+            <textarea ref={newPostElement}></textarea>
+        </div>
+        <button onClick={addPost}>Add post</button>
       </div>
       <div>
         {postsElements}
