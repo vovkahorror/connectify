@@ -23,3 +23,13 @@ export const state = {
     ],
   },
 }
+
+export const addPost = (postMessage: string) => {
+  const newPost = {
+    id: 4,
+    message: postMessage,
+    likes: 0,
+  }
+
+  state.profilePage.postsData.push(newPost);
+}

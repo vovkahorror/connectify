@@ -12,41 +12,42 @@ import {Settings} from "./components/Settings/Settings";
 import {PostsDataType} from "./components/Profile/Posts/Posts";
 
 export type ProfilePageType = {
-  postsData: Array<PostsDataType>;
+    postsData: Array<PostsDataType>;
 }
 export type DialogsPageType = {
-  dialogsData: Array<DialogsDataType>;
-  messagesData: Array<MessagesDataType>;
+    dialogsData: Array<DialogsDataType>;
+    messagesData: Array<MessagesDataType>;
 }
 type StateType = {
-  profilePage: ProfilePageType;
-  dialogsPage: DialogsPageType;
+    profilePage: ProfilePageType;
+    dialogsPage: DialogsPageType;
 }
 type AppPropsType = {
-  state: StateType;
+    state: StateType;
+    addPost: (postMessage: string) => void;
 }
 
 function App(props: AppPropsType) {
-  const PostsRender = () => {
-    return <Profile profileState={props.state.profilePage}/>
-  }
-  const DialogsRender = () => {
-    return <Dialogs dialogsState={props.state.dialogsPage}/>
-  }
+    const PostsRender = () => {
+        return <Profile profileState={props.state.profilePage} addPost={props.addPost}/>;
+    };
+    const DialogsRender = () => {
+        return <Dialogs dialogsState={props.state.dialogsPage}/>;
+    };
 
-  return (
-    <div className={'app-wrapper'}>
-      <Header/>
-      <Navbar/>
-      <div className={'app-wrapper__content'}>
-        <Route path={'/profile'} render={PostsRender}/>
-        <Route path={'/dialogs'} render={DialogsRender}/>
-        <Route path={'/news'} render={News}/>
-        <Route path={'/music'} render={Music}/>
-        <Route path={'/settings'} render={Settings}/>
-      </div>
-    </div>
-  );
+    return (
+        <div className={'app-wrapper'}>
+            <Header/>
+            <Navbar/>
+            <div className={'app-wrapper__content'}>
+                <Route path={'/profile'} render={PostsRender}/>
+                <Route path={'/dialogs'} render={DialogsRender}/>
+                <Route path={'/news'} render={News}/>
+                <Route path={'/music'} render={Music}/>
+                <Route path={'/settings'} render={Settings}/>
+            </div>
+        </div>
+    );
 };
 
 export default App;
