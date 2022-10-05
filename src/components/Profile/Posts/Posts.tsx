@@ -20,7 +20,10 @@ export const Posts = (props: PostsPropsType) => {
 
     const addPost = () => {
         const text = newPostElement.current?.value;
-        text && props.addPost(text);
+        if (text) {
+            props.addPost(text);
+            newPostElement.current.value = '';
+        }
     };
 
     return (

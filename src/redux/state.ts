@@ -1,3 +1,11 @@
+import {DialogsPageType, ProfilePageType} from "../App";
+import {rerenderEntireTree} from "../render";
+
+export type StateType = {
+  profilePage: ProfilePageType;
+  dialogsPage: DialogsPageType;
+}
+
 export const state = {
   profilePage: {
     postsData: [
@@ -32,4 +40,5 @@ export const addPost = (postMessage: string) => {
   }
 
   state.profilePage.postsData.push(newPost);
+  rerenderEntireTree(state);
 }

@@ -10,6 +10,7 @@ import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import {PostsDataType} from "./components/Profile/Posts/Posts";
+import {StateType} from "./redux/state";
 
 export type ProfilePageType = {
     postsData: Array<PostsDataType>;
@@ -17,10 +18,6 @@ export type ProfilePageType = {
 export type DialogsPageType = {
     dialogsData: Array<DialogsDataType>;
     messagesData: Array<MessagesDataType>;
-}
-type StateType = {
-    profilePage: ProfilePageType;
-    dialogsPage: DialogsPageType;
 }
 type AppPropsType = {
     state: StateType;
