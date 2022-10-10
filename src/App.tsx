@@ -10,10 +10,11 @@ import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import {PostsDataType} from "./components/Profile/Posts/Posts";
-import {StateType} from "./redux/state";
+import {StateType, updateNewPostText} from "./redux/state";
 
 export type ProfilePageType = {
     postsData: Array<PostsDataType>;
+    newPostText: string;
 }
 export type DialogsPageType = {
     dialogsData: Array<DialogsDataType>;
@@ -21,12 +22,19 @@ export type DialogsPageType = {
 }
 type AppPropsType = {
     state: StateType;
-    addPost: (postMessage: string) => void;
+    addPost: () => void;
+    updateNewPostText: (newText: string) => void;
 }
 
 function App(props: AppPropsType) {
     const PostsRender = () => {
-        return <Profile profileState={props.state.profilePage} addPost={props.addPost}/>;
+        return (
+            <Profile
+                profileState={props.state.profilePage}
+                addPost={props.addPost}
+                updateNewPostText={props.updateNewPostText}
+            />
+        );
     };
     const DialogsRender = () => {
         return <Dialogs dialogsState={props.state.dialogsPage}/>;
