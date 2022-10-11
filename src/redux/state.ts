@@ -1,5 +1,6 @@
 import {DialogsPageType, ProfilePageType} from "../App";
-import {rerenderEntireTree} from "../render";
+
+let rerenderEntireTree: (state: StateType) => void;
 
 export type StateType = {
   profilePage: ProfilePageType;
@@ -48,4 +49,8 @@ export const addPost = () => {
 export const updateNewPostText = (newText: string) => {
   state.profilePage.newPostText = newText;
   rerenderEntireTree(state);
+}
+
+export const subscribe = (observer: (state: StateType) => void) => {
+  rerenderEntireTree = observer;
 }
