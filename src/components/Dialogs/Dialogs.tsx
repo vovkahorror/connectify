@@ -1,16 +1,8 @@
 import styles from './Dialogs.module.css';
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
-import {DialogsPageType} from "../../App";
+import {DialogsPageType} from "../../redux/state";
 
-export type DialogsDataType = {
-  id: number;
-  name: string;
-}
-export type MessagesDataType = {
-  id: number;
-  message: string;
-}
 type DialogsPropsType = {
   dialogsState: DialogsPageType;
 }

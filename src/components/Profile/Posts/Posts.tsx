@@ -1,12 +1,8 @@
-import React, {RefObject} from "react";
+import React from "react";
 import {Post} from "./Post/Post";
 import styles from './Posts.module.css';
+import {PostsDataType} from "../../../redux/state";
 
-export type PostsDataType = {
-    id: number;
-    message: string;
-    likes: number;
-}
 type PostsPropsType = {
     postsData: Array<PostsDataType>;
     newPostText: string;
