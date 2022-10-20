@@ -1,13 +1,12 @@
 import React from "react";
 import {Post} from "./Post/Post";
 import styles from './Posts.module.css';
-import {PostsDataType} from "../../../redux/state";
+import {AddPostActionType, PostsDataType, UpdateNewPostTextActionType} from "../../../redux/state";
 
 type PostsPropsType = {
     postsData: Array<PostsDataType>;
     newPostText: string;
-    addPost: () => void;
-    updateNewPostText: (newText: string) => void;
+    dispatch: (action: AddPostActionType | UpdateNewPostTextActionType) => void;
 }
 
 export const Posts = (props: PostsPropsType) => {
@@ -18,13 +17,14 @@ export const Posts = (props: PostsPropsType) => {
 
     const addPost = () => {
         const text = newPostElement.current?.value;
-        text && props.addPost();
+        text && props.dispatch({type: 'ADD-POST'});
     };
 
     const onPostChange = () => {
         const text = newPostElement.current?.value;
         if (text || text === '') {
-            props.updateNewPostText(text);
+            const action: UpdateNewPostTextActionType = {type: 'UPDATE-NEW-POST-TEXT', newText: text};
+            props.dispatch(action);
         }
     };
 
