@@ -3,10 +3,10 @@ import {Post} from "./Post/Post";
 import styles from './Posts.module.css';
 import {
     ActionsTypes,
-    addPostActionCreator,
     PostsDataType,
-    updateNewPostTextActionCreator,
-} from "../../../redux/state";
+
+} from "../../../redux/store";
+import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../redux/profile-reducer";
 
 type PostsPropsType = {
     postsData: Array<PostsDataType>;
