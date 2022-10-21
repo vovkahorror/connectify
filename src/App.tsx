@@ -9,11 +9,11 @@ import {Route} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
-import {AddPostActionType, StateType, UpdateNewPostTextActionType} from "./redux/state";
+import {ActionsTypes, StateType} from "./redux/state";
 
 type AppPropsType = {
     state: StateType;
-    dispatch: (action: AddPostActionType | UpdateNewPostTextActionType) => void;
+    dispatch: (action: ActionsTypes) => void;
 }
 
 function App(props: AppPropsType) {
