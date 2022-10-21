@@ -18,6 +18,7 @@ export type MessagesDataType = {
 export type DialogsPageType = {
     dialogsData: Array<DialogsDataType>;
     messagesData: Array<MessagesDataType>;
+    newMessageBody: string;
 }
 export type StateType = {
     profilePage: ProfilePageType;
@@ -32,7 +33,20 @@ export type UpdateNewPostTextActionType = {
     newText: string;
 }
 
-export type ActionsTypes = AddPostActionType | UpdateNewPostTextActionType;
+export type UpdateNewMessageBodyActionType = {
+    type: 'UPDATE-NEW-MESSAGE-BODY';
+    body: string;
+}
+
+export type SendMessageActionType = {
+    type: 'SEND-MESSAGE';
+}
+
+export type ActionsTypes =
+    AddPostActionType
+    | UpdateNewPostTextActionType
+    | UpdateNewMessageBodyActionType
+    | SendMessageActionType;
 
 export type StoreType = {
     _state: StateType;
@@ -44,6 +58,8 @@ export type StoreType = {
 
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
+const SEND_MESSAGE = 'SEND-MESSAGE';
 
 export const store: StoreType = {
     _state: {
@@ -70,6 +86,7 @@ export const store: StoreType = {
                 {id: 3, message: 'Hi!'},
                 {id: 4, message: 'It is my family'},
             ],
+            newMessageBody: '',
         },
     },
     _callSubscriber(state) {
@@ -97,11 +114,26 @@ export const store: StoreType = {
         } else if (action.type === UPDATE_NEW_POST_TEXT) {
             this._state.profilePage.newPostText = action.newText;
             this._callSubscriber(this._state);
+
+        } else if (action.type === UPDATE_NEW_MESSAGE_BODY) {
+            this._state.dialogsPage.newMessageBody = action.body;
+            this._callSubscriber(this._state);
+
+        } else if (action.type === SEND_MESSAGE) {
+            const body = this._state.dialogsPage.newMessageBody;
+            this._state.dialogsPage.newMessageBody = '';
+            this._state.dialogsPage.messagesData.push({id: 5, message: body});
+            this._callSubscriber(this._state);
         }
     },
 };
 
 export const addPostActionCreator = (): AddPostActionType => ({type: ADD_POST});
 
-export const UpdateNewPostTextActionCreator = (text: string): UpdateNewPostTextActionType =>
+export const updateNewPostTextActionCreator = (text: string): UpdateNewPostTextActionType =>
     ({type: UPDATE_NEW_POST_TEXT, newText: text});
+
+export const updateNewMessageBodyCreator = (text: string): UpdateNewMessageBodyActionType =>
+    ({type: UPDATE_NEW_MESSAGE_BODY, body: text});
+
+export const sendMessageCreator = (): SendMessageActionType => ({type: SEND_MESSAGE})

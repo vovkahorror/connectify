@@ -9,11 +9,12 @@ import {Route} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
-import {ActionsTypes, StateType} from "./redux/state";
+import {ActionsTypes, StateType, StoreType} from "./redux/state";
 
 type AppPropsType = {
     state: StateType;
     dispatch: (action: ActionsTypes) => void;
+    store: StoreType;
 }
 
 function App(props: AppPropsType) {
@@ -26,7 +27,7 @@ function App(props: AppPropsType) {
         );
     };
     const DialogsRender = () => {
-        return <Dialogs dialogsState={props.state.dialogsPage}/>;
+        return <Dialogs store={props.store}/>;
     };
 
     return (

@@ -5,7 +5,7 @@ import {
     ActionsTypes,
     addPostActionCreator,
     PostsDataType,
-    UpdateNewPostTextActionCreator,
+    updateNewPostTextActionCreator,
 } from "../../../redux/state";
 
 type PostsPropsType = {
@@ -28,7 +28,7 @@ export const Posts = (props: PostsPropsType) => {
     const onPostChange = () => {
         const text = newPostElement.current?.value;
         if (text || text === '') {
-            const action = UpdateNewPostTextActionCreator(text);
+            const action = updateNewPostTextActionCreator(text);
             props.dispatch(action);
         }
     };
