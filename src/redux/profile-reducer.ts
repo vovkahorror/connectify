@@ -14,7 +14,16 @@ type ProfileReducerType = (state: ProfilePageType, action: ActionsTypes) => Prof
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 
-const profileReducer: ProfileReducerType = (state, action) => {
+const initialState = {
+    postsData: [
+        {id: 1, message: 'I\'m glad to see you here', likes: 5},
+        {id: 2, message: 'Hello! How are you?', likes: 4},
+        {id: 3, message: 'It\'s my firs post', likes: 3},
+    ],
+    newPostText: 'Hello',
+}
+
+const profileReducer: ProfileReducerType = (state = initialState, action) => {
     switch (action.type) {
         case ADD_POST:
             const newPost = {

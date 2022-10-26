@@ -9,12 +9,13 @@ import {Route} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
-import {ActionsTypes, StateType, StoreType} from "./redux/store";
+import {ActionsTypes, StateType} from "./redux/store";
+import {EmptyObject, Store} from "redux";
 
 type AppPropsType = {
     state: StateType;
     dispatch: (action: ActionsTypes) => void;
-    store: StoreType;
+    store: Store<EmptyObject & { profilePage: never; dialogsPage: never; sidebar: any; }, ActionsTypes>;
 }
 
 function App(props: AppPropsType) {

@@ -1,5 +1,6 @@
 import profileReducer, {AddPostActionType, UpdateNewPostTextActionType} from "./profile-reducer";
 import dialogsReducer, {SendMessageActionType, UpdateNewMessageBodyActionType} from "./dialogs-reducer";
+import sidebarReducer from "./sidebar-reducer";
 
 export type PostsDataType = {
     id: number;
@@ -26,6 +27,7 @@ export type DialogsPageType = {
 export type StateType = {
     profilePage: ProfilePageType;
     dialogsPage: DialogsPageType;
+    sidebar: {};
 }
 
 export type ActionsTypes =
@@ -69,6 +71,7 @@ export const store: StoreType = {
             ],
             newMessageBody: '',
         },
+        sidebar: {}
     },
     _callSubscriber(state) {
         console.log('State changed');
@@ -84,6 +87,7 @@ export const store: StoreType = {
     dispatch (action) {
         this._state.profilePage = profileReducer(this._state.profilePage, action);
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+        this._state.sidebar = sidebarReducer(this._state.sidebar, action);
 
         this._callSubscriber(this._state);
     },

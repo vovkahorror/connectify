@@ -1,16 +1,17 @@
 import styles from './Dialogs.module.css';
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
-import {StoreType} from "../../redux/store";
+import {ActionsTypes} from "../../redux/store";
 import {ChangeEvent} from "react";
-import {sendMessageCreator, updateNewMessageBodyCreator} from "../../redux/dialogs-reducer";
+import {DialogsPageType, sendMessageCreator, updateNewMessageBodyCreator} from "../../redux/dialogs-reducer";
+import {EmptyObject, Store} from "redux";
 
 type DialogsPropsType = {
-    store: StoreType;
+    store: Store<EmptyObject & { profilePage: never; dialogsPage: never; sidebar: any; }, ActionsTypes>;
 }
 
 export const Dialogs = (props: DialogsPropsType) => {
-    const state = props.store.getState().dialogsPage;
+    const state: DialogsPageType = props.store.getState().dialogsPage;
 
     const dialogsElements = state.dialogsData.map(dialog => {
         return <DialogItem key={dialog.id} name={dialog.name} id={dialog.id}/>;
