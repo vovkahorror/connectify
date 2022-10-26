@@ -1,4 +1,4 @@
-import {ActionsTypes, ProfilePageType} from "./store";
+import {ActionsTypes, ProfilePageType} from "./redux-store";
 
 export type AddPostActionType = {
     type: 'ADD-POST';

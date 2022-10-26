@@ -1,18 +1,4 @@
-import {ActionsTypes} from "./store";
-
-export type DialogsDataType = {
-    id: number;
-    name: string;
-}
-export type MessagesDataType = {
-    id: number;
-    message: string;
-}
-export type DialogsPageType = {
-    dialogsData: Array<DialogsDataType>;
-    messagesData: Array<MessagesDataType>;
-    newMessageBody: string;
-}
+import {ActionsTypes, DialogsPageType} from "./redux-store";
 
 export type UpdateNewMessageBodyActionType = {
     type: 'UPDATE-NEW-MESSAGE-BODY';

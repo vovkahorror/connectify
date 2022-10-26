@@ -4,13 +4,13 @@ import "./App.css";
 import {Header} from "./components/Header/Header";
 import {Navbar} from "./components/Navbar/Navbar";
 import {Profile} from "./components/Profile/Profile";
-import {Dialogs} from "./components/Dialogs/Dialogs";
 import {Route} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
-import {ActionsTypes, StateType} from "./redux/store";
 import {EmptyObject, Store} from "redux";
+import {ActionsTypes, StateType} from "./redux/redux-store";
+import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 
 type AppPropsType = {
     state: StateType;
@@ -19,24 +19,16 @@ type AppPropsType = {
 }
 
 function App(props: AppPropsType) {
-    const PostsRender = () => {
-        return (
-            <Profile
-                profileState={props.state.profilePage}
-                dispatch={props.dispatch}
-            />
-        );
-    };
-    const DialogsRender = () => {
-        return <Dialogs store={props.store}/>;
-    };
+    const ProfileRender = () => <Profile store={props.store}/>;
+
+    const DialogsRender = () => <DialogsContainer store={props.store}/>;
 
     return (
         <div className={'app-wrapper'}>
             <Header/>
             <Navbar/>
             <div className={'app-wrapper__content'}>
-                <Route path={'/profile'} render={PostsRender}/>
+                <Route path={'/profile'} render={ProfileRender}/>
                 <Route path={'/dialogs'} render={DialogsRender}/>
                 <Route path={'/news'} render={News}/>
                 <Route path={'/music'} render={Music}/>
