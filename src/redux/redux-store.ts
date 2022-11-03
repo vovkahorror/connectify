@@ -1,30 +1,12 @@
 import {combineReducers, createStore} from "redux";
-import profileReducer, {AddPostActionType, UpdateNewPostTextActionType} from "./profile-reducer";
-import dialogsReducer, {SendMessageActionType, UpdateNewMessageBodyActionType} from "./dialogs-reducer";
+import profileReducer, {AddPostActionType, ProfilePageType, UpdateNewPostTextActionType} from "./profile-reducer";
+import dialogsReducer, {
+    DialogsPageType,
+    SendMessageActionType,
+    UpdateNewMessageBodyActionType,
+} from "./dialogs-reducer";
 import sidebarReducer from "./sidebar-reducer";
 
-export type PostsDataType = {
-    id: number;
-    message: string;
-    likes: number;
-}
-export type ProfilePageType = {
-    postsData: Array<PostsDataType>;
-    newPostText: string;
-}
-export type DialogsDataType = {
-    id: number;
-    name: string;
-}
-export type MessagesDataType = {
-    id: number;
-    message: string;
-}
-export type DialogsPageType = {
-    dialogsData: Array<DialogsDataType>;
-    messagesData: Array<MessagesDataType>;
-    newMessageBody: string;
-}
 export type StateType = {
     profilePage: ProfilePageType;
     dialogsPage: DialogsPageType;
@@ -44,10 +26,12 @@ export type StoreType = {
 }
 
 
-const reducers = combineReducers({
+export type AppStateType = ReturnType<typeof rootReducer>
+
+const rootReducer = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
     sidebar: sidebarReducer,
 });
 
-export const store = createStore(reducers);
+export const store = createStore(rootReducer);

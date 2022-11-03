@@ -1,15 +1,19 @@
-import {ActionsTypes, DialogsPageType} from "./redux-store";
+import {ActionsTypes} from "./redux-store";
 
-export type UpdateNewMessageBodyActionType = {
-    type: 'UPDATE-NEW-MESSAGE-BODY';
-    body: string;
+export type DialogsDataType = {
+    id: number;
+    name: string;
 }
-
-export type SendMessageActionType = {
-    type: 'SEND-MESSAGE';
+export type MessagesDataType = {
+    id: number;
+    message: string;
 }
-
-type DialogsReducerType = (state: DialogsPageType, action: ActionsTypes) => DialogsPageType;
+export type DialogsPageType = {
+    dialogsData: Array<DialogsDataType>;
+    messagesData: Array<MessagesDataType>;
+    newMessageBody: string;
+}
+//type DialogsReducerType = (state: DialogsPageType, action: ActionsTypes) => DialogsPageType;
 
 const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
 const SEND_MESSAGE = 'SEND-MESSAGE';
@@ -32,7 +36,7 @@ const initialState: DialogsPageType = {
     newMessageBody: '',
 }
 
-const dialogsReducer: DialogsReducerType = (state = initialState, action) => {
+const dialogsReducer = (state = initialState, action: ActionsTypes): DialogsPageType => {
     switch (action.type) {
         case UPDATE_NEW_MESSAGE_BODY:
             state.newMessageBody = action.body;
@@ -48,6 +52,14 @@ const dialogsReducer: DialogsReducerType = (state = initialState, action) => {
             return state;
     }
 };
+
+export type UpdateNewMessageBodyActionType = {
+    type: 'UPDATE-NEW-MESSAGE-BODY';
+    body: string;
+}
+export type SendMessageActionType = {
+    type: 'SEND-MESSAGE';
+}
 
 export const updateNewMessageBodyCreator = (text: string): UpdateNewMessageBodyActionType =>
     ({type: UPDATE_NEW_MESSAGE_BODY, body: text});

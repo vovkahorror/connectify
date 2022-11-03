@@ -1,7 +1,7 @@
 import React from "react";
 import {Post} from "./Post/Post";
 import styles from './Posts.module.css';
-import {PostsDataType} from "../../../redux/redux-store";
+import {PostsDataType} from "../../../redux/profile-reducer";
 
 type PostsPropsType = {
     updateNewPostText: (text: string) => void;
