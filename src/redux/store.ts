@@ -1,8 +1,20 @@
-import profileReducer from "./profile-reducer";
-import dialogsReducer from "./dialogs-reducer";
+import profileReducer, {ProfilePageType} from "./profile-reducer";
+import dialogsReducer, {DialogsPageType} from "./dialogs-reducer";
 import sidebarReducer from "./sidebar-reducer";
-import {StoreType} from "./redux-store";
+import {ActionsTypes} from "./redux-store";
 
+export type StateType = {
+    profilePage: ProfilePageType;
+    dialogsPage: DialogsPageType;
+    sidebar: {};
+}
+export type StoreType = {
+    _state: StateType;
+    _callSubscriber: (state: StateType) => void;
+    getState: () => StateType;
+    subscribe: (observer: (state: StateType) => void) => void;
+    dispatch: (action: ActionsTypes) => void;
+}
 export const store: StoreType = {
     _state: {
         profilePage: {
