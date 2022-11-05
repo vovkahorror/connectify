@@ -1,5 +1,5 @@
 import styles from './Dialogs.module.css';
-import {DialogsPageType, sendMessageCreator, updateNewMessageBodyCreator} from "../../redux/dialogs-reducer";
+import {DialogsPageType, sendMessageAC, updateNewMessageBodyAC} from "../../redux/dialogs-reducer";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
@@ -22,10 +22,10 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
 const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
     return {
         updateNewMessageBody: (body: string) => {
-            dispatch(updateNewMessageBodyCreator(body));
+            dispatch(updateNewMessageBodyAC(body));
         },
         sendMessage: () => {
-            dispatch(sendMessageCreator());
+            dispatch(sendMessageAC());
         },
     };
 };

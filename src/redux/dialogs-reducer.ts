@@ -61,9 +61,9 @@ export type SendMessageActionType = {
     type: 'SEND-MESSAGE';
 }
 
-export const updateNewMessageBodyCreator = (text: string): UpdateNewMessageBodyActionType =>
+export const updateNewMessageBodyAC = (text: string): UpdateNewMessageBodyActionType =>
     ({type: UPDATE_NEW_MESSAGE_BODY, body: text});
 
-export const sendMessageCreator = (): SendMessageActionType => ({type: SEND_MESSAGE});
+export const sendMessageAC = (): SendMessageActionType => ({type: SEND_MESSAGE});
 
 export default dialogsReducer;

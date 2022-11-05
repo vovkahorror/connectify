@@ -49,9 +49,9 @@ export type UpdateNewPostTextActionType = {
     newText: string;
 }
 
-export const addPostActionCreator = (): AddPostActionType => ({type: ADD_POST});
+export const addPostAC = (): AddPostActionType => ({type: ADD_POST});
 
-export const updateNewPostTextActionCreator = (text: string): UpdateNewPostTextActionType =>
+export const updateNewPostTextAC = (text: string): UpdateNewPostTextActionType =>
     ({type: UPDATE_NEW_POST_TEXT, newText: text});
 
 export default profileReducer;
