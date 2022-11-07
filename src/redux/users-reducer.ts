@@ -1,16 +1,15 @@
 import {ActionsTypes} from "./redux-store";
 
-type UserLocationType = {
-    city: string;
-    country: string;
+type UserPhotosType = {
+    small: string;
+    large: string;
 }
 export type UserDataType = {
+    name: string;
     id: number;
-    photoUrl: string;
+    photos: UserPhotosType;
     followed: boolean;
-    fullName: string;
     status: string;
-    location: UserLocationType;
 }
 export type UsersType = {
     users: Array<UserDataType>;

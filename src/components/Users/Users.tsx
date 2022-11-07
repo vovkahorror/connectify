@@ -1,6 +1,8 @@
+import axios from 'axios';
 import React from 'react';
 import {UserDataType} from "../../redux/users-reducer";
 import styles from './Users.module.css';
+import userPhoto from '../../assets/images/user.png'
 
 type UsersPropsType = {
     users: UserDataType[],
@@ -11,41 +13,9 @@ type UsersPropsType = {
 
 export const Users = (props: UsersPropsType) => {
     if (props.users.length === 0) {
-        props.setUsers([
-            {
-                id: 1,
-                photoUrl: 'https://kartinkin.net/uploads/posts/2022-07/1657654795_12-kartinkin-net-p-vzhik-chip-i-deil-kartinki-12.jpg',
-                followed: false,
-                fullName: 'Volodymyr',
-                status: 'Ready to code',
-                location: {
-                    city: 'Kherson',
-                    country: 'Ukraine',
-                },
-            },
-            {
-                id: 2,
-                photoUrl: 'https://cs14.pikabu.ru/post_img/2022/01/23/0/1642885831185410880.jpg',
-                followed: true,
-                fullName: 'Anastasia',
-                status: 'I like flowers',
-                location: {
-                    city: 'Kherson',
-                    country: 'Ukraine',
-                },
-            },
-            {
-                id: 3,
-                photoUrl: 'https://www.kinodisk.com/shots/2492_09.jpg',
-                followed: false,
-                fullName: 'Pavlo',
-                status: 'Everyone annoys me!',
-                location: {
-                    city: 'Kryvyi Rih',
-                    country: 'Ukraine',
-                },
-            },
-        ]);
+        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+            props.setUsers(response.data.items);
+        });
     }
 
     return (
@@ -54,7 +24,7 @@ export const Users = (props: UsersPropsType) => {
                 return (
                     <div key={user.id}>
                         <span>
-                            <div><img src={user.photoUrl} className={styles.userPhoto}/></div>
+                            <div><img src={user.photos.small ? user.photos.small : userPhoto} className={styles.userPhoto}/></div>
                             <div>
                                 {user.followed ? <button onClick={() => props.unfollow(user.id)}>Unfollow</button> :
                                     <button onClick={() => props.follow(user.id)}>Follow</button>}
@@ -62,12 +32,12 @@ export const Users = (props: UsersPropsType) => {
                         </span>
                         <span>
                             <span>
-                                <div>{user.fullName}</div>
+                                <div>{user.name}</div>
                                 <div>{user.status}</div>
                             </span>
                             <span>
-                                <div>{user.location.city}</div>
-                                <div>{user.location.country}</div>
+                                <div>{'user.location.city'}</div>
+                                <div>{'user.location.country'}</div>
                             </span>
                         </span>
                     </div>
