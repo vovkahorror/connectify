@@ -13,6 +13,9 @@ export type UserDataType = {
 }
 export type UsersType = {
     users: Array<UserDataType>;
+    pageSize: number;
+    totalUsersCount: number;
+    currentPage: number;
 }
 
 const FOLLOW = 'FOLLOW';
@@ -21,6 +24,9 @@ const SET_USERS = 'SET_USERS';
 
 const initialState: UsersType = {
     users: [],
+    pageSize: 20,
+    totalUsersCount: 0,
+    currentPage: 1,
 };
 
 const usersReducer = (state = initialState, action: ActionsTypes): UsersType => {

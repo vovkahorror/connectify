@@ -5,7 +5,10 @@ import styles from './Users.module.css';
 import userPhoto from '../../assets/images/user.png';
 
 type UsersPropsType = {
-    users: UserDataType[],
+    users: UserDataType[];
+    pageSize: number;
+    totalUsersCount: number;
+    currentPage: number;
     follow: (userID: number) => void;
     unfollow: (userID: number) => void;
     setUsers: (users: UserDataType[]) => void;
@@ -19,16 +22,29 @@ export class Users extends React.Component<UsersPropsType, UsersType> {
     }
 
     render() {
+        const pagesCount = this.props.totalUsersCount / this.props.pageSize;
+        const pages = [];
+
+        for (let i = 1; i <= pagesCount; i++) {
+            pages.push(i);
+        }
+
         return (
             <div>
+                <div>
+                    {pages.map(p => {
+                        return <span className={this.props.currentPage === p ? styles.selectedPage : ''}>{p}</span>;
+                    })}
+                </div>
                 {this.props.users.map((user: UserDataType) => {
                     return (
                         <div key={user.id}>
                         <span>
                             <div><img src={user.photos.large ? user.photos.large : userPhoto}
-                                      className={styles.userPhoto}/></div>
+                                      className={styles.userPhoto} alt={''}/></div>
                             <div>
-                                {user.followed ? <button onClick={() => this.props.unfollow(user.id)}>Unfollow</button> :
+                                {user.followed ?
+                                    <button onClick={() => this.props.unfollow(user.id)}>Unfollow</button> :
                                     <button onClick={() => this.props.follow(user.id)}>Follow</button>}
                             </div>
                         </span>

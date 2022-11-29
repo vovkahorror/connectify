@@ -1,3 +1,7 @@
 .userPhoto {
   width: 200px;
 }
+
+.selectedPage {
+  font-weight: 700;
+}

@@ -7,6 +7,9 @@ import {followAC, setUsersAC, unfollowAC, UserDataType} from "../../redux/users-
 const mapStateToProps = (state: AppStateType) => {
     return {
         users: state.usersPage.users,
+        pageSize: state.usersPage.pageSize,
+        totalUsersCount: state.usersPage.totalUsersCount,
+        currentPage: state.usersPage.currentPage,
     };
 };
 
@@ -20,7 +23,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
         },
         setUsers: (users: UserDataType[]) => {
             dispatch(setUsersAC(users));
-        }
+        },
     };
 };
 
