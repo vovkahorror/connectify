@@ -2,6 +2,10 @@
   width: 200px;
 }
 
-.selectedPage {
+.pageNumber {
+  cursor: pointer;
+}
+
+.selectedPageNumber {
   font-weight: 700;
 }
