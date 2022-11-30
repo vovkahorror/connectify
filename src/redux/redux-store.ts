@@ -1,5 +1,9 @@
 import {combineReducers, createStore} from "redux";
-import profileReducer, {AddPostActionType, UpdateNewPostTextActionType} from "./profile-reducer";
+import profileReducer, {
+    AddPostActionType,
+    SetUserProfileActionType,
+    UpdateNewPostTextActionType,
+} from "./profile-reducer";
 import dialogsReducer, {SendMessageActionType, UpdateNewMessageBodyActionType} from "./dialogs-reducer";
 import sidebarReducer from "./sidebar-reducer";
 import usersReducer, {
@@ -12,6 +16,7 @@ import usersReducer, {
 export type ActionsTypes =
     AddPostActionType
     | UpdateNewPostTextActionType
+    | SetUserProfileActionType
     | UpdateNewMessageBodyActionType
     | SendMessageActionType
     | FollowActionType

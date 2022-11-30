@@ -1,5 +1,28 @@
 import {ActionsTypes} from "./redux-store";
 
+export type PhotosProfileAPIType = {
+    small: string | null;
+    large: string | null;
+}
+export type ContactsProfileAPIType = {
+    facebook: string | null;
+    website: string | null;
+    vk: string | null;
+    twitter: string | null;
+    instagram: string | null;
+    youtube: string | null;
+    github: string | null;
+    mainLink: string | null;
+}
+export type ProfileAPIType = {
+    aboutMe: string | null;
+    contacts: ContactsProfileAPIType;
+    lookingForAJob: boolean | null;
+    lookingForAJobDescription: string | null;
+    fullName: string | null;
+    userId: number | null;
+    photos: PhotosProfileAPIType;
+}
 export type PostsDataType = {
     id: number;
     message: string;
@@ -8,11 +31,13 @@ export type PostsDataType = {
 export type ProfilePageType = {
     postsData: Array<PostsDataType>;
     newPostText: string;
+    profile: ProfileAPIType | null;
 }
 //type ProfileReducerType = (state: ProfilePageType, action: ActionsTypes) => ProfilePageType;
 
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+const SET_USER_PROFILE = 'SET_USER_PROFILE';
 
 const initialState: ProfilePageType = {
     postsData: [
@@ -21,6 +46,7 @@ const initialState: ProfilePageType = {
         {id: 3, message: 'It\'s my firs post', likes: 3},
     ],
     newPostText: 'Hello',
+    profile: null,
 };
 
 const profileReducer = (state = initialState, action: ActionsTypes): ProfilePageType => {
@@ -36,6 +62,9 @@ const profileReducer = (state = initialState, action: ActionsTypes): ProfilePage
         case UPDATE_NEW_POST_TEXT:
             return {...state, newPostText: action.newText};
 
+        case SET_USER_PROFILE:
+            return {...state, profile: action.profile}
+
         default:
             return state;
     }
@@ -48,10 +77,16 @@ export type UpdateNewPostTextActionType = {
     type: 'UPDATE-NEW-POST-TEXT';
     newText: string;
 }
+export type SetUserProfileActionType = {
+    type: 'SET_USER_PROFILE';
+    profile: ProfileAPIType;
+}
 
 export const addPostAC = (): AddPostActionType => ({type: ADD_POST});
 
 export const updateNewPostTextAC = (text: string): UpdateNewPostTextActionType =>
     ({type: UPDATE_NEW_POST_TEXT, newText: text});
+
+export const setUserProfile = (profile: ProfileAPIType): SetUserProfileActionType => ({type: SET_USER_PROFILE, profile})
 
 export default profileReducer;

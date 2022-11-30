@@ -1,3 +1,5 @@
+export {};
+/*
 import profileReducer, {ProfilePageType} from "./profile-reducer";
 import dialogsReducer, {DialogsPageType} from "./dialogs-reducer";
 import sidebarReducer from "./sidebar-reducer";
@@ -62,4 +64,4 @@ export const store: StoreType = {
 
         this._callSubscriber(this._state);
     },
-};
+};*/
