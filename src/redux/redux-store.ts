@@ -5,7 +5,7 @@ import sidebarReducer from "./sidebar-reducer";
 import usersReducer, {
     FollowActionType,
     SetCurrentPageActionType, SetTotalUsersCountActionType,
-    SetUsersActionType,
+    SetUsersActionType, ToggleIsFetchingActionType,
     UnfollowActionType,
 } from "./users-reducer";
 
@@ -18,7 +18,8 @@ export type ActionsTypes =
     | UnfollowActionType
     | SetUsersActionType
     | SetCurrentPageActionType
-    | SetTotalUsersCountActionType;
+    | SetTotalUsersCountActionType
+    | ToggleIsFetchingActionType;
 
 export type AppStateType = ReturnType<typeof rootReducer>
 
