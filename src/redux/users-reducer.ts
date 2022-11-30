@@ -16,6 +16,7 @@ export type UsersType = {
     pageSize: number;
     totalUsersCount: number;
     currentPage: number;
+    isFetching: boolean;
 }
 
 const FOLLOW = 'FOLLOW';
@@ -29,6 +30,7 @@ const initialState: UsersType = {
     pageSize: 15,
     totalUsersCount: 0,
     currentPage: 1,
+    isFetching: false,
 };
 
 const usersReducer = (state = initialState, action: ActionsTypes): UsersType => {
@@ -52,7 +54,7 @@ const usersReducer = (state = initialState, action: ActionsTypes): UsersType => 
             return {...state, currentPage: action.currentPage};
 
         case SET_TOTAL_USERS_COUNT:
-            return {...state, totalUsersCount: action.totalCount}
+            return {...state, totalUsersCount: action.totalCount};
 
         default:
             return state;

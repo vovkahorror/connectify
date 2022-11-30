@@ -13,12 +13,14 @@ import {
 import React from "react";
 import axios from "axios";
 import {Users} from "./Users";
+import preloader from './../../assets/images/preloader.svg'
 
 type UsersContainerPropsType = {
     users: UserDataType[];
     pageSize: number;
     totalUsersCount: number;
     currentPage: number;
+    isFetching: boolean;
     follow: (userID: number) => void;
     unfollow: (userID: number) => void;
     setUsers: (users: UserDataType[]) => void;
@@ -42,15 +44,20 @@ export class UsersContainer extends React.Component<UsersContainerPropsType, Use
     };
 
     render() {
-        return <Users
-            users={this.props.users}
-            pageSize={this.props.pageSize}
-            totalUsersCount={this.props.totalUsersCount}
-            currentPage={this.props.currentPage}
-            follow={this.props.follow}
-            unfollow={this.props.unfollow}
-            onPageChanged={this.onPageChanged}
-        />;
+        return (
+            <>
+                {this.props.isFetching ? <img src={preloader} alt=""/> : null}
+                <Users
+                    users={this.props.users}
+                    pageSize={this.props.pageSize}
+                    totalUsersCount={this.props.totalUsersCount}
+                    currentPage={this.props.currentPage}
+                    follow={this.props.follow}
+                    unfollow={this.props.unfollow}
+                    onPageChanged={this.onPageChanged}
+                />
+            </>
+        );
     }
 }
 
@@ -60,6 +67,7 @@ const mapStateToProps = (state: AppStateType) => {
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
+        isFetching: state.usersPage.isFetching,
     };
 };
 
@@ -79,7 +87,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
         },
         setTotalUsersCount: (totalCount: number) => {
             dispatch(setTotalUsersCountAC(totalCount));
-        }
+        },
     };
 };
 
