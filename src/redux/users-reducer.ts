@@ -26,7 +26,7 @@ const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
 
 const initialState: UsersType = {
     users: [],
-    pageSize: 20,
+    pageSize: 15,
     totalUsersCount: 0,
     currentPage: 1,
 };
