@@ -21,7 +21,7 @@ function App() {
             <Header/>
             <Navbar/>
             <div className={'app-wrapper__content'}>
-                <Route path={'/profile'} render={ProfileRender}/>
+                <Route path={'/profile/:userId?'} render={ProfileRender}/>
                 <Route path={'/dialogs'} render={DialogsRender}/>
                 <Route path={'/news'} render={News}/>
                 <Route path={'/music'} render={Music}/>

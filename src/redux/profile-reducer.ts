@@ -20,7 +20,7 @@ export type ProfileAPIType = {
     lookingForAJob: boolean | null;
     lookingForAJobDescription: string | null;
     fullName: string | null;
-    userId: number | null;
+    userId: number;
     photos: PhotosProfileAPIType;
 }
 export type PostsDataType = {

@@ -9,7 +9,7 @@ type ProfileInfoPropsType = {
 
 export const ProfileInfo = (props: ProfileInfoPropsType) => {
     if (!props.profile) {
-        return <Preloader/>
+        return <Preloader/>;
     }
 
     return (
@@ -19,8 +19,10 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
                      alt=""/>
             </div>
             <div className={styles.descriptionBlock}>
-                {props.profile?.photos.large && <img src={props.profile?.photos.large} alt=""/>}
-                ava + description
+                {props.profile.photos.large && <div><img src={props.profile.photos.large} alt=""/></div>}
+                {props.profile.fullName && <div>{props.profile.fullName}</div>}
+                {props.profile.aboutMe && <div>{props.profile.aboutMe}</div>}
+                {props.profile.contacts.facebook && <div>{props.profile.contacts.facebook}</div>}
             </div>
         </div>
     );

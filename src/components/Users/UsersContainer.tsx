@@ -15,12 +15,15 @@ import axios from "axios";
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
 
-type UsersContainerPropsType = {
+type MapStateType = {
     users: UserDataType[];
     pageSize: number;
     totalUsersCount: number;
     currentPage: number;
     isFetching: boolean;
+}
+
+type MapDispatchType = {
     follow: (userID: number) => void;
     unfollow: (userID: number) => void;
     setUsers: (users: UserDataType[]) => void;
@@ -28,6 +31,8 @@ type UsersContainerPropsType = {
     setTotalUsersCount: (totalCount: number) => void;
     toggleIsFetching: (isFetching: boolean) => void;
 }
+
+type UsersContainerPropsType = MapStateType & MapDispatchType;
 
 class UsersContainer extends React.Component<UsersContainerPropsType, UsersType> {
     componentDidMount() {
@@ -66,7 +71,7 @@ class UsersContainer extends React.Component<UsersContainerPropsType, UsersType>
     }
 }
 
-const mapStateToProps = (state: AppStateType) => {
+const mapStateToProps = (state: AppStateType): MapStateType => {
     return {
         users: state.usersPage.users,
         pageSize: state.usersPage.pageSize,
