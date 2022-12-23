@@ -12,6 +12,7 @@ import usersReducer, {
     SetUsersActionType, ToggleIsFetchingActionType,
     UnfollowActionType,
 } from "./users-reducer";
+import authReducer, {SetAuthUserDataActionType} from "./auth-reducer";
 
 export type ActionsTypes =
     AddPostActionType
@@ -24,7 +25,8 @@ export type ActionsTypes =
     | SetUsersActionType
     | SetCurrentPageActionType
     | SetTotalUsersCountActionType
-    | ToggleIsFetchingActionType;
+    | ToggleIsFetchingActionType
+    | SetAuthUserDataActionType;
 
 export type AppStateType = ReturnType<typeof rootReducer>
 
@@ -33,6 +35,7 @@ const rootReducer = combineReducers({
     dialogsPage: dialogsReducer,
     sidebar: sidebarReducer,
     usersPage: usersReducer,
+    auth: authReducer,
 });
 
 export const store = createStore(rootReducer);

@@ -1,8 +1,14 @@
 .header {
-    grid-area: h;
-    background: green;
+  display: flex;
+  justify-content: space-between;
+  grid-area: h;
+  background: green;
 }
 
 .header__img {
-    width: 50px;
+  width: 50px;
+}
+
+.loginBlock a {
+  color: white;
 }
