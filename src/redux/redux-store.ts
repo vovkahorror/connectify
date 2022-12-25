@@ -9,7 +9,7 @@ import sidebarReducer from "./sidebar-reducer";
 import usersReducer, {
     FollowActionType,
     SetCurrentPageActionType, SetTotalUsersCountActionType,
-    SetUsersActionType, ToggleIsFetchingActionType,
+    SetUsersActionType, ToggleIsFetchingActionType, ToggleIsFollowingInProgressActionType,
     UnfollowActionType,
 } from "./users-reducer";
 import authReducer, {SetAuthUserDataActionType} from "./auth-reducer";
@@ -26,6 +26,7 @@ export type ActionsTypes =
     | SetCurrentPageActionType
     | SetTotalUsersCountActionType
     | ToggleIsFetchingActionType
+    | ToggleIsFollowingInProgressActionType
     | SetAuthUserDataActionType;
 
 export type AppStateType = ReturnType<typeof rootReducer>

@@ -17,6 +17,7 @@ export type UsersType = {
     totalUsersCount: number;
     currentPage: number;
     isFetching: boolean;
+    followingInProgress: Array<number>;
 }
 
 const FOLLOW = 'FOLLOW';
@@ -25,6 +26,7 @@ const SET_USERS = 'SET_USERS';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
+const TOGGLE_IS_FOLLOWING_IN_PROGRESS = 'TOGGLE_IS_FOLLOWING_IN_PROGRESS';
 
 const initialState: UsersType = {
     users: [],
@@ -32,6 +34,7 @@ const initialState: UsersType = {
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: false,
+    followingInProgress: [],
 };
 
 const usersReducer = (state = initialState, action: ActionsTypes): UsersType => {
@@ -59,6 +62,14 @@ const usersReducer = (state = initialState, action: ActionsTypes): UsersType => 
 
         case TOGGLE_IS_FETCHING:
             return {...state, isFetching: action.isFetching};
+
+        case TOGGLE_IS_FOLLOWING_IN_PROGRESS:
+            return {
+                ...state,
+                followingInProgress: action.isFollowingInProgress
+                    ? [...state.followingInProgress, action.userID]
+                    : state.followingInProgress.filter(id => id !== action.userID),
+            };
 
         default:
             return state;
@@ -90,6 +101,12 @@ export type ToggleIsFetchingActionType = {
     isFetching: boolean;
 }
 
+export type ToggleIsFollowingInProgressActionType = {
+    type: 'TOGGLE_IS_FOLLOWING_IN_PROGRESS';
+    isFollowingInProgress: boolean;
+    userID: number;
+}
+
 export const follow = (userID: number): FollowActionType => ({type: FOLLOW, userID});
 
 export const unfollow = (userID: number): UnfollowActionType => ({type: UNFOLLOW, userID});
@@ -109,6 +126,12 @@ export const setTotalUsersCount = (totalCount: number): SetTotalUsersCountAction
 export const toggleIsFetching = (isFetching: boolean): ToggleIsFetchingActionType => ({
     type: TOGGLE_IS_FETCHING,
     isFetching,
+});
+
+export const toggleIsFollowingInProgress = (isFollowingInProgress: boolean, userID: number): ToggleIsFollowingInProgressActionType => ({
+    type: TOGGLE_IS_FOLLOWING_IN_PROGRESS,
+    isFollowingInProgress,
+    userID,
 });
 
 export default usersReducer;
