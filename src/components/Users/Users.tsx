@@ -28,12 +28,12 @@ export const Users = (props: UsersPropsType) => {
     return (
         <div>
             <div>
-                {pages.map(p => {
+                {pages.map(page => {
                     return (
                         <span
-                            className={styles.pageNumber + ' ' + (props.currentPage === p ? styles.selectedPageNumber : '')}
-                            onClick={() => props.onPageChanged(p)}
-                        >{p}</span>
+                            className={styles.pageNumber + ' ' + (props.currentPage === page ? styles.selectedPageNumber : '')}
+                            onClick={() => props.onPageChanged(page)}
+                        >{page}</span>
                     );
                 })}
             </div>
