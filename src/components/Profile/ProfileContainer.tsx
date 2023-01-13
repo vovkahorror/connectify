@@ -7,7 +7,7 @@ import {AppStateType} from "../../redux/redux-store";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 
 type PathParamsType = {
-    userId: string;
+    userID: string;
 }
 type MapStateType = {
     profile: ProfileAPIType | null;
@@ -20,7 +20,7 @@ type ProfileContainerPropsType = RouteComponentProps<PathParamsType> & OwnPropsT
 
 class ProfileContainer extends React.Component<ProfileContainerPropsType, ProfilePageType> {
     componentDidMount() {
-        let userId = this.props.match.params.userId;
+        let userId = this.props.match.params.userID;
         if (!userId) {
             userId = '26489';
         }
