@@ -1,4 +1,6 @@
+import { Dispatch } from "redux";
 import {ActionsTypes} from "./redux-store";
+import {usersAPI} from "../api/api";
 
 export type PhotosProfileAPIType = {
     small: string | null;
@@ -88,5 +90,13 @@ export const updateNewPostTextAC = (text: string): UpdateNewPostTextActionType =
     ({type: UPDATE_NEW_POST_TEXT, newText: text});
 
 export const setUserProfile = (profile: ProfileAPIType): SetUserProfileActionType => ({type: SET_USER_PROFILE, profile})
+
+export const getUserProfile = (userID: number) => {
+    return (dispatch: Dispatch) => {
+        usersAPI.getProfile(userID).then(response => {
+            dispatch(setUserProfile(response.data));
+        });
+    }
+}
 
 export default profileReducer;
