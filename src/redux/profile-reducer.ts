@@ -1,6 +1,6 @@
 import { Dispatch } from "redux";
 import {ActionsTypes} from "./redux-store";
-import {usersAPI} from "../api/api";
+import {profileAPI} from '../api/api';
 
 export type PhotosProfileAPIType = {
     small: string | null;
@@ -35,7 +35,6 @@ export type ProfilePageType = {
     newPostText: string;
     profile: ProfileAPIType | null;
 }
-//type ProfileReducerType = (state: ProfilePageType, action: ActionsTypes) => ProfilePageType;
 
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
@@ -93,7 +92,7 @@ export const setUserProfile = (profile: ProfileAPIType): SetUserProfileActionTyp
 
 export const getUserProfile = (userID: number) => {
     return (dispatch: Dispatch) => {
-        usersAPI.getProfile(userID).then(response => {
+        profileAPI.getProfile(userID).then(response => {
             dispatch(setUserProfile(response.data));
         });
     }

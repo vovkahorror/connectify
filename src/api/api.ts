@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -16,6 +16,9 @@ export const usersAPI = {
     unfollow(userID: number) {
         return instance.delete(`follow/${userID}`);
     },
+};
+
+export const profileAPI = {
     getProfile(userID: number) {
         return instance.get(`profile/${userID}`);
     },
