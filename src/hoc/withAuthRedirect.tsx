@@ -7,22 +7,26 @@ type MapStateForRedirectType = {
     isAuth: boolean;
 }
 
-const  mapStateToPropsForRedirect = (state: AppStateType): MapStateForRedirectType => {
+const mapStateToPropsForRedirect = (state: AppStateType): MapStateForRedirectType => {
     return {
         isAuth: state.auth.isAuth,
     };
 };
 
 export function withAuthRedirect<T>(Component: ComponentType<T>) {
-    function RedirectComponent(props: MapStateForRedirectType) {
-        const {isAuth, ...restProps} = props;
-
-        if (!isAuth) {
-            return <Redirect to={'/login'}/>;
+    class RedirectComponent extends React.Component<MapStateForRedirectType> {
+        componentDidMount() {
+            if (!this.props.isAuth) {
+                return <Redirect to={'/login'}/>;
+            }
         }
 
-        return <Component {...restProps as T}/>;
+        render() {
+            const {isAuth, ...restProps} = this.props;
+
+            return <Component {...restProps as T}/>;
+        }
     }
 
     return connect(mapStateToPropsForRedirect)(RedirectComponent);
-};
+}

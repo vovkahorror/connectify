@@ -3,7 +3,6 @@ import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
 import {ChangeEvent} from "react";
 import {DialogsPageType} from "../../redux/dialogs-reducer";
-import { Redirect } from 'react-router-dom';
 
 type DialogsPropsType = {
     updateNewMessageBody: (body: string) => void;
