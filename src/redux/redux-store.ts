@@ -1,9 +1,9 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import profileReducer, {
-    AddPostActionType,
+    AddPostActionType, SetStatusActionType,
     SetUserProfileActionType,
     UpdateNewPostTextActionType,
-} from "./profile-reducer";
+} from './profile-reducer';
 import dialogsReducer, {SendMessageActionType, UpdateNewMessageBodyActionType} from "./dialogs-reducer";
 import sidebarReducer from "./sidebar-reducer";
 import usersReducer, {
@@ -18,6 +18,7 @@ import thunkMiddleware from "redux-thunk";
 export type ActionsTypes =
     AddPostActionType
     | UpdateNewPostTextActionType
+    | SetStatusActionType
     | SetUserProfileActionType
     | UpdateNewMessageBodyActionType
     | SendMessageActionType
