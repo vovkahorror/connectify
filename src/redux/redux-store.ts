@@ -2,9 +2,8 @@ import {applyMiddleware, combineReducers, createStore} from 'redux';
 import profileReducer, {
     AddPostActionType, SetStatusActionType,
     SetUserProfileActionType,
-    UpdateNewPostTextActionType,
 } from './profile-reducer';
-import dialogsReducer, {SendMessageActionType, UpdateNewMessageBodyActionType} from './dialogs-reducer';
+import dialogsReducer, {SendMessageActionType} from './dialogs-reducer';
 import sidebarReducer from './sidebar-reducer';
 import usersReducer, {
     FollowSuccessActionType,
@@ -18,10 +17,8 @@ import {reducer as formReducer} from 'redux-form';
 
 export type ActionsTypes =
     AddPostActionType
-    | UpdateNewPostTextActionType
     | SetStatusActionType
     | SetUserProfileActionType
-    | UpdateNewMessageBodyActionType
     | SendMessageActionType
     | FollowSuccessActionType
     | UnfollowSuccessActionType
