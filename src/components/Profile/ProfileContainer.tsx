@@ -10,16 +10,16 @@ import {compose} from 'redux';
 type PathParamsType = {
     userID: string;
 }
-type MapStateType = {
+type MapStateToPropsType = {
     profile: ProfileAPIType | null;
     status: string;
 }
-type MapDispatchType = {
+type MapDispatchToPropsType = {
     getUserProfile: (userID: number) => void;
     getStatus: (userID: number) => void;
     updateStatus: (status: string) => void;
 }
-type OwnPropsType = MapStateType & MapDispatchType;
+type OwnPropsType = MapStateToPropsType & MapDispatchToPropsType;
 type ProfileContainerPropsType = RouteComponentProps<PathParamsType> & OwnPropsType;
 
 class ProfileContainer extends React.Component<ProfileContainerPropsType, ProfilePageType> {
@@ -39,7 +39,7 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType, Profil
     };
 }
 
-const mapStateToProps = (state: AppStateType): MapStateType => {
+const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
         profile: state.profilePage.profile,
         status: state.profilePage.status,

@@ -7,14 +7,14 @@ import {compose, Dispatch} from 'redux';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 import {ComponentType} from 'react';
 
-type mapStateToPropsType = {
+type MapStateToPropsType = {
     dialogsPage: DialogsPageType;
 }
 type MapDispatchToPropsType = {
     sendMessage: (newMessageBody: string) => void;
 }
 
-const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
+const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
         dialogsPage: state.dialogsPage,
     };

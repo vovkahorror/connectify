@@ -6,6 +6,7 @@ type HeaderPropsType = {
     isAuth: boolean;
     login: string | null;
     getAuthUserData: () => void;
+    logout: () => void;
 }
 
 export const Header = (props: HeaderPropsType) => {
@@ -15,7 +16,9 @@ export const Header = (props: HeaderPropsType) => {
                  src="https://oir.mobi/uploads/posts/2021-05/1620644854_26-oir_mobi-p-malenkii-morskoi-kotik-zhivotnie-krasivo-f-27.jpg"
                  alt=""/>
             <div className={styles.loginBlock}>
-                {props.isAuth ? props.login : <NavLink to={'/login'}>Login</NavLink>}
+                {props.isAuth
+                    ? <div>{props.login} <button onClick={props.logout}>Logout</button></div>
+                    : <NavLink to={'/login'}>Login</NavLink>}
             </div>
         </header>
     );
