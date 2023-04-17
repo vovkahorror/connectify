@@ -1,6 +1,6 @@
-import {ActionsTypes} from "./redux-store";
-import {usersAPI} from "../api/api";
-import { Dispatch } from "redux";
+import {ActionsTypes} from './redux-store';
+import {usersAPI} from '../api/api';
+import {Dispatch} from 'redux';
 
 type UserPhotosType = {
     small: string;
@@ -136,9 +136,10 @@ export const toggleIsFollowingInProgress = (isFollowingInProgress: boolean, user
     userID,
 });
 
-export const getUsers = (pageNumber: number, pageSize: number) => {
+export const requestUsers = (pageNumber: number, pageSize: number) => {
     return (dispatch: Dispatch) => {
         dispatch(toggleIsFetching(true));
+        dispatch(setCurrentPage(pageNumber));
 
         usersAPI.getUsers(pageNumber, pageSize).then(data => {
             dispatch(toggleIsFetching(false));
@@ -146,7 +147,7 @@ export const getUsers = (pageNumber: number, pageSize: number) => {
             dispatch(setTotalUsersCount(data.totalCount));
         });
     };
-}
+};
 
 export const follow = (userID: number) => {
     return (dispatch: Dispatch) => {
@@ -158,7 +159,7 @@ export const follow = (userID: number) => {
             dispatch(toggleIsFollowingInProgress(false, userID));
         });
     };
-}
+};
 
 export const unfollow = (userID: number) => {
     return (dispatch: Dispatch) => {
@@ -170,6 +171,6 @@ export const unfollow = (userID: number) => {
             dispatch(toggleIsFollowingInProgress(false, userID));
         });
     };
-}
+};
 
 export default usersReducer;
