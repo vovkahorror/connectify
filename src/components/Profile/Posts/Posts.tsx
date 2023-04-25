@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {Post} from './Post/Post';
 import styles from './Posts.module.css';
 import {PostsDataType} from '../../../redux/profile-reducer';
@@ -9,7 +9,7 @@ type PostsPropsType = {
     postsData: Array<PostsDataType>;
 }
 
-export const Posts = (props: PostsPropsType) => {
+export const Posts = memo((props: PostsPropsType) => {
     const postsElements = props.postsData.map(post => {
         return <Post key={post.id} message={post.message} likes={post.likes}/>;
     });
@@ -27,5 +27,5 @@ export const Posts = (props: PostsPropsType) => {
             </div>
         </div>
     );
-};
+});
 
