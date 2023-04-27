@@ -8,7 +8,7 @@ const initialState = {
     isInitialized: false,
 };
 
-const appReducer = (state = initialState, action: any): AppStateType => {
+const appReducer = (state = initialState, action: ActionsType): AppStateType => {
     switch (action.type) {
         case INITIALIZED_SUCCESS:
             return {
@@ -21,9 +21,6 @@ const appReducer = (state = initialState, action: any): AppStateType => {
     }
 };
 
-export type InitializedSuccessActionType = {
-    type: 'INITIALIZED_SUCCESS';
-};
 export const initializedSuccess = () => ({type: INITIALIZED_SUCCESS});
 
 export const initializeApp = () => (dispatch: ThunkDispatch<AppStateType, any, AnyAction>) => {
@@ -32,6 +29,13 @@ export const initializeApp = () => (dispatch: ThunkDispatch<AppStateType, any, A
     Promise.all([promise]).then(() => dispatch(initializedSuccess()));
 };
 
-export type  AppStateType = typeof initialState
+// types
+export type  AppStateType = typeof initialState;
+
+export type InitializedSuccessActionType = {
+    type: 'INITIALIZED_SUCCESS';
+};
+
+type ActionsType = InitializedSuccessActionType;
 
 export default appReducer;

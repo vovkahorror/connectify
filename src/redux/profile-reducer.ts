@@ -1,5 +1,4 @@
 import {Dispatch} from 'redux';
-import {ActionsTypes} from './redux-store';
 import {profileAPI} from '../api/api';
 
 const ADD_POST = 'ADD_POST';
@@ -17,7 +16,7 @@ const initialState: ProfilePageType = {
     status: '',
 };
 
-const profileReducer = (state = initialState, action: ActionsTypes): ProfilePageType => {
+const profileReducer = (state = initialState, action: ActionsType): ProfilePageType => {
     switch (action.type) {
         case ADD_POST:
             const newPost = {
@@ -81,7 +80,7 @@ export const updateStatus = (status: string) => {
     };
 };
 
-//types
+// types
 export type PhotosProfileAPIType = {
     small: string | null;
     large: string | null;
@@ -133,4 +132,5 @@ export type SetStatusActionType = {
     status: string;
 }
 
+export type ActionsType = AddPostActionType | DeletePostActionType | SetUserProfileActionType | SetStatusActionType;
 export default profileReducer;

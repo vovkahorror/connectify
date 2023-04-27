@@ -1,18 +1,3 @@
-import {ActionsTypes} from './redux-store';
-
-export type DialogsDataType = {
-    id: number;
-    name: string;
-}
-export type MessagesDataType = {
-    id: number;
-    message: string;
-}
-export type DialogsPageType = {
-    dialogsData: Array<DialogsDataType>;
-    messagesData: Array<MessagesDataType>;
-}
-
 const SEND_MESSAGE = 'SEND-MESSAGE';
 
 const initialState: DialogsPageType = {
@@ -32,7 +17,7 @@ const initialState: DialogsPageType = {
     ],
 };
 
-const dialogsReducer = (state = initialState, action: ActionsTypes): DialogsPageType => {
+const dialogsReducer = (state = initialState, action: ActionsType): DialogsPageType => {
     switch (action.type) {
         case SEND_MESSAGE:
             return {
@@ -45,11 +30,27 @@ const dialogsReducer = (state = initialState, action: ActionsTypes): DialogsPage
     }
 };
 
+export const sendMessageAC = (newMessageBody: string): SendMessageActionType => ({type: SEND_MESSAGE, newMessageBody});
+
+// types
+export type DialogsDataType = {
+    id: number;
+    name: string;
+}
+export type MessagesDataType = {
+    id: number;
+    message: string;
+}
+export type DialogsPageType = {
+    dialogsData: Array<DialogsDataType>;
+    messagesData: Array<MessagesDataType>;
+}
+
 export type SendMessageActionType = {
     type: 'SEND-MESSAGE';
     newMessageBody: string;
 }
 
-export const sendMessageAC = (newMessageBody: string): SendMessageActionType => ({type: SEND_MESSAGE, newMessageBody});
+type ActionsType = SendMessageActionType;
 
 export default dialogsReducer;

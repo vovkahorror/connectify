@@ -1,26 +1,5 @@
-import {ActionsTypes} from './redux-store';
 import {usersAPI} from '../api/api';
 import {Dispatch} from 'redux';
-
-type UserPhotosType = {
-    small: string;
-    large: string;
-}
-export type UserDataType = {
-    name: string;
-    id: number;
-    photos: UserPhotosType;
-    followed: boolean;
-    status: string;
-}
-export type UsersType = {
-    users: Array<UserDataType>;
-    pageSize: number;
-    totalUsersCount: number;
-    currentPage: number;
-    isFetching: boolean;
-    followingInProgress: Array<number>;
-}
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
@@ -39,7 +18,7 @@ const initialState: UsersType = {
     followingInProgress: [],
 };
 
-const usersReducer = (state = initialState, action: ActionsTypes): UsersType => {
+const usersReducer = (state = initialState, action: ActionsType): UsersType => {
     switch (action.type) {
         case FOLLOW:
             return {
@@ -77,37 +56,6 @@ const usersReducer = (state = initialState, action: ActionsTypes): UsersType => 
             return state;
     }
 };
-
-export type FollowSuccessActionType = {
-    type: 'FOLLOW';
-    userID: number
-}
-export type UnfollowSuccessActionType = {
-    type: 'UNFOLLOW';
-    userID: number
-}
-export type SetUsersActionType = {
-    type: 'SET_USERS';
-    users: UserDataType[];
-}
-export type SetCurrentPageActionType = {
-    type: 'SET_CURRENT_PAGE';
-    currentPage: number;
-}
-export type SetTotalUsersCountActionType = {
-    type: 'SET_TOTAL_USERS_COUNT';
-    totalCount: number;
-}
-export type ToggleIsFetchingActionType = {
-    type: 'TOGGLE_IS_FETCHING';
-    isFetching: boolean;
-}
-
-export type ToggleIsFollowingInProgressActionType = {
-    type: 'TOGGLE_IS_FOLLOWING_IN_PROGRESS';
-    isFollowingInProgress: boolean;
-    userID: number;
-}
 
 export const followSuccess = (userID: number): FollowSuccessActionType => ({type: FOLLOW, userID});
 
@@ -172,5 +120,66 @@ export const unfollow = (userID: number) => {
         });
     };
 };
+
+// types
+type UserPhotosType = {
+    small: string;
+    large: string;
+}
+export type UserDataType = {
+    name: string;
+    id: number;
+    photos: UserPhotosType;
+    followed: boolean;
+    status: string;
+}
+export type UsersType = {
+    users: Array<UserDataType>;
+    pageSize: number;
+    totalUsersCount: number;
+    currentPage: number;
+    isFetching: boolean;
+    followingInProgress: Array<number>;
+}
+
+export type FollowSuccessActionType = {
+    type: 'FOLLOW';
+    userID: number
+}
+export type UnfollowSuccessActionType = {
+    type: 'UNFOLLOW';
+    userID: number
+}
+export type SetUsersActionType = {
+    type: 'SET_USERS';
+    users: UserDataType[];
+}
+export type SetCurrentPageActionType = {
+    type: 'SET_CURRENT_PAGE';
+    currentPage: number;
+}
+export type SetTotalUsersCountActionType = {
+    type: 'SET_TOTAL_USERS_COUNT';
+    totalCount: number;
+}
+export type ToggleIsFetchingActionType = {
+    type: 'TOGGLE_IS_FETCHING';
+    isFetching: boolean;
+}
+
+export type ToggleIsFollowingInProgressActionType = {
+    type: 'TOGGLE_IS_FOLLOWING_IN_PROGRESS';
+    isFollowingInProgress: boolean;
+    userID: number;
+}
+
+type ActionsType =
+    FollowSuccessActionType
+    | UnfollowSuccessActionType
+    | SetUsersActionType
+    | SetCurrentPageActionType
+    | SetTotalUsersCountActionType
+    | ToggleIsFetchingActionType
+    | ToggleIsFollowingInProgressActionType;
 
 export default usersReducer;

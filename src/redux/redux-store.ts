@@ -1,36 +1,12 @@
 import {applyMiddleware, combineReducers, createStore} from 'redux';
-import profileReducer, {
-    AddPostActionType, DeletePostActionType, SetStatusActionType,
-    SetUserProfileActionType,
-} from './profile-reducer';
-import dialogsReducer, {SendMessageActionType} from './dialogs-reducer';
+import profileReducer from './profile-reducer';
+import dialogsReducer from './dialogs-reducer';
 import sidebarReducer from './sidebar-reducer';
-import usersReducer, {
-    FollowSuccessActionType,
-    SetCurrentPageActionType, SetTotalUsersCountActionType,
-    SetUsersActionType, ToggleIsFetchingActionType, ToggleIsFollowingInProgressActionType,
-    UnfollowSuccessActionType,
-} from './users-reducer';
-import authReducer, {SetAuthUserDataActionType} from './auth-reducer';
+import usersReducer from './users-reducer';
+import authReducer from './auth-reducer';
 import thunkMiddleware from 'redux-thunk';
 import {reducer as formReducer} from 'redux-form';
-import appReducer, {InitializedSuccessActionType} from './app-reducer';
-
-export type ActionsTypes =
-    AddPostActionType
-    | DeletePostActionType
-    | SetStatusActionType
-    | SetUserProfileActionType
-    | SendMessageActionType
-    | FollowSuccessActionType
-    | UnfollowSuccessActionType
-    | SetUsersActionType
-    | SetCurrentPageActionType
-    | SetTotalUsersCountActionType
-    | ToggleIsFetchingActionType
-    | ToggleIsFollowingInProgressActionType
-    | SetAuthUserDataActionType
-    | InitializedSuccessActionType;
+import appReducer from './app-reducer';
 
 export type AppStateType = ReturnType<typeof rootReducer>
 
