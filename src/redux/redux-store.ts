@@ -1,6 +1,6 @@
 import {applyMiddleware, combineReducers, createStore} from 'redux';
 import profileReducer, {
-    AddPostActionType, SetStatusActionType,
+    AddPostActionType, DeletePostActionType, SetStatusActionType,
     SetUserProfileActionType,
 } from './profile-reducer';
 import dialogsReducer, {SendMessageActionType} from './dialogs-reducer';
@@ -18,6 +18,7 @@ import appReducer, {InitializedSuccessActionType} from './app-reducer';
 
 export type ActionsTypes =
     AddPostActionType
+    | DeletePostActionType
     | SetStatusActionType
     | SetUserProfileActionType
     | SendMessageActionType

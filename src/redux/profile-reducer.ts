@@ -2,43 +2,10 @@ import {Dispatch} from 'redux';
 import {ActionsTypes} from './redux-store';
 import {profileAPI} from '../api/api';
 
-export type PhotosProfileAPIType = {
-    small: string | null;
-    large: string | null;
-}
-export type ContactsProfileAPIType = {
-    facebook: string | null;
-    website: string | null;
-    vk: string | null;
-    twitter: string | null;
-    instagram: string | null;
-    youtube: string | null;
-    github: string | null;
-    mainLink: string | null;
-}
-export type ProfileAPIType = {
-    aboutMe: string | null;
-    contacts: ContactsProfileAPIType;
-    lookingForAJob: boolean | null;
-    lookingForAJobDescription: string | null;
-    fullName: string | null;
-    userID: number;
-    photos: PhotosProfileAPIType;
-}
-export type PostsDataType = {
-    id: number;
-    message: string;
-    likes: number;
-}
-export type ProfilePageType = {
-    postsData: Array<PostsDataType>;
-    profile: ProfileAPIType | null;
-    status: string;
-}
-
-const ADD_POST = 'ADD-POST';
+const ADD_POST = 'ADD_POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_STATUS = 'SET_STATUS';
+const DELETE_POST = 'DELETE_POST';
 
 const initialState: ProfilePageType = {
     postsData: [
@@ -60,6 +27,9 @@ const profileReducer = (state = initialState, action: ActionsTypes): ProfilePage
             };
             return {...state, postsData: [...state.postsData, newPost]};
 
+        case DELETE_POST:
+            return {...state, postsData: state.postsData.filter(post => post.id !== action.postID)};
+
         case SET_STATUS:
             return {...state, status: action.status};
 
@@ -71,20 +41,9 @@ const profileReducer = (state = initialState, action: ActionsTypes): ProfilePage
     }
 };
 
-export type AddPostActionType = {
-    type: 'ADD-POST';
-    newPostText: string
-}
-export type SetUserProfileActionType = {
-    type: 'SET_USER_PROFILE';
-    profile: ProfileAPIType;
-}
-export type SetStatusActionType = {
-    type: 'SET_STATUS';
-    status: string;
-}
-
 export const addPostAC = (newPostText: string): AddPostActionType => ({type: ADD_POST, newPostText});
+
+export const deletePostAC = (postID: number): DeletePostActionType => ({type: DELETE_POST, postID});
 
 export const setUserProfile = (profile: ProfileAPIType): SetUserProfileActionType => ({
     type: SET_USER_PROFILE,
@@ -121,5 +80,57 @@ export const updateStatus = (status: string) => {
         });
     };
 };
+
+//types
+export type PhotosProfileAPIType = {
+    small: string | null;
+    large: string | null;
+}
+export type ContactsProfileAPIType = {
+    facebook: string | null;
+    website: string | null;
+    vk: string | null;
+    twitter: string | null;
+    instagram: string | null;
+    youtube: string | null;
+    github: string | null;
+    mainLink: string | null;
+}
+export type ProfileAPIType = {
+    aboutMe: string | null;
+    contacts: ContactsProfileAPIType;
+    lookingForAJob: boolean | null;
+    lookingForAJobDescription: string | null;
+    fullName: string | null;
+    userID: number;
+    photos: PhotosProfileAPIType;
+}
+export type PostsDataType = {
+    id: number;
+    message: string;
+    likes: number;
+}
+export type ProfilePageType = {
+    postsData: Array<PostsDataType>;
+    profile: ProfileAPIType | null;
+    status: string;
+}
+
+export type AddPostActionType = {
+    type: 'ADD_POST';
+    newPostText: string
+}
+export type DeletePostActionType = {
+    type: 'DELETE_POST';
+    postID: number;
+}
+export type SetUserProfileActionType = {
+    type: 'SET_USER_PROFILE';
+    profile: ProfileAPIType;
+}
+export type SetStatusActionType = {
+    type: 'SET_STATUS';
+    status: string;
+}
 
 export default profileReducer;
