@@ -34,36 +34,38 @@ export const setAuthUserData = (id: number | null, email: string | null, login: 
 });
 
 export const getAuthUserData = () => {
-    return (dispatch: Dispatch) => {
-        return authAPI.me().then(response => {
-            if (response.data.resultCode === 0) {
-                const {id, email, login} = response.data.data;
-                dispatch(setAuthUserData(id, email, login, true));
-            }
-        });
+    return async (dispatch: Dispatch) => {
+        const response = await authAPI.me();
+
+        if (response.data.resultCode === 0) {
+            const {id, email, login} = response.data.data;
+            dispatch(setAuthUserData(id, email, login, true));
+        }
+
+        return response;
     };
 };
 
 export const login = (email: string, password: string, rememberMe: boolean) => {
-    return (dispatch: ThunkDispatch<AppStateType, any, AnyAction>) => {
-        authAPI.login(email, password, rememberMe).then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(getAuthUserData());
-            } else {
-                const message = response.data.messages.length > 0 ? response.data.messages[0] : 'Some error';
-                dispatch(stopSubmit('login', {_error: message}));
-            }
-        });
+    return async (dispatch: ThunkDispatch<AppStateType, any, AnyAction>) => {
+        const response = await authAPI.login(email, password, rememberMe);
+
+        if (response.data.resultCode === 0) {
+            dispatch(getAuthUserData());
+        } else {
+            const message = response.data.messages.length > 0 ? response.data.messages[0] : 'Some error';
+            dispatch(stopSubmit('login', {_error: message}));
+        }
     };
 };
 
 export const logout = () => {
-    return (dispatch: ThunkDispatch<AppStateType, any, AnyAction>) => {
-        authAPI.logout().then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(setAuthUserData(null, null, null, false));
-            }
-        });
+    return async (dispatch: ThunkDispatch<AppStateType, any, AnyAction>) => {
+        const response = await authAPI.logout();
+
+        if (response.data.resultCode === 0) {
+            dispatch(setAuthUserData(null, null, null, false));
+        }
     };
 };
 
