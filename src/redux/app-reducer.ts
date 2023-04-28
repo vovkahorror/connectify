@@ -2,7 +2,7 @@ import {ThunkDispatch} from 'redux-thunk';
 import {AnyAction} from 'redux';
 import {getAuthUserData} from './auth-reducer';
 
-const INITIALIZED_SUCCESS = 'INITIALIZED_SUCCESS';
+const INITIALIZED_SUCCESS = 'app/INITIALIZED_SUCCESS';
 
 const initialState = {
     isInitialized: false,
@@ -33,7 +33,7 @@ export const initializeApp = () => (dispatch: ThunkDispatch<AppStateType, any, A
 export type  AppStateType = typeof initialState;
 
 export type InitializedSuccessActionType = {
-    type: 'INITIALIZED_SUCCESS';
+    type: 'app/INITIALIZED_SUCCESS';
 };
 
 type ActionsType = InitializedSuccessActionType;

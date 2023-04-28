@@ -1,4 +1,4 @@
-const SEND_MESSAGE = 'SEND-MESSAGE';
+const SEND_MESSAGE = 'dialogs/SEND-MESSAGE';
 
 const initialState: DialogsPageType = {
     dialogsData: [
@@ -47,7 +47,7 @@ export type DialogsPageType = {
 }
 
 export type SendMessageActionType = {
-    type: 'SEND-MESSAGE';
+    type: 'dialogs/SEND-MESSAGE';
     newMessageBody: string;
 }
 

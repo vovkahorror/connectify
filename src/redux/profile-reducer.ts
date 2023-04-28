@@ -1,10 +1,10 @@
 import {Dispatch} from 'redux';
 import {profileAPI} from '../api/api';
 
-const ADD_POST = 'ADD_POST';
-const SET_USER_PROFILE = 'SET_USER_PROFILE';
-const SET_STATUS = 'SET_STATUS';
-const DELETE_POST = 'DELETE_POST';
+const ADD_POST = 'profile/ADD_POST';
+const SET_USER_PROFILE = 'profile/SET_USER_PROFILE';
+const SET_STATUS = 'profile/SET_STATUS';
+const DELETE_POST = 'profile/DELETE_POST';
 
 const initialState: ProfilePageType = {
     postsData: [
@@ -114,19 +114,19 @@ export type ProfilePageType = {
 }
 
 export type AddPostActionType = {
-    type: 'ADD_POST';
+    type: 'profile/ADD_POST';
     newPostText: string
 }
 export type DeletePostActionType = {
-    type: 'DELETE_POST';
+    type: 'profile/DELETE_POST';
     postID: number;
 }
 export type SetUserProfileActionType = {
-    type: 'SET_USER_PROFILE';
+    type: 'profile/SET_USER_PROFILE';
     profile: ProfileAPIType;
 }
 export type SetStatusActionType = {
-    type: 'SET_STATUS';
+    type: 'profile/SET_STATUS';
     status: string;
 }
 

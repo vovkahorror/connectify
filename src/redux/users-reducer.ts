@@ -1,13 +1,13 @@
 import {usersAPI} from '../api/api';
 import {Dispatch} from 'redux';
 
-const FOLLOW = 'FOLLOW';
-const UNFOLLOW = 'UNFOLLOW';
-const SET_USERS = 'SET_USERS';
-const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
-const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
-const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
-const TOGGLE_IS_FOLLOWING_IN_PROGRESS = 'TOGGLE_IS_FOLLOWING_IN_PROGRESS';
+const FOLLOW = 'users/FOLLOW';
+const UNFOLLOW = 'users/UNFOLLOW';
+const SET_USERS = 'users/SET_USERS';
+const SET_CURRENT_PAGE = 'users/SET_CURRENT_PAGE';
+const SET_TOTAL_USERS_COUNT = 'users/SET_TOTAL_USERS_COUNT';
+const TOGGLE_IS_FETCHING = 'users/TOGGLE_IS_FETCHING';
+const TOGGLE_IS_FOLLOWING_IN_PROGRESS = 'users/TOGGLE_IS_FOLLOWING_IN_PROGRESS';
 
 const initialState: UsersType = {
     users: [],
@@ -143,32 +143,32 @@ export type UsersType = {
 }
 
 export type FollowSuccessActionType = {
-    type: 'FOLLOW';
+    type: 'users/FOLLOW';
     userID: number
 }
 export type UnfollowSuccessActionType = {
-    type: 'UNFOLLOW';
+    type: 'users/UNFOLLOW';
     userID: number
 }
 export type SetUsersActionType = {
-    type: 'SET_USERS';
+    type: 'users/SET_USERS';
     users: UserDataType[];
 }
 export type SetCurrentPageActionType = {
-    type: 'SET_CURRENT_PAGE';
+    type: 'users/SET_CURRENT_PAGE';
     currentPage: number;
 }
 export type SetTotalUsersCountActionType = {
-    type: 'SET_TOTAL_USERS_COUNT';
+    type: 'users/SET_TOTAL_USERS_COUNT';
     totalCount: number;
 }
 export type ToggleIsFetchingActionType = {
-    type: 'TOGGLE_IS_FETCHING';
+    type: 'users/TOGGLE_IS_FETCHING';
     isFetching: boolean;
 }
 
 export type ToggleIsFollowingInProgressActionType = {
-    type: 'TOGGLE_IS_FOLLOWING_IN_PROGRESS';
+    type: 'users/TOGGLE_IS_FOLLOWING_IN_PROGRESS';
     isFollowingInProgress: boolean;
     userID: number;
 }
