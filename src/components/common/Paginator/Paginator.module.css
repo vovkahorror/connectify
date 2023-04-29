@@ -1,0 +1,7 @@
+.pageNumber {
+    cursor: pointer;
+}
+
+.selectedPageNumber {
+    font-weight: 700;
+}

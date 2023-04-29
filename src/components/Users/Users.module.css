@@ -1,11 +1,3 @@
 .userPhoto {
-  width: 200px;
-}
-
-.pageNumber {
-  cursor: pointer;
-}
-
-.selectedPageNumber {
-  font-weight: 700;
+    width: 200px;
 }

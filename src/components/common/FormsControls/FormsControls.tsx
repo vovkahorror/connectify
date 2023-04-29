@@ -6,13 +6,13 @@ type FormControlType = WrappedFieldProps & {
     children: ReactNode;
 }
 
-const FormControl: FC<FormControlType> = ({input, meta, children, ...props}) => {
-    const hasError = meta.touched && meta.error;
+const FormControl: FC<FormControlType> = ({input, meta: {touched, error}, children}) => {
+    const hasError = touched && error;
 
     return (
         <div className={styles.formControl + ' ' + (hasError ? styles.error : '')}>
             <div>{children}</div>
-            {hasError && <span>{meta.error}</span>}
+            {hasError && <span>{error}</span>}
         </div>
     );
 };
