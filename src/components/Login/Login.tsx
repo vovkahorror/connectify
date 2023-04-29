@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {FormDataType, LoginFormRedux} from './LoginForm/LoginForm';
 import {connect} from 'react-redux';
 import {login} from '../../redux/auth-reducer';
@@ -15,13 +15,13 @@ type MapDispatchToPropsType = {
 
 type LoginPropsType = MapStateToPropsType & MapDispatchToPropsType;
 
-const Login = (props: LoginPropsType) => {
+const Login: FC<LoginPropsType> = ({login, isAuth}) => {
     const onSubmit = (formData: FormDataType) => {
-        props.login(formData.email, formData.password, formData.rememberMe);
-    }
+        login(formData.email, formData.password, formData.rememberMe);
+    };
 
-    if (props.isAuth) {
-        return <Redirect to={'/profile'}/>
+    if (isAuth) {
+        return <Redirect to={'/profile'}/>;
     }
 
     return (
@@ -38,4 +38,4 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     };
 };
 
-export default connect(mapStateToProps, {login})(Login)
+export default connect(mapStateToProps, {login})(Login);
