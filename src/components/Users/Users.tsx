@@ -1,11 +1,18 @@
 import React from 'react';
-import styles from './Users.module.css';
 import {UserDataType} from '../../redux/users-reducer';
-import userPhoto from '../../assets/images/user.png';
-import {NavLink} from 'react-router-dom';
 import {Paginator} from '../common/Paginator/Paginator';
+import {User} from './User/User';
 
-export const Users = ({currentPage, totalUsersCount, pageSize, onPageChanged, users, ...props}: UsersPropsType) => {
+export const Users = ({
+                          currentPage,
+                          totalUsersCount,
+                          pageSize,
+                          onPageChanged,
+                          users,
+                          followingInProgress,
+                          follow,
+                          unfollow,
+                      }: UsersPropsType) => {
     const pagesCount = Math.ceil(totalUsersCount / pageSize);
     const pages = [];
 
@@ -18,36 +25,12 @@ export const Users = ({currentPage, totalUsersCount, pageSize, onPageChanged, us
             <Paginator currentPage={currentPage} totalUsersCount={totalUsersCount} pageSize={pageSize}
                        onPageChanged={onPageChanged}/>
 
-            {users.map((user: UserDataType) => {
-                return (
-                    <div key={user.id}>
-                        <span>
-                            <div>
-                                <NavLink to={`/profile/${user.id}`}><img
-                                    src={user.photos.large ? user.photos.large : userPhoto}
-                                    className={styles.userPhoto} alt={''}/></NavLink>
-                            </div>
-                            <div>
-                                {user.followed
-                                    ? <button disabled={props.followingInProgress.some(id => id === user.id)}
-                                              onClick={() => props.unfollow(user.id)}>Unfollow</button>
-                                    : <button disabled={props.followingInProgress.some(id => id === user.id)}
-                                              onClick={() => props.follow(user.id)}>Follow</button>}
-                            </div>
-                        </span>
-                        <span>
-                            <span>
-                                <div>{user.name}</div>
-                                <div>{user.status}</div>
-                            </span>
-                            <span>
-                                <div>{'user.location.city'}</div>
-                                <div>{'user.location.country'}</div>
-                            </span>
-                        </span>
-                    </div>
-                );
-            })}
+            <div>
+                {users.map((user: UserDataType) => <User key={user.id} user={user}
+                                                         followingInProgress={followingInProgress}
+                                                         follow={follow}
+                                                         unfollow={unfollow}/>)}
+            </div>
         </div>
     );
 };
