@@ -37,10 +37,19 @@ describe('ProfileStatus component', () => {
         const input = await component.root.findByType('input');
         expect(input.props.value).toBe('Hello');
     });
+
+    test('callback should be called', () => {
+        const mockCallback = jest.fn();
+        const component = create(<ProfileStatus status="Hello" updateStatus={mockCallback}/>);
+        const instance = component.getInstance() as ProfileStatusInstance;
+        instance.deactivateEditMode();
+        expect(mockCallback.mock.calls.length).toBe(1);
+    });
 });
 
 interface ProfileStatusInstance extends ReactTestInstance {
     state: {
         status: string;
     };
+    deactivateEditMode: () => void;
 }
