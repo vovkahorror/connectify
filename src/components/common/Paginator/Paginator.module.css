@@ -1,3 +1,9 @@
+.paginator {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
 .pageNumber {
     cursor: pointer;
 }

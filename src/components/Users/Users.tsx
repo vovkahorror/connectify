@@ -22,7 +22,7 @@ export const Users = ({
 
     return (
         <div>
-            <Paginator currentPage={currentPage} totalUsersCount={totalUsersCount} pageSize={pageSize}
+            <Paginator currentPage={currentPage} totalItemsCount={totalUsersCount} pageSize={pageSize}
                        onPageChanged={onPageChanged}/>
 
             <div>

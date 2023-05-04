@@ -1,31 +1,54 @@
 import styles from './Paginator.module.css';
-import React from 'react';
+import React, {useState} from 'react';
+import {v1} from 'uuid';
 
-export const Paginator = ({currentPage, totalUsersCount, pageSize, onPageChanged}: PaginatorPropsType) => {
-    const pagesCount = Math.ceil(totalUsersCount / pageSize);
+export const Paginator = ({
+                              currentPage,
+                              totalItemsCount,
+                              pageSize,
+                              onPageChanged,
+                              portionSize = 20,
+                          }: PaginatorPropsType) => {
+    const pagesCount = Math.ceil(totalItemsCount / pageSize);
     const pages = [];
 
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i);
     }
 
+    const portionCount = Math.ceil(pagesCount / portionSize);
+    const [portionNumber, setPortionNumber] = useState(Math.ceil(currentPage / portionSize));
+    const leftPortionPageNumber = (portionNumber - 1) * portionSize + 1;
+    const rightPortionPageNumber = portionNumber * portionSize;
+
     return (
-        <div>
-            {pages.map(page => {
-                return (
-                    <span
-                        className={styles.pageNumber + ' ' + (currentPage === page ? styles.selectedPageNumber : '')}
-                        onClick={() => onPageChanged(page)}
-                    >{page}</span>
-                );
-            })}
+        <div className={styles.paginator}>
+            <button disabled={portionNumber === 1} onClick={() => setPortionNumber(1)}>{'<---'}</button>
+            <button disabled={portionNumber === 1} onClick={() => setPortionNumber(portionNumber - 1)}>{'<--'}</button>
+
+            {pages
+                .filter(page => page >= leftPortionPageNumber && page <= rightPortionPageNumber)
+                .map(page => {
+                    return (
+                        <span key={v1()}
+                              className={styles.pageNumber + ' ' + (currentPage === page ? styles.selectedPageNumber : '')}
+                              onClick={() => onPageChanged(page)}
+                        >{page}</span>
+                    );
+                })}
+
+            <button disabled={portionNumber === portionCount}
+                    onClick={() => setPortionNumber(portionNumber + 1)}>{'-->'}</button>
+            <button disabled={portionNumber === portionCount}
+                    onClick={() => setPortionNumber(portionCount)}>{'--->'}</button>
         </div>
     );
 };
 
 type PaginatorPropsType = {
     currentPage: number;
-    totalUsersCount: number;
+    totalItemsCount: number;
     pageSize: number;
     onPageChanged: (pageNumber: number) => void;
+    portionSize?: number;
 }
