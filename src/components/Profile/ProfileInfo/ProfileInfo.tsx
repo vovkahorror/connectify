@@ -3,6 +3,7 @@ import styles from './ProfileInfo.module.css';
 import {ProfileAPIType} from '../../../redux/profile-reducer';
 import {Preloader} from '../../common/Preloader/Preloader';
 import {ProfileStatusWithHooks} from './ProfileStatusWithHooks';
+import userPhoto from '../../../assets/images/user.png';
 
 type ProfileInfoPropsType = {
     profile: ProfileAPIType | null;
@@ -18,7 +19,7 @@ export const ProfileInfo = ({profile, status, updateStatus}: ProfileInfoPropsTyp
     return (
         <div>
             <div className={styles.descriptionBlock}>
-                {profile.photos.large && <div><img src={profile.photos.large} alt=""/></div>}
+                <div><img className={styles.mainPhoto} src={profile.photos.large || userPhoto} alt=""/></div>
                 <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
                 {/*{props.profile.fullName && <div>{props.profile.fullName}</div>}*/}
                 {/*{props.profile.aboutMe && <div>{props.profile.aboutMe}</div>}*/}
