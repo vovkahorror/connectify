@@ -1,5 +1,12 @@
 import React, {ComponentType} from 'react';
-import {getStatus, getUserProfile, ProfileAPIType, ProfilePageType, updateStatus} from '../../redux/profile-reducer';
+import {
+    getStatus,
+    getUserProfile,
+    ProfileAPIType,
+    ProfilePageType,
+    savePhoto,
+    updateStatus,
+} from '../../redux/profile-reducer';
 import {Profile} from './Profile';
 import {connect} from 'react-redux';
 import {AppStateType} from '../../redux/redux-store';
@@ -20,6 +27,7 @@ type MapDispatchToPropsType = {
     getUserProfile: (userID: number) => void;
     getStatus: (userID: number) => void;
     updateStatus: (status: string) => void;
+    savePhoto: (file: File) => void;
 }
 type OwnPropsType = MapStateToPropsType & MapDispatchToPropsType;
 type ProfileContainerPropsType = RouteComponentProps<PathParamsType> & OwnPropsType;
@@ -46,7 +54,7 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType, Profil
 
     render() {
         return (
-            <Profile {...this.props}/>
+            <Profile isOwner={!this.props.match.params.userID} {...this.props}/>
         );
     };
 }
@@ -64,4 +72,5 @@ export default compose<ComponentType>(connect(mapStateToProps, {
     getUserProfile,
     getStatus,
     updateStatus,
+    savePhoto,
 }), withRouter, withAuthRedirect)(ProfileContainer);
