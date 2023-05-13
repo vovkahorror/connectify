@@ -1,11 +1,15 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import styles from './ProfileInfo.module.css';
 import {ProfileAPIType} from '../../../redux/profile-reducer';
 import {Preloader} from '../../common/Preloader/Preloader';
 import {ProfileStatusWithHooks} from './ProfileStatusWithHooks';
 import userPhoto from '../../../assets/images/user.png';
+import {ProfileData} from './ProfileData';
+import {ProfileDataForm} from './ProfileDataForm';
 
 export const ProfileInfo = ({profile, status, isOwner, updateStatus, savePhoto}: ProfileInfoPropsType) => {
+    const [editMode, setEditMode] = useState(false);
+
     if (!profile) {
         return <Preloader/>;
     }
@@ -19,13 +23,16 @@ export const ProfileInfo = ({profile, status, isOwner, updateStatus, savePhoto}:
     return (
         <div>
             <div className={styles.descriptionBlock}>
-                <div><img className={styles.mainPhoto} src={profile.photos.large || userPhoto} alt=""/></div>
-                {isOwner &&
-                    <input type="file" onChange={onMainPhotoSelected} accept=".jpg, .jpeg, .png"/>}
-                <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
-                {/*{props.profile.fullName && <div>{props.profile.fullName}</div>}*/}
-                {/*{props.profile.aboutMe && <div>{props.profile.aboutMe}</div>}*/}
-                {/*{props.profile.contacts.facebook && <div>{props.profile.contacts.facebook}</div>}*/}
+                <div className={styles.imageBlock}><img className={styles.mainPhoto}
+                                                        src={profile.photos.large || userPhoto} alt=""/>
+                    {isOwner &&
+                        <input type="file" onChange={onMainPhotoSelected} accept=".jpg, .jpeg, .png"/>}
+                    <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
+                </div>
+
+                {editMode
+                    ? <ProfileDataForm profile={profile}/>
+                    : <ProfileData profile={profile} isOwner={isOwner} goToEditMode={() => setEditMode(true)}/>}
             </div>
         </div>
     );
@@ -38,3 +45,4 @@ type ProfileInfoPropsType = {
     isOwner: boolean;
     savePhoto: (file: File) => void;
 }
+
