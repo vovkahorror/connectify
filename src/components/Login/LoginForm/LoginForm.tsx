@@ -4,12 +4,6 @@ import {createField, Input} from '../../common/FormsControls/FormsControls';
 import {required} from '../../../utils/validators/validators';
 import controlsStyles from '../../common/FormsControls/FormsControls.module.css';
 
-export type FormDataType = {
-    email: string;
-    password: string;
-    rememberMe: boolean;
-}
-
 const LoginForm: FC<InjectedFormProps<FormDataType>> = ({handleSubmit, error}) => {
     return (
         <form onSubmit={handleSubmit}>
@@ -24,7 +18,7 @@ const LoginForm: FC<InjectedFormProps<FormDataType>> = ({handleSubmit, error}) =
             {error && <div className={controlsStyles.formSummaryError}>
                 {error}
             </div>}
-            
+
             <div>
                 <button>Login</button>
             </div>
@@ -35,3 +29,9 @@ const LoginForm: FC<InjectedFormProps<FormDataType>> = ({handleSubmit, error}) =
 export const LoginFormRedux = reduxForm<FormDataType>({
     form: 'login',
 })(LoginForm);
+
+export type FormDataType = {
+    email: string;
+    password: string;
+    rememberMe: boolean;
+}

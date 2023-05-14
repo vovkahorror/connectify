@@ -5,7 +5,7 @@ import {Preloader} from '../../common/Preloader/Preloader';
 import {ProfileStatusWithHooks} from './ProfileStatusWithHooks';
 import userPhoto from '../../../assets/images/user.png';
 import {ProfileData} from './ProfileData';
-import {ProfileDataForm} from './ProfileDataForm';
+import {ProfileDataFormRedux} from './ProfileDataForm';
 
 export const ProfileInfo = ({profile, status, isOwner, updateStatus, savePhoto}: ProfileInfoPropsType) => {
     const [editMode, setEditMode] = useState(false);
@@ -31,7 +31,7 @@ export const ProfileInfo = ({profile, status, isOwner, updateStatus, savePhoto}:
                 </div>
 
                 {editMode
-                    ? <ProfileDataForm profile={profile}/>
+                    ? <ProfileDataFormRedux initialValues={{profile}}/>
                     : <ProfileData profile={profile} isOwner={isOwner} goToEditMode={() => setEditMode(true)}/>}
             </div>
         </div>
