@@ -1,5 +1,7 @@
-import {Dispatch} from 'redux';
+import {AnyAction, Dispatch} from 'redux';
 import {profileAPI} from '../api/api';
+import {AppStateType} from './redux-store';
+import {ThunkDispatch} from 'redux-thunk';
 
 const ADD_POST = 'profile/ADD_POST';
 const SET_USER_PROFILE = 'profile/SET_USER_PROFILE';
@@ -94,6 +96,17 @@ export const savePhoto = (photoFile: File) => {
 
         if (response.data.resultCode === 0) {
             dispatch(savePhotoSuccess(response.data.data.photos));
+        }
+    };
+};
+
+export const saveProfile = (profile: ProfileAPIType) => {
+    return async (dispatch: ThunkDispatch<AppStateType, any, AnyAction>, getState: () => AppStateType) => {
+        const userId = getState().auth.id;
+        const response = await profileAPI.saveProfile(profile);
+
+        if (response.data.resultCode === 0 && userId) {
+            dispatch(getUserProfile(userId));
         }
     };
 };

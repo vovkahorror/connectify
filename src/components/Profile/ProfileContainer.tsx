@@ -4,7 +4,7 @@ import {
     getUserProfile,
     ProfileAPIType,
     ProfilePageType,
-    savePhoto,
+    savePhoto, saveProfile,
     updateStatus,
 } from '../../redux/profile-reducer';
 import {Profile} from './Profile';
@@ -28,6 +28,7 @@ type MapDispatchToPropsType = {
     getStatus: (userID: number) => void;
     updateStatus: (status: string) => void;
     savePhoto: (file: File) => void;
+    saveProfile: (formData: ProfileAPIType) => void;
 }
 type OwnPropsType = MapStateToPropsType & MapDispatchToPropsType;
 type ProfileContainerPropsType = RouteComponentProps<PathParamsType> & OwnPropsType;
@@ -73,4 +74,5 @@ export default compose<ComponentType>(connect(mapStateToProps, {
     getStatus,
     updateStatus,
     savePhoto,
+    saveProfile,
 }), withRouter, withAuthRedirect)(ProfileContainer);

@@ -7,7 +7,7 @@ import userPhoto from '../../../assets/images/user.png';
 import {ProfileData} from './ProfileData';
 import {ProfileDataFormRedux} from './ProfileDataForm';
 
-export const ProfileInfo = ({profile, status, isOwner, updateStatus, savePhoto}: ProfileInfoPropsType) => {
+export const ProfileInfo = ({profile, status, isOwner, updateStatus, savePhoto, saveProfile}: ProfileInfoPropsType) => {
     const [editMode, setEditMode] = useState(false);
 
     if (!profile) {
@@ -18,6 +18,10 @@ export const ProfileInfo = ({profile, status, isOwner, updateStatus, savePhoto}:
         if (e.target.files && e.target.files.length) {
             savePhoto(e.target.files[0]);
         }
+    };
+
+    const onSubmit = (formData: ProfileAPIType) => {
+        saveProfile(formData);
     };
 
     return (
@@ -31,7 +35,7 @@ export const ProfileInfo = ({profile, status, isOwner, updateStatus, savePhoto}:
                 </div>
 
                 {editMode
-                    ? <ProfileDataFormRedux initialValues={{profile}}/>
+                    ? <ProfileDataFormRedux initialValues={profile} onSubmit={onSubmit}/>
                     : <ProfileData profile={profile} isOwner={isOwner} goToEditMode={() => setEditMode(true)}/>}
             </div>
         </div>
@@ -44,5 +48,6 @@ type ProfileInfoPropsType = {
     updateStatus: (status: string) => void;
     isOwner: boolean;
     savePhoto: (file: File) => void;
+    saveProfile: (formData: ProfileAPIType) => void;
 }
 

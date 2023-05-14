@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {ProfileAPIType} from '../redux/profile-reducer';
 
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -36,6 +37,9 @@ export const profileAPI = {
                 'Content-Type': 'multipart/form-data',
             },
         });
+    },
+    saveProfile(profile: ProfileAPIType) {
+        return instance.put(`profile`, profile);
     },
 };
 
