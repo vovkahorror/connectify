@@ -1,13 +1,13 @@
 import {usersAPI} from '../api/api';
 import {Dispatch} from 'redux';
 import {updateObjectInArray} from '../utils/object-helpers';
+import {toggleIsFetching} from './app-reducer';
 
 const FOLLOW = 'users/FOLLOW';
 const UNFOLLOW = 'users/UNFOLLOW';
 const SET_USERS = 'users/SET_USERS';
 const SET_CURRENT_PAGE = 'users/SET_CURRENT_PAGE';
 const SET_TOTAL_USERS_COUNT = 'users/SET_TOTAL_USERS_COUNT';
-const TOGGLE_IS_FETCHING = 'users/TOGGLE_IS_FETCHING';
 const TOGGLE_IS_FOLLOWING_IN_PROGRESS = 'users/TOGGLE_IS_FOLLOWING_IN_PROGRESS';
 
 const initialState: UsersType = {
@@ -42,9 +42,6 @@ const usersReducer = (state = initialState, action: ActionsType): UsersType => {
         case SET_TOTAL_USERS_COUNT:
             return {...state, totalUsersCount: action.totalCount};
 
-        case TOGGLE_IS_FETCHING:
-            return {...state, isFetching: action.isFetching};
-
         case TOGGLE_IS_FOLLOWING_IN_PROGRESS:
             return {
                 ...state,
@@ -72,11 +69,6 @@ export const setCurrentPage = (currentPage: number): SetCurrentPageActionType =>
 export const setTotalUsersCount = (totalCount: number): SetTotalUsersCountActionType => ({
     type: SET_TOTAL_USERS_COUNT,
     totalCount,
-});
-
-export const toggleIsFetching = (isFetching: boolean): ToggleIsFetchingActionType => ({
-    type: TOGGLE_IS_FETCHING,
-    isFetching,
 });
 
 export const toggleIsFollowingInProgress = (isFollowingInProgress: boolean, userID: number): ToggleIsFollowingInProgressActionType => ({
@@ -162,10 +154,6 @@ export type SetTotalUsersCountActionType = {
     type: 'users/SET_TOTAL_USERS_COUNT';
     totalCount: number;
 }
-export type ToggleIsFetchingActionType = {
-    type: 'users/TOGGLE_IS_FETCHING';
-    isFetching: boolean;
-}
 
 export type ToggleIsFollowingInProgressActionType = {
     type: 'users/TOGGLE_IS_FOLLOWING_IN_PROGRESS';
@@ -179,7 +167,6 @@ type ActionsType =
     | SetUsersActionType
     | SetCurrentPageActionType
     | SetTotalUsersCountActionType
-    | ToggleIsFetchingActionType
     | ToggleIsFollowingInProgressActionType;
 
 export default usersReducer;

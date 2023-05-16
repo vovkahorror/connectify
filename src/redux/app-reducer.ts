@@ -3,9 +3,11 @@ import {AnyAction} from 'redux';
 import {getAuthUserData} from './auth-reducer';
 
 const INITIALIZED_SUCCESS = 'app/INITIALIZED_SUCCESS';
+const TOGGLE_IS_FETCHING = 'app/TOGGLE_IS_FETCHING';
 
 const initialState = {
     isInitialized: false,
+    isFetching: false,
 };
 
 const appReducer = (state = initialState, action: ActionsType): AppStateType => {
@@ -15,6 +17,9 @@ const appReducer = (state = initialState, action: ActionsType): AppStateType => 
                 ...state,
                 isInitialized: true,
             };
+
+        case TOGGLE_IS_FETCHING:
+            return {...state, isFetching: action.isFetching};
 
         default:
             return state;
@@ -29,6 +34,11 @@ export const initializeApp = () => (dispatch: ThunkDispatch<AppStateType, any, A
     Promise.all([promise]).then(() => dispatch(initializedSuccess()));
 };
 
+export const toggleIsFetching = (isFetching: boolean): ToggleIsFetchingActionType => ({
+    type: TOGGLE_IS_FETCHING,
+    isFetching,
+});
+
 // types
 export type  AppStateType = typeof initialState;
 
@@ -36,6 +46,11 @@ export type InitializedSuccessActionType = {
     type: 'app/INITIALIZED_SUCCESS';
 };
 
-type ActionsType = InitializedSuccessActionType;
+export type ToggleIsFetchingActionType = {
+    type: 'app/TOGGLE_IS_FETCHING';
+    isFetching: boolean;
+}
+
+type ActionsType = InitializedSuccessActionType | ToggleIsFetchingActionType;
 
 export default appReducer;

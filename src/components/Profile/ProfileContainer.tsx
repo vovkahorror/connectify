@@ -13,6 +13,7 @@ import {AppStateType} from '../../redux/redux-store';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 import {compose} from 'redux';
+import {Preloader} from '../common/Preloader/Preloader';
 
 type PathParamsType = {
     userID: string;
@@ -22,6 +23,7 @@ type MapStateToPropsType = {
     status: string;
     authorizedUserID: number | null;
     isAuth: boolean;
+    isFetching: boolean;
 }
 type MapDispatchToPropsType = {
     getUserProfile: (userID: number) => void;
@@ -55,7 +57,10 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType, Profil
 
     render() {
         return (
-            <Profile isOwner={!this.props.match.params.userID} {...this.props}/>
+            <>
+                {this.props.isFetching ? <Preloader/> : null}
+                <Profile isOwner={!this.props.match.params.userID} {...this.props}/>
+            </>
         );
     };
 }
@@ -66,6 +71,7 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
         status: state.profilePage.status,
         authorizedUserID: state.auth.id,
         isAuth: state.auth.isAuth,
+        isFetching: state.app.isFetching,
     };
 };
 
