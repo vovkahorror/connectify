@@ -2,7 +2,7 @@ import React, {ComponentType} from 'react';
 import './normalize.css';
 import './App.css';
 import {Navbar} from './components/Navbar/Navbar';
-import {HashRouter, Route, withRouter} from 'react-router-dom';
+import {HashRouter, Redirect, Route, Switch, withRouter} from 'react-router-dom';
 import HeaderContainer from './components/Header/HeaderContainer';
 import {connect, Provider} from 'react-redux';
 import {compose} from 'redux';
@@ -34,13 +34,17 @@ class App extends React.Component<AppPropsType, AppStateType> {
                 <HeaderContainer/>
                 <Navbar/>
                 <div className={'app-wrapper__content'}>
-                    <Route path={'/profile/:userID?'} render={withSuspense(ProfileContainer)}/>
-                    <Route path={'/dialogs'} render={withSuspense(DialogsContainer)}/>
-                    <Route path={'/users'} render={withSuspense(UsersContainer)}/>
-                    <Route path={'/login'} render={withSuspense(Login)}/>
-                    <Route path={'/news'} render={withSuspense(News)}/>
-                    <Route path={'/music'} render={withSuspense(Music)}/>
-                    <Route path={'/settings'} render={withSuspense(Settings)}/>
+                    <Switch>
+                        <Route path={'/'} exact render={() => <Redirect to={'/profile'}/>}/>
+                        <Route path={'/profile/:userID?'} render={withSuspense(ProfileContainer)}/>
+                        <Route path={'/dialogs'} render={withSuspense(DialogsContainer)}/>
+                        <Route path={'/users'} render={withSuspense(UsersContainer)}/>
+                        <Route path={'/login'} render={withSuspense(Login)}/>
+                        <Route path={'/news'} render={withSuspense(News)}/>
+                        <Route path={'/music'} render={withSuspense(Music)}/>
+                        <Route path={'/settings'} render={withSuspense(Settings)}/>
+                        <Route path={'*'} render={() => <div>404 NOT FOUND</div>}/>
+                    </Switch>
                 </div>
             </div>
         );
