@@ -4,7 +4,7 @@ import {createField, Input} from '../../common/FormsControls/FormsControls';
 import {required} from '../../../utils/validators/validators';
 import controlsStyles from '../../common/FormsControls/FormsControls.module.css';
 
-const LoginForm: FC<InjectedFormProps<FormDataType>> = ({handleSubmit, error}) => {
+const LoginForm: FC<InjectedFormProps<FormDataType>> = ({initialValues: {captcha}, handleSubmit, error}) => {
     return (
         <form onSubmit={handleSubmit}>
             {createField('Email', 'email', 'text', [required], Input)}
@@ -14,6 +14,11 @@ const LoginForm: FC<InjectedFormProps<FormDataType>> = ({handleSubmit, error}) =
                 <Field component={Input} name={'rememberMe'} type={'checkbox'}/>
                 Remember me
             </label>
+
+            {captcha && <div>
+                <img src={captcha} alt={'captcha'}/>
+                {createField('Symbols from image', 'captcha', 'text', [required], Input)}
+            </div>}
 
             {error && <div className={controlsStyles.formSummaryError}>
                 {error}
@@ -34,4 +39,5 @@ export type FormDataType = {
     email: string;
     password: string;
     rememberMe: boolean;
+    captcha?: string | null;
 }
