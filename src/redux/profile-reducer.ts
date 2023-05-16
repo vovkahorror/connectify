@@ -112,8 +112,14 @@ export const saveProfile = (profile: ProfileAPIType) => {
         if (response.data.resultCode === 0 && userId) {
             return dispatch(getUserProfile(userId));
         } else {
-            dispatch(stopSubmit('edit-profile', {_error: response.data.messages[0]}));
-            return Promise.reject(response.data.messages[0]);
+            const contactsErrors: { [key: string]: string } = {};
+            response.data.messages.forEach((message: string) => {
+                const contact = message.slice(message.indexOf('->') + 2, message.lastIndexOf(')'));
+                contactsErrors[contact[0].toLowerCase() + contact.slice(1)] = 'Invalid url format';
+            });
+
+            dispatch(stopSubmit('edit-profile', {'contacts': contactsErrors}));
+            return Promise.reject(contactsErrors);
         }
     };
 };
