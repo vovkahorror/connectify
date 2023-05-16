@@ -20,8 +20,8 @@ export const ProfileInfo = ({profile, status, isOwner, updateStatus, savePhoto, 
         }
     };
 
-    const onSubmit = async (formData: ProfileAPIType) => {
-        await saveProfile(formData);
+    const onSubmit = (formData: ProfileAPIType) => {
+        saveProfile(formData).then(() => setEditMode(false));
         // setEditMode(false);
     };
 
@@ -49,6 +49,6 @@ type ProfileInfoPropsType = {
     updateStatus: (status: string) => void;
     isOwner: boolean;
     savePhoto: (file: File) => void;
-    saveProfile: (formData: ProfileAPIType) => void;
+    saveProfile: (formData: ProfileAPIType) => Promise<boolean>;
 }
 

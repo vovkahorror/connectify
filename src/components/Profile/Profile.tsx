@@ -18,5 +18,5 @@ type ProfilePropsType = {
     isOwner: boolean;
     updateStatus: (status: string) => void;
     savePhoto: (file: File) => void;
-    saveProfile: (formData: ProfileAPIType) => void;
+    saveProfile: (formData: ProfileAPIType) => Promise<boolean>;
 }
