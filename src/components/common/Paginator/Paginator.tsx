@@ -1,6 +1,7 @@
 import styles from './Paginator.module.css';
 import React, {useState} from 'react';
 import {v1} from 'uuid';
+import classNames from 'classnames';
 
 export const Paginator = ({
                               currentPage,
@@ -31,7 +32,7 @@ export const Paginator = ({
                 .map(page => {
                     return (
                         <span key={v1()}
-                              className={styles.pageNumber + ' ' + (currentPage === page ? styles.selectedPageNumber : '')}
+                              className={classNames(styles.pageNumber, {[styles.selectedPageNumber]: currentPage === page})}
                               onClick={() => onPageChanged(page)}
                         >{page}</span>
                     );
