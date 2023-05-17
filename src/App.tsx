@@ -20,8 +20,17 @@ const Music = React.lazy(() => import('./components/Music/Music'));
 const Settings = React.lazy(() => import('./components/Settings/Settings'));
 
 class App extends React.Component<AppPropsType, AppStateType> {
+    caughtAllUnhandledRejection = (event: PromiseRejectionEvent) => {
+        alert(event.promise);
+    };
+
     componentDidMount() {
         this.props.initializeApp();
+        window.addEventListener('unhandledrejection', this.caughtAllUnhandledRejection);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('unhandledrejection', this.caughtAllUnhandledRejection);
     }
 
     render() {
