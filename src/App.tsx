@@ -1,6 +1,5 @@
 import React, {ComponentType} from 'react';
-import './normalize.css';
-import './App.css';
+import './App.scss';
 import {Navbar} from './components/Navbar/Navbar';
 import {HashRouter, Redirect, Route, Switch, withRouter} from 'react-router-dom';
 import HeaderContainer from './components/Header/HeaderContainer';
