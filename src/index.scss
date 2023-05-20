@@ -1,3 +1,10 @@
+@import './styles/sass/variables';
+
+@font-face {
+  font-family: "Garde";
+  src: url("./assets/fonts/garde-webfont.woff2") format("woff2");
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -8,6 +15,8 @@ body {
   font-family: 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: $textColor;
+  background-color: #ffffff;
 }
 
 code {

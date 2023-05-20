@@ -1,0 +1,29 @@
+@import "../../styles/sass/variables";
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  grid-area: h;
+  padding: 20px 18px;
+
+  &__title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: $textColor;
+    font-family: Garde, sans-serif;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 28px;
+    text-decoration: none;
+
+    .logo {
+      width: 46px;
+      height: 46px;
+    }
+  }
+}
+
+.loginBlock a {
+  color: white;
+}
