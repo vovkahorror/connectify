@@ -3,7 +3,7 @@ import styles from './ProfileInfo.module.css';
 import {ProfileAPIType} from '../../../redux/profile-reducer';
 import {Preloader} from '../../common/Preloader/Preloader';
 import {ProfileStatusWithHooks} from './ProfileStatusWithHooks';
-import userPhoto from '../../../assets/images/user.png';
+import userPhoto from '../../../assets/images/user.svg';
 import {ProfileData} from './ProfileData';
 import {ProfileDataFormRedux} from './ProfileDataForm';
 
