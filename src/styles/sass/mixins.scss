@@ -1,0 +1,9 @@
+@import './variables';
+
+@mixin text($fontFamily: 'Roboto', $fontSize: 16px, $fontWeight: 500, $lineHeight: 24px) {
+  font-family: $fontFamily, sans-serif;
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  line-height: $lineHeight;
+  color: $textColor;
+}
