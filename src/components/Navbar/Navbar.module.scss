@@ -1,0 +1,34 @@
+@import '../../styles/sass/mixins';
+
+.nav {
+  grid-area: n;
+  padding: 10px 20px;
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &__item {
+    display: flex;
+    list-style-type: none;
+  }
+
+  &__link {
+    padding: 15px 20px;
+    width: 100%;
+    @include text();
+    text-decoration: none;
+    border-radius: 10px;
+
+    &.active {
+      color: #ffffff;
+      background: linear-gradient(0deg, #4e5d78, #4e5d78), #ffffff;
+
+      .icon * {
+        fill: #ffffff;
+      }
+    }
+  }
+}
