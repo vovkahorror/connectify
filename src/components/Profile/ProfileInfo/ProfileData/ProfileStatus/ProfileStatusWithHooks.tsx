@@ -29,7 +29,7 @@ export const ProfileStatusWithHooks: FC<ProfileStatusPropsType> = ({status, isOw
         <>
             {!editMode
                 ? <div className={styles.currentStatus}>
-                    <span>{status || 'no status'}</span>
+                    <span>{status || <span className={styles.currentStatus__noStatus}>no status</span>}</span>
                     {isOwner && <EditIcon className={styles.currentStatus__icon} onClick={activateEditMode}/>}
                 </div>
                 : <div>

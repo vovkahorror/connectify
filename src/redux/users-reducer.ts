@@ -15,7 +15,6 @@ const initialState: UsersType = {
     pageSize: 15,
     totalUsersCount: 0,
     currentPage: 1,
-    isFetching: false,
     followingInProgress: [],
 };
 
@@ -130,7 +129,6 @@ export type UsersType = {
     pageSize: number;
     totalUsersCount: number;
     currentPage: number;
-    isFetching: boolean;
     followingInProgress: Array<number>;
 }
 

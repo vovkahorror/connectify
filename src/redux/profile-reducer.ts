@@ -70,8 +70,10 @@ export const setStatus = (status: string): SetStatusActionType => ({
 
 export const getUserProfile = (userID: number) => {
     return async (dispatch: Dispatch) => {
+        dispatch(toggleIsFetching(true));
         const response = await profileAPI.getProfile(userID);
         dispatch(setUserProfile(response.data));
+        dispatch(toggleIsFetching(false));
     };
 };
 
