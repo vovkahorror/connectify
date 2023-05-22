@@ -2,17 +2,10 @@ import React, {FC} from 'react';
 import styles from './Header.module.scss';
 import {NavLink} from 'react-router-dom';
 import logo from '../../assets/icons/logo.svg';
-import userPhoto from '../../assets/images/user.svg';
+import userNoPhoto from '../../assets/images/user.svg';
 import {ReactComponent as LogOutIcon} from '../../assets/icons/logOut.svg';
 
-type HeaderPropsType = {
-    isAuth: boolean;
-    login: string | null;
-    photoLarge?: string | null;
-    logout: () => void;
-}
-
-export const Header: FC<HeaderPropsType> = ({isAuth, login, photoLarge, logout}) => {
+export const Header: FC<HeaderPropsType> = ({isAuth, login, photo, logout}) => {
     return (
         <header className={styles.header}>
             <NavLink className={styles.header__title} to="/">
@@ -23,7 +16,7 @@ export const Header: FC<HeaderPropsType> = ({isAuth, login, photoLarge, logout})
             {isAuth
                 ? <div className={styles.authBlock}>
                     <NavLink className={styles.authBlock__login} to={'/profile'}>{login}</NavLink>
-                    <NavLink to={'/profile'}><img className={styles.authBlock__photo} src={photoLarge || userPhoto}
+                    <NavLink to={'/profile'}><img className={styles.authBlock__photo} src={photo || userNoPhoto}
                                                   alt=""/></NavLink>
                     <LogOutIcon className={styles.authBlock__logOut} onClick={logout}/>
                 </div>
@@ -31,3 +24,10 @@ export const Header: FC<HeaderPropsType> = ({isAuth, login, photoLarge, logout})
         </header>
     );
 };
+
+type HeaderPropsType = {
+    isAuth: boolean;
+    login: string | null;
+    photo?: string | null;
+    logout: () => void;
+}

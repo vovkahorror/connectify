@@ -4,6 +4,7 @@ import {AppStateType} from './redux-store';
 import {ThunkDispatch} from 'redux-thunk';
 import {toggleIsFetching} from './app-reducer';
 import {stopSubmit} from 'redux-form';
+import {setUserPhoto} from './auth-reducer';
 
 const ADD_POST = 'profile/ADD_POST';
 const SET_USER_PROFILE = 'profile/SET_USER_PROFILE';
@@ -69,9 +70,15 @@ export const setStatus = (status: string): SetStatusActionType => ({
 });
 
 export const getUserProfile = (userID: number) => {
-    return async (dispatch: Dispatch) => {
+    return async (dispatch: Dispatch, getState: () => AppStateType) => {
         dispatch(toggleIsFetching(true));
+
+        const currentUserID = getState().auth.id;
         const response = await profileAPI.getProfile(userID);
+        if (currentUserID === userID) {
+            dispatch(setUserPhoto(response.data.photos.large));
+        }
+
         dispatch(setUserProfile(response.data));
         dispatch(toggleIsFetching(false));
     };

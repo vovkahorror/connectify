@@ -7,7 +7,7 @@ import {AuthStateType, logout} from '../../redux/auth-reducer';
 type MapStateType = {
     isAuth: boolean;
     login: string | null;
-    photoLarge?: string | null;
+    photo?: string | null;
 }
 
 type MapDispatchType = {
@@ -27,7 +27,7 @@ class HeaderContainer extends React.Component<HeaderContainerPropsType, AuthStat
 const mapStateToProps = (state: AppStateType): MapStateType => ({
     isAuth: state.auth.isAuth,
     login: state.auth.login,
-    photoLarge: state.profilePage.profile?.photos.large,
+    photo: state.auth.photo,
 });
 
 export default connect(mapStateToProps, {logout})(HeaderContainer);
