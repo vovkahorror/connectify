@@ -1,7 +1,8 @@
 import {ContactsProfileAPIType, ProfileAPIType} from '../../../redux/profile-reducer';
 import React from 'react';
+import {ProfileStatusWithHooks} from './ProfileStatusWithHooks';
 
-export const ProfileData = ({profile, isOwner, goToEditMode}: ProfileDataPropsType) => {
+export const ProfileData = ({profile, isOwner, status, updateStatus, goToEditMode}: ProfileDataPropsType) => {
     const mappedContacts = Object.keys(profile.contacts).map(key => {
         const contactValue = profile.contacts[key as keyof ContactsProfileAPIType];
         if (contactValue && key !== 'vk') {
@@ -15,6 +16,7 @@ export const ProfileData = ({profile, isOwner, goToEditMode}: ProfileDataPropsTy
         <div>
             {isOwner && <button onClick={goToEditMode}>Edit</button>}
             <h2>{profile.fullName}</h2>
+            <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
             <ul>
                 <li>About me: {profile.aboutMe}</li>
                 <li>Looking for a job: {profile.lookingForAJob ? 'yes' : 'no'}</li>
@@ -38,6 +40,8 @@ const Contact = ({contactTitle, contactValue}: ContactPropsType) => {
 type ProfileDataPropsType = {
     profile: ProfileAPIType;
     isOwner: boolean;
+    status: string;
+    updateStatus: (status: string) => void;
     goToEditMode: () => void;
 }
 

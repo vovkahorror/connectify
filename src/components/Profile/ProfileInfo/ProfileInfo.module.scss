@@ -1,0 +1,44 @@
+.descriptionBlock {
+  display: flex;
+  gap: 40px;
+  padding: 18px;
+  background: #ffffff;
+  border-radius: 16px;
+
+  .imageBlock {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    .mainPhoto {
+      width: 280px;
+      border-radius: 50%;
+    }
+
+    .uploadWrapper {
+      position: absolute;
+      right: 16px;
+      bottom: 16px;
+
+      &__input {
+        display: none;
+      }
+
+      .uploadIconBlock {
+        padding: 7px;
+        background: #ffffff;
+        border-radius: 50%;
+        cursor: pointer;
+
+        &__icon {
+          width: 30px;
+          height: 30px;
+
+          &:hover * {
+            fill: #377dff;
+          }
+        }
+      }
+    }
+  }
+}
