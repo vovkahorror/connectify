@@ -1,0 +1,24 @@
+@import '../../../../../styles/sass/variables';
+@import '../../../../../styles/sass/mixins';
+
+.currentStatus {
+  display: flex;
+  gap: 10px;
+  @include text($fontSize: 20px);
+
+  &__icon {
+    opacity: 0.7;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+.statusInput {
+  @include text($fontSize: 20px);
+  border: none;
+  border-bottom: 2px solid $textColor;
+  outline: none;
+}

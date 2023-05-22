@@ -3,8 +3,8 @@ import styles from './ProfileInfo.module.scss';
 import {ProfileAPIType} from '../../../redux/profile-reducer';
 import {Preloader} from '../../common/Preloader/Preloader';
 import userPhoto from '../../../assets/images/user.svg';
-import {ProfileData} from './ProfileData';
-import {ProfileDataFormRedux} from './ProfileDataForm';
+import {ProfileData} from './ProfileData/ProfileData';
+import {ProfileDataFormRedux} from './ProfileData/ProfileDataForm';
 import {ReactComponent as UploadIcon} from '../../../assets/icons/upload.svg';
 
 export const ProfileInfo = ({profile, status, isOwner, updateStatus, savePhoto, saveProfile}: ProfileInfoPropsType) => {

@@ -4,11 +4,14 @@
   padding: 18px;
   background: #ffffff;
   border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
+  backdrop-filter: blur(25px);
 
   .imageBlock {
     position: relative;
     display: flex;
     flex-direction: column;
+    align-self: flex-start;
 
     .mainPhoto {
       width: 280px;

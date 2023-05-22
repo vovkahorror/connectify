@@ -1,9 +1,9 @@
 import React, {FC} from 'react';
-import {ContactsProfileAPIType, ProfileAPIType} from '../../../redux/profile-reducer';
+import {ContactsProfileAPIType, ProfileAPIType} from '../../../../redux/profile-reducer';
 import {InjectedFormProps, reduxForm} from 'redux-form';
-import {createField, Input, Textarea} from '../../common/FormsControls/FormsControls';
-import {required} from '../../../utils/validators/validators';
-import controlsStyles from '../../common/FormsControls/FormsControls.module.css';
+import {createField, Input, Textarea} from '../../../common/FormsControls/FormsControls';
+import {required} from '../../../../utils/validators/validators';
+import controlsStyles from '../../../common/FormsControls/FormsControls.module.css';
 
 const ProfileDataForm: FC<InjectedFormProps<ProfileAPIType>> = ({initialValues: profile, handleSubmit, error}) => {
     const mappedContacts = Object.keys(profile.contacts as ContactsProfileAPIType).map(key => {
