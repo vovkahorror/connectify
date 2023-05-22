@@ -107,6 +107,7 @@ export const savePhoto = (photoFile: File) => {
 
         if (response.data.resultCode === 0) {
             dispatch(savePhotoSuccess(response.data.data.photos));
+            dispatch(setUserPhoto(response.data.data.photos.large));
         }
     };
 };

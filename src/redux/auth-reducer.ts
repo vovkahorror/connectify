@@ -102,7 +102,7 @@ export const logout = () => {
 };
 
 // types
-export type AuthDataType = {
+type AuthDataType = {
     id: number | null;
     email: string | null;
     login: string | null;
@@ -114,12 +114,12 @@ export type AuthStateType = AuthDataType & {
     captcha?: string | null;
 };
 
-export type SetAuthUserDataActionType = {
+type SetAuthUserDataActionType = {
     type: 'auth/SET_USER_DATA';
     payload: AuthStateType;
 };
 
-export type GetCaptchaUrlSuccessActionType = {
+type GetCaptchaUrlSuccessActionType = {
     type: 'auth/GET_CAPTCHA_URL_SUCCESS';
     payload: {
         captcha: string;
