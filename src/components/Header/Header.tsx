@@ -25,9 +25,7 @@ export const Header: FC<HeaderPropsType> = ({isAuth, login, photoLarge, logout})
                     <NavLink className={styles.authBlock__login} to={'/profile'}>{login}</NavLink>
                     <NavLink to={'/profile'}><img className={styles.authBlock__photo} src={photoLarge || userPhoto}
                                                   alt=""/></NavLink>
-                    <button className={styles.authBlock__logOut} onClick={logout}>
-                        <LogOutIcon/>
-                    </button>
+                    <LogOutIcon className={styles.authBlock__logOut} onClick={logout}/>
                 </div>
                 : <NavLink to={'/login'}>Log in</NavLink>}
         </header>
