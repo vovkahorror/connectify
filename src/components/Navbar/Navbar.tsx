@@ -4,7 +4,9 @@ import {NavLink} from 'react-router-dom';
 import {ReactComponent as ProfileIcon} from '../../assets/icons/profile.svg';
 import {ReactComponent as MessageIcon} from '../../assets/icons/message.svg';
 import {ReactComponent as UsersIcon} from '../../assets/icons/users.svg';
-import {ReactComponent as ExploreIcon} from '../../assets/icons/explore.svg';
+import {ReactComponent as NewsIcon} from '../../assets/icons/newspaper.svg';
+import {ReactComponent as MusicIcon} from '../../assets/icons/music.svg';
+import {ReactComponent as SettingsIcon} from '../../assets/icons/settings.svg';
 
 export const Navbar = () => {
     return (
@@ -30,17 +32,19 @@ export const Navbar = () => {
                 </li>
                 <li className={styles.nav__item}>
                     <NavLink to="/news" className={styles.nav__link} activeClassName={styles.active}>
-                        <ExploreIcon className={styles.icon}/>
+                        <NewsIcon className={styles.icon}/>
                         <span>News</span>
                     </NavLink>
                 </li>
                 <li className={styles.nav__item}>
                     <NavLink to="/music" className={styles.nav__link} activeClassName={styles.active}>
+                        <MusicIcon className={styles.icon}/>
                         <span>Music</span>
                     </NavLink>
                 </li>
                 <li className={styles.nav__item}>
                     <NavLink to="/settings" className={styles.nav__link} activeClassName={styles.active}>
+                        <SettingsIcon className={styles.icon}/>
                         <span>Settings</span>
                     </NavLink>
                 </li>
