@@ -7,7 +7,7 @@
   grid-area: h;
   padding: 20px 18px;
 
-  &__title {
+  .title {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -30,16 +30,16 @@
   align-items: center;
   gap: 10px;
 
-  &__login {
+  .login {
     @include text();
     text-decoration: none;
 
     &:hover {
-      color: #377dff;
+      color: $mainSecondColor;
     }
   }
 
-  &__photo {
+  .photo {
     width: 42px;
     height: 42px;
     border-radius: 10px;
@@ -49,11 +49,11 @@
     }
   }
 
-  &__logOut {
+  .logOut {
     cursor: pointer;
 
     &:hover * {
-      fill: #377dff;
+      fill: $mainSecondColor;
     }
   }
 

@@ -6,7 +6,7 @@
   gap: 10px;
   @include text($fontSize: 20px);
 
-  &__icon {
+  .icon {
     opacity: 0.7;
     cursor: pointer;
 
@@ -15,7 +15,7 @@
     }
   }
 
-  &__noStatus {
+  .noStatus {
     font-style: italic;
   }
 }

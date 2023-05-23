@@ -9,6 +9,8 @@ import {ReactComponent as YoutubeIcon} from '../../../../assets/icons/youtube.sv
 import {ReactComponent as GithubIcon} from '../../../../assets/icons/github.svg';
 import {ReactComponent as MainLinkIcon} from '../../../../assets/icons/mainLink.svg';
 import {Contact} from './Contact/Contact';
+import styles from './ProfileData.module.scss';
+import {ReactComponent as EditIcon} from '../../../../assets/icons/edit.svg';
 
 export const ProfileData: FC<ProfileDataPropsType> = ({profile, isOwner, status, updateStatus, goToEditMode}) => {
     const mappedContacts = Object.keys(profile.contacts).map(key => {
@@ -49,8 +51,8 @@ export const ProfileData: FC<ProfileDataPropsType> = ({profile, isOwner, status,
     });
 
     return (
-        <div>
-            {isOwner && <button onClick={goToEditMode}>Edit</button>}
+        <div className={styles.profileData}>
+            {isOwner && <EditIcon className={styles.editButton} onClick={goToEditMode}>Edit</EditIcon>}
             <h2>{profile.fullName}</h2>
             <ProfileStatusWithHooks status={status} isOwner={isOwner} updateStatus={updateStatus}/>
             <ul>

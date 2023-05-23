@@ -29,9 +29,9 @@ export const ProfileInfo = ({profile, status, isOwner, updateStatus, savePhoto, 
             <div className={styles.imageBlock}>
                 <img className={styles.mainPhoto} src={profile.photos.large || userPhoto} alt=""/>
                 {isOwner && <label className={styles.uploadWrapper}>
-                    <input className={styles.uploadWrapper__input} type="file" onChange={onMainPhotoSelected}
+                    <input className={styles.input} type="file" onChange={onMainPhotoSelected}
                            accept=".jpg, .jpeg, .png"/>
-                    <div className={styles.uploadIconBlock}><UploadIcon className={styles.uploadIconBlock__icon}/></div>
+                    <div className={styles.uploadIconBlock}><UploadIcon className={styles.icon}/></div>
                 </label>}
             </div>
 

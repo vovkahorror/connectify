@@ -1,3 +1,5 @@
+@import "../../../styles/sass/variables";
+
 .descriptionBlock {
   display: flex;
   gap: 40px;
@@ -23,7 +25,7 @@
       right: 16px;
       bottom: 16px;
 
-      &__input {
+      .input {
         display: none;
       }
 
@@ -33,12 +35,12 @@
         border-radius: 50%;
         cursor: pointer;
 
-        &__icon {
+        .icon {
           width: 30px;
           height: 30px;
 
           &:hover * {
-            fill: #377dff;
+            fill: $mainSecondColor;
           }
         }
       }

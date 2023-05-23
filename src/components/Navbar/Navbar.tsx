@@ -11,39 +11,39 @@ import {ReactComponent as SettingsIcon} from '../../assets/icons/settings.svg';
 export const Navbar = () => {
     return (
         <nav className={styles.nav}>
-            <ul className={styles.nav__list}>
-                <li className={styles.nav__item}>
-                    <NavLink to="/profile" className={styles.nav__link} activeClassName={styles.active} exact>
+            <ul className={styles.list}>
+                <li className={styles.item}>
+                    <NavLink to="/profile" className={styles.link} activeClassName={styles.active} exact>
                         <ProfileIcon className={styles.icon}/>
                         <span>Profile</span>
                     </NavLink>
                 </li>
-                <li className={styles.nav__item}>
-                    <NavLink to="/dialogs" className={styles.nav__link} activeClassName={styles.active}>
+                <li className={styles.item}>
+                    <NavLink to="/dialogs" className={styles.link} activeClassName={styles.active}>
                         <MessageIcon className={styles.icon}/>
                         <span>Messages</span>
                     </NavLink>
                 </li>
-                <li className={styles.nav__item}>
-                    <NavLink to="/users" className={styles.nav__link} activeClassName={styles.active}>
+                <li className={styles.item}>
+                    <NavLink to="/users" className={styles.link} activeClassName={styles.active}>
                         <UsersIcon className={styles.icon}/>
                         <span>Users</span>
                     </NavLink>
                 </li>
-                <li className={styles.nav__item}>
-                    <NavLink to="/news" className={styles.nav__link} activeClassName={styles.active}>
+                <li className={styles.item}>
+                    <NavLink to="/news" className={styles.link} activeClassName={styles.active}>
                         <NewsIcon className={styles.icon}/>
                         <span>News</span>
                     </NavLink>
                 </li>
-                <li className={styles.nav__item}>
-                    <NavLink to="/music" className={styles.nav__link} activeClassName={styles.active}>
+                <li className={styles.item}>
+                    <NavLink to="/music" className={styles.link} activeClassName={styles.active}>
                         <MusicIcon className={styles.icon}/>
                         <span>Music</span>
                     </NavLink>
                 </li>
-                <li className={styles.nav__item}>
-                    <NavLink to="/settings" className={styles.nav__link} activeClassName={styles.active}>
+                <li className={styles.item}>
+                    <NavLink to="/settings" className={styles.link} activeClassName={styles.active}>
                         <SettingsIcon className={styles.icon}/>
                         <span>Settings</span>
                     </NavLink>

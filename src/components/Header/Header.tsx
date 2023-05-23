@@ -8,17 +8,17 @@ import {ReactComponent as LogOutIcon} from '../../assets/icons/logOut.svg';
 export const Header: FC<HeaderPropsType> = ({isAuth, login, photo, logout}) => {
     return (
         <header className={styles.header}>
-            <NavLink className={styles.header__title} to="/">
+            <NavLink className={styles.title} to="/">
                 <img className={styles.logo} src={logo} alt=""/>
                 <span>Connectify</span>
             </NavLink>
 
             {isAuth
                 ? <div className={styles.authBlock}>
-                    <NavLink className={styles.authBlock__login} to={'/profile'}>{login}</NavLink>
-                    <NavLink to={'/profile'}><img className={styles.authBlock__photo} src={photo || userNoPhoto}
+                    <NavLink className={styles.login} to={'/profile'}>{login}</NavLink>
+                    <NavLink to={'/profile'}><img className={styles.photo} src={photo || userNoPhoto}
                                                   alt=""/></NavLink>
-                    <LogOutIcon className={styles.authBlock__logOut} onClick={logout}/>
+                    <LogOutIcon className={styles.logOut} onClick={logout}/>
                 </div>
                 : <NavLink to={'/login'}>Log in</NavLink>}
         </header>
