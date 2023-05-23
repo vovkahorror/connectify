@@ -53,14 +53,17 @@ export const ProfileData: FC<ProfileDataPropsType> = ({profile, isOwner, status,
     return (
         <div className={styles.profileData}>
             {isOwner && <EditIcon className={styles.editButton} onClick={goToEditMode}>Edit</EditIcon>}
-            <h2>{profile.fullName}</h2>
+            <h2 className={styles.fullName}>{profile.fullName}</h2>
             <ProfileStatusWithHooks status={status} isOwner={isOwner} updateStatus={updateStatus}/>
-            <ul>
-                <li>About me: {profile.aboutMe}</li>
-                <li>Looking for a job: {profile.lookingForAJob ? 'yes' : 'no'}</li>
-                {profile.lookingForAJob && <li>My professional skills: {profile.lookingForAJobDescription}</li>}
-                <li>Contacts:
-                    <ul>
+            <ul className={styles.infoList}>
+                <li><span className={styles.itemTitle}>About me:</span> {profile.aboutMe}</li>
+                <li><span className={styles.itemTitle}>Looking for a job:</span> {profile.lookingForAJob ? 'yes' : 'no'}
+                </li>
+                {profile.lookingForAJob && <li><span
+                    className={styles.itemTitle}>My professional skills:</span> {profile.lookingForAJobDescription}
+                </li>}
+                <li><span className={styles.itemTitle}>Contacts:</span>
+                    <ul className={styles.contactsList}>
                         {mappedContacts}
                     </ul>
                 </li>

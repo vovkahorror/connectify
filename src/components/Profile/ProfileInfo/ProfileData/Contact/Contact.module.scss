@@ -1,0 +1,15 @@
+@import '../../../../../styles/sass/variables';
+
+.contact {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: $textColor;
+
+  &:hover, &:hover * {
+    width: max-content;
+    color: $mainSecondColor;
+    fill: $mainSecondColor;
+  }
+}

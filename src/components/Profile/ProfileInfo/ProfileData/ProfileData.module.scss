@@ -1,16 +1,42 @@
+@import '../../../../styles/sass/variables';
+@import '../../../../styles/sass/mixins';
+
 .profileData {
   position: relative;
   display: flex;
   flex-direction: column;
+  gap: 10px;
   width: 100%;
 
   .editButton {
     position: absolute;
     top: 0;
-    right: 0;
+    left: 100%;
     width: 20px;
     height: 20px;
     opacity: 0.7;
     cursor: pointer;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  .fullName {
+    font-size: 32px;
+  }
+
+  .infoList {
+    list-style-type: none;
+    @include text($lineHeight: 30px);
+
+    .itemTitle {
+      font-weight: 700;
+    }
+
+    .contactsList {
+      list-style-type: none;
+      padding: 0 20px;
+    }
   }
 }

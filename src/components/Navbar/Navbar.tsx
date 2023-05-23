@@ -11,7 +11,7 @@ import {ReactComponent as SettingsIcon} from '../../assets/icons/settings.svg';
 export const Navbar = () => {
     return (
         <nav className={styles.nav}>
-            <ul className={styles.list}>
+            <ul className={styles.mainList}>
                 <li className={styles.item}>
                     <NavLink to="/profile" className={styles.link} activeClassName={styles.active} exact>
                         <ProfileIcon className={styles.icon}/>
