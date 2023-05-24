@@ -7,3 +7,14 @@
   line-height: $lineHeight;
   color: $textColor;
 }
+
+@mixin contentBlock($display: flex, $gap: 40px, $padding: 18px, $background: #ffffff, $borderRadius: 16px,
+$boxShadow: 0 6px 20px rgba(0, 0, 0, 0.04), $backdropFilter: blur(25px)) {
+  display: $display;
+  gap: $gap;
+  padding: $padding;
+  background: $background;
+  border-radius: $borderRadius;
+  box-shadow: $boxShadow;
+  backdrop-filter: $backdropFilter;
+}
