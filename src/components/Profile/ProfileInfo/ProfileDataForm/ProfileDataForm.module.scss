@@ -1,0 +1,112 @@
+@import '../../../../styles/sass/variables';
+@import '../../../../styles/sass/mixins';
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 100%;
+
+  .formContent {
+    display: flex;
+    gap: 40px;
+
+    .formList, .contactsBlock, .contactsList {
+      display: flex;
+      flex-direction: column;
+      align-self: flex-start;
+      gap: 18px;
+      width: 100%;
+      list-style-type: none;
+      @include text();
+
+      .contactItem {
+        gap: 4px;
+
+        .contactTitle {
+          font-weight: 500;
+        }
+      }
+    }
+
+    li {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      input, textarea {
+        padding: 11px 10px;
+        width: 100%;
+        resize: none;
+        @include text($fontWeight: 400);
+        border: 1px solid rgba(78, 93, 120, 0.2);
+        border-radius: 8px;
+        outline: none;
+      }
+
+      textarea {
+        height: 100px;
+      }
+
+      .lookingAJob {
+        display: flex;
+        gap: 10px;
+        width: max-content;
+
+        input {
+          appearance: none;
+          padding: 0;
+          width: 22px;
+          height: 22px;
+          border-radius: 4px;
+          background-position: center;
+          background-size: 90%;
+          background-repeat: no-repeat;
+          cursor: pointer;
+
+          &:checked {
+            background-color: $mainSecondColor;
+            background-image: url('../../../../assets/icons/checked.svg')
+          }
+        }
+      }
+    }
+
+    .contactsBlock {
+      gap: 10px;
+    }
+
+    > * {
+      flex-grow: 1;
+    }
+  }
+
+  .buttonsBlock {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+
+    .submitButton, .cancelButton {
+      padding: 10px 40px;
+      width: min-content;
+      @include text();
+      border: none;
+      cursor: pointer;
+    }
+
+    .submitButton {
+      color: #ffffff;
+      background: #377dff;
+      border-radius: 8px;
+    }
+
+    .cancelButton {
+      background: none;
+    }
+  }
+}
+
+.itemTitle {
+  font-size: 18px;
+  font-weight: 700;
+}

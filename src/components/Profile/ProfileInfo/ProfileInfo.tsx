@@ -4,7 +4,7 @@ import {ProfileAPIType} from '../../../redux/profile-reducer';
 import {Preloader} from '../../common/Preloader/Preloader';
 import userPhoto from '../../../assets/images/user.svg';
 import {ProfileData} from './ProfileData/ProfileData';
-import {ProfileDataFormRedux} from './ProfileData/ProfileDataForm';
+import {ProfileDataFormRedux} from './ProfileDataForm/ProfileDataForm';
 import {ReactComponent as UploadIcon} from '../../../assets/icons/upload.svg';
 
 export const ProfileInfo = ({profile, status, isOwner, updateStatus, savePhoto, saveProfile}: ProfileInfoPropsType) => {
@@ -36,7 +36,8 @@ export const ProfileInfo = ({profile, status, isOwner, updateStatus, savePhoto, 
             </div>
 
             {editMode
-                ? <ProfileDataFormRedux initialValues={profile} onSubmit={onSubmit}/>
+                ? <ProfileDataFormRedux initialValues={{...profile, disableEditMode: () => setEditMode(false)}}
+                                        onSubmit={onSubmit}/>
                 : <ProfileData profile={profile} isOwner={isOwner} status={status} updateStatus={updateStatus}
                                goToEditMode={() => setEditMode(true)}/>}
         </div>

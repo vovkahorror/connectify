@@ -35,9 +35,7 @@ export const Input = (props: WrappedFieldProps) => {
 
 export const createField = (placeholder: string, name: string, type: string, validators: Validator[], component: ReactNode, props = {}) => {
     return (
-        <div>
-            <Field placeholder={placeholder} name={name} type={type} validate={validators}
-                   component={component} {...props}/>
-        </div>
+        <Field placeholder={placeholder} name={name} type={type} validate={validators}
+               component={component} {...props}/>
     );
 };
