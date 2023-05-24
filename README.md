@@ -1,1 +1,1 @@
-Connectify is a social networking project developed in TypeScript, React and Redux.
+Connectify is a social network project developed with TypeScript, React and Redux.
