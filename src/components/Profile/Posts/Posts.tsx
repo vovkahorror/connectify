@@ -3,19 +3,19 @@ import {Post} from './Post/Post';
 import styles from './Posts.module.scss';
 import {PostsDataType} from '../../../redux/profile-reducer';
 import {AddNewPostFormRedux, FormDataType} from './AddNewPostForm/AddNewPostForm';
-
-type PostsPropsType = {
-    addPost: (newPostText: string) => void;
-    postsData: Array<PostsDataType>;
-}
+import {useDispatch} from 'react-redux';
+import {reset} from 'redux-form';
 
 export const Posts = memo((props: PostsPropsType) => {
+    const dispatch = useDispatch();
+
     const postsElements = props.postsData.map(post => {
-        return <Post key={post.id} message={post.message} likes={post.likes}/>;
+        return <Post key={post.id} message={post.message} date={post.date}/>;
     });
 
     const onAddPost = (values: FormDataType) => {
-        props.addPost(values.newPostText);
+        props.addPost(props.userID, values.newPostText);
+        dispatch(reset('profileAddPostForm'));
     };
 
     return (
@@ -27,4 +27,10 @@ export const Posts = memo((props: PostsPropsType) => {
         </div>
     );
 });
+
+type PostsPropsType = {
+    addPost: (userID: number, newPostText: string) => void;
+    userID: number;
+    postsData: Array<PostsDataType>;
+}
 

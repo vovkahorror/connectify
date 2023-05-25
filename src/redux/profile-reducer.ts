@@ -6,6 +6,7 @@ import {toggleIsFetching} from './app-reducer';
 import {stopSubmit} from 'redux-form';
 import {setUserPhoto} from './auth-reducer';
 import {v1} from 'uuid';
+import {savePosts} from '../utils/localStorage';
 
 const ADD_POST = 'profile/ADD_POST';
 const SET_USER_PROFILE = 'profile/SET_USER_PROFILE';
@@ -14,11 +15,7 @@ const DELETE_POST = 'profile/DELETE_POST';
 const SAVE_PHOTO_SUCCESS = 'profile/SAVE_PHOTO_SUCCESS';
 
 const initialState: ProfilePageType = {
-    postsData: [
-        {id: '1', message: 'I\'m glad to see you here', likes: 5},
-        {id: '2', message: 'Hello! How are you?', likes: 4},
-        {id: '3', message: 'It\'s my firs post', likes: 3},
-    ],
+    postsData: [],
     profile: null,
     status: '',
 };
@@ -26,12 +23,8 @@ const initialState: ProfilePageType = {
 const profileReducer = (state = initialState, action: ActionsType): ProfilePageType => {
     switch (action.type) {
         case ADD_POST:
-            const newPost = {
-                id: v1(),
-                message: action.newPostText,
-                likes: 0,
-            };
-            return {...state, postsData: [newPost, ...state.postsData]};
+            
+            return {...state, postsData: [action.newPost, ...state.postsData]};
 
         case DELETE_POST:
             return {...state, postsData: state.postsData.filter(post => post.id !== action.postID)};
@@ -51,7 +44,7 @@ const profileReducer = (state = initialState, action: ActionsType): ProfilePageT
     }
 };
 
-export const addPostAC = (newPostText: string): AddPostActionType => ({type: ADD_POST, newPostText});
+export const addPostToState = (newPost: NewPostType): AddPostToStateActionType => ({type: ADD_POST, newPost});
 
 export const deletePostAC = (postID: string): DeletePostActionType => ({type: DELETE_POST, postID});
 
@@ -135,6 +128,22 @@ export const saveProfile = (profile: ProfileAPIType) => {
     };
 };
 
+export const addPost = (userID: number, newPostText: string) => {
+    return (dispatch: Dispatch, getState: () => AppStateType) => {
+        const senderUserID = getState().auth.id as number;
+
+        const newPost = {
+            id: v1(),
+            message: newPostText,
+            date: new Date(),
+            senderUserID,
+        };
+
+        dispatch(addPostToState(newPost));
+        savePosts(userID, newPost);
+    };
+};
+
 // types
 export type PhotosProfileAPIType = {
     small: string | null;
@@ -162,7 +171,7 @@ export type ProfileAPIType = {
 export type PostsDataType = {
     id: string;
     message: string;
-    likes: number;
+    date: Date;
 }
 export type ProfilePageType = {
     postsData: Array<PostsDataType>;
@@ -170,9 +179,9 @@ export type ProfilePageType = {
     status: string;
 }
 
-export type AddPostActionType = {
+export type AddPostToStateActionType = {
     type: 'profile/ADD_POST';
-    newPostText: string
+    newPost: NewPostType;
 }
 export type DeletePostActionType = {
     type: 'profile/DELETE_POST';
@@ -190,9 +199,15 @@ export type SavePhotoSuccessActionType = {
     type: 'profile/SAVE_PHOTO_SUCCESS';
     photos: PhotosProfileAPIType;
 }
+export type NewPostType = {
+    id: string;
+    message: string;
+    date: Date;
+    senderUserID: number;
+};
 
 export type ActionsType =
-    AddPostActionType
+    AddPostToStateActionType
     | DeletePostActionType
     | SetUserProfileActionType
     | SetStatusActionType

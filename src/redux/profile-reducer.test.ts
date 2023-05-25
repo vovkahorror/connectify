@@ -1,10 +1,11 @@
-import profileReducer, {addPostAC, deletePostAC, ProfilePageType} from './profile-reducer';
+import profileReducer, {addPostToState, deletePostAC, ProfilePageType} from './profile-reducer';
+import {v1} from 'uuid';
 
 const state: ProfilePageType = {
     postsData: [
-        {id: '1', message: 'I\'m glad to see you here', likes: 5},
-        {id: '2', message: 'Hello! How are you?', likes: 4},
-        {id: '3', message: 'It\'s my firs post', likes: 3},
+        {id: '1', message: 'I\'m glad to see you here', date: new Date()},
+        {id: '2', message: 'Hello! How are you?', date: new Date()},
+        {id: '3', message: 'It\'s my firs post', date: new Date()},
     ],
     profile: null,
     status: '',
@@ -12,7 +13,13 @@ const state: ProfilePageType = {
 
 it('length of posts should be incremented', () => {
     // 1. test data
-    const action = addPostAC('hello');
+    const newPost = {
+        id: v1(),
+        message: 'hello',
+        date: new Date(),
+        senderUserID: 1,
+    };
+    const action = addPostToState(newPost);
 
     // 2. action
     const newState = profileReducer(state, action);
@@ -23,7 +30,13 @@ it('length of posts should be incremented', () => {
 
 it('message of new post should be correct', () => {
     // 1. test data
-    const action = addPostAC('hello');
+    const newPost = {
+        id: v1(),
+        message: 'hello',
+        date: new Date(),
+        senderUserID: 1,
+    };
+    const action = addPostToState(newPost);
 
     // 2. action
     const newState = profileReducer(state, action);

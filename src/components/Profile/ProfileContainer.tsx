@@ -59,7 +59,8 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType, Profil
         return (
             <>
                 {this.props.isFetching ? <Preloader/> : null}
-                <Profile isOwner={!this.props.match.params.userID} {...this.props}/>
+                <Profile isOwner={!this.props.match.params.userID}
+                         userID={+this.props.match.params.userID || this.props.authorizedUserID as number} {...this.props}/>
             </>
         );
     };

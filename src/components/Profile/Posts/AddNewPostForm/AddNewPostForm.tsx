@@ -5,9 +5,9 @@ import {Textarea} from '../../../common/FormsControls/FormsControls';
 
 const maxLength70 = maxLengthCreator(70);
 
-const AddNewPostForm: FC<InjectedFormProps<FormDataType>> = (props) => {
+const AddNewPostForm: FC<InjectedFormProps<FormDataType>> = ({handleSubmit}) => {
     return (
-        <form onSubmit={props.handleSubmit}>
+        <form onSubmit={handleSubmit}>
             <div>
                 <Field component={Textarea} name={'newPostText'} validate={[required, maxLength70]}
                        placeholder={'Post message'}/>
