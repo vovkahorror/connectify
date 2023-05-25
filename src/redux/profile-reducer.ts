@@ -5,6 +5,7 @@ import {ThunkDispatch} from 'redux-thunk';
 import {toggleIsFetching} from './app-reducer';
 import {stopSubmit} from 'redux-form';
 import {setUserPhoto} from './auth-reducer';
+import {v1} from 'uuid';
 
 const ADD_POST = 'profile/ADD_POST';
 const SET_USER_PROFILE = 'profile/SET_USER_PROFILE';
@@ -14,9 +15,9 @@ const SAVE_PHOTO_SUCCESS = 'profile/SAVE_PHOTO_SUCCESS';
 
 const initialState: ProfilePageType = {
     postsData: [
-        {id: 1, message: 'I\'m glad to see you here', likes: 5},
-        {id: 2, message: 'Hello! How are you?', likes: 4},
-        {id: 3, message: 'It\'s my firs post', likes: 3},
+        {id: '1', message: 'I\'m glad to see you here', likes: 5},
+        {id: '2', message: 'Hello! How are you?', likes: 4},
+        {id: '3', message: 'It\'s my firs post', likes: 3},
     ],
     profile: null,
     status: '',
@@ -26,11 +27,11 @@ const profileReducer = (state = initialState, action: ActionsType): ProfilePageT
     switch (action.type) {
         case ADD_POST:
             const newPost = {
-                id: 4,
+                id: v1(),
                 message: action.newPostText,
                 likes: 0,
             };
-            return {...state, postsData: [...state.postsData, newPost]};
+            return {...state, postsData: [newPost, ...state.postsData]};
 
         case DELETE_POST:
             return {...state, postsData: state.postsData.filter(post => post.id !== action.postID)};
@@ -52,7 +53,7 @@ const profileReducer = (state = initialState, action: ActionsType): ProfilePageT
 
 export const addPostAC = (newPostText: string): AddPostActionType => ({type: ADD_POST, newPostText});
 
-export const deletePostAC = (postID: number): DeletePostActionType => ({type: DELETE_POST, postID});
+export const deletePostAC = (postID: string): DeletePostActionType => ({type: DELETE_POST, postID});
 
 export const setUserProfile = (profile: ProfileAPIType): SetUserProfileActionType => ({
     type: SET_USER_PROFILE,
@@ -159,7 +160,7 @@ export type ProfileAPIType = {
     photos: PhotosProfileAPIType;
 }
 export type PostsDataType = {
-    id: number;
+    id: string;
     message: string;
     likes: number;
 }
@@ -175,7 +176,7 @@ export type AddPostActionType = {
 }
 export type DeletePostActionType = {
     type: 'profile/DELETE_POST';
-    postID: number;
+    postID: string;
 }
 export type SetUserProfileActionType = {
     type: 'profile/SET_USER_PROFILE';

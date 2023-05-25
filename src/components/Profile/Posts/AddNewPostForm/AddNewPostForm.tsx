@@ -3,10 +3,6 @@ import React, {FC} from 'react';
 import {maxLengthCreator, required} from '../../../../utils/validators/validators';
 import {Textarea} from '../../../common/FormsControls/FormsControls';
 
-export type FormDataType = {
-    newPostText: string;
-}
-
 const maxLength70 = maxLengthCreator(70);
 
 const AddNewPostForm: FC<InjectedFormProps<FormDataType>> = (props) => {
@@ -20,5 +16,9 @@ const AddNewPostForm: FC<InjectedFormProps<FormDataType>> = (props) => {
         </form>
     );
 };
+
+export type FormDataType = {
+    newPostText: string;
+}
 
 export const AddNewPostFormRedux = reduxForm<FormDataType>({form: 'profileAddPostForm'})(AddNewPostForm);

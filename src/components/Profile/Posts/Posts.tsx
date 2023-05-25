@@ -1,6 +1,6 @@
 import React, {memo} from 'react';
 import {Post} from './Post/Post';
-import styles from './Posts.module.css';
+import styles from './Posts.module.scss';
 import {PostsDataType} from '../../../redux/profile-reducer';
 import {AddNewPostFormRedux, FormDataType} from './AddNewPostForm/AddNewPostForm';
 
@@ -19,8 +19,7 @@ export const Posts = memo((props: PostsPropsType) => {
     };
 
     return (
-        <div className={styles.postsBlock}>
-            <h3>My posts</h3>
+        <div className={styles.postsSection}>
             <AddNewPostFormRedux onSubmit={onAddPost}/>
             <div>
                 {postsElements}

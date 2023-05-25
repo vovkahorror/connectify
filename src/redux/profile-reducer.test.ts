@@ -2,9 +2,9 @@ import profileReducer, {addPostAC, deletePostAC, ProfilePageType} from './profil
 
 const state: ProfilePageType = {
     postsData: [
-        {id: 1, message: 'I\'m glad to see you here', likes: 5},
-        {id: 2, message: 'Hello! How are you?', likes: 4},
-        {id: 3, message: 'It\'s my firs post', likes: 3},
+        {id: '1', message: 'I\'m glad to see you here', likes: 5},
+        {id: '2', message: 'Hello! How are you?', likes: 4},
+        {id: '3', message: 'It\'s my firs post', likes: 3},
     ],
     profile: null,
     status: '',
@@ -34,7 +34,7 @@ it('message of new post should be correct', () => {
 
 it('after deleting length of posts should be decrement', () => {
     // 1. test data
-    const action = deletePostAC(1);
+    const action = deletePostAC('1');
 
     // 2. action
     const newState = profileReducer(state, action);
@@ -45,7 +45,7 @@ it('after deleting length of posts should be decrement', () => {
 
 it('after deleting length shouldn\'t be decrement if id is incorrect', () => {
     // 1. test data
-    const action = deletePostAC(100);
+    const action = deletePostAC('100');
 
     // 2. action
     const newState = profileReducer(state, action);
