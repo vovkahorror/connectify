@@ -4,11 +4,11 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  width: max-content;
   text-decoration: none;
   color: $textColor;
 
   &:hover, &:hover * {
-    width: max-content;
     color: $mainSecondColor;
     fill: $mainSecondColor;
   }

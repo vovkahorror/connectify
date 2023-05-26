@@ -1,4 +1,4 @@
-import profileReducer, {addPostToState, deletePostAC, ProfilePageType} from './profile-reducer';
+import profileReducer, {addPostToState, setPosts, ProfilePageType} from './profile-reducer';
 import {v1} from 'uuid';
 
 const state: ProfilePageType = {
@@ -42,12 +42,15 @@ it('message of new post should be correct', () => {
     const newState = profileReducer(state, action);
 
     // 3. expectation
-    expect(newState.postsData[3].message).toBe('hello');
+    expect(newState.postsData[0].message).toBe('hello');
 });
 
 it('after deleting length of posts should be decrement', () => {
     // 1. test data
-    const action = deletePostAC('1');
+    const updatedPostsData = [
+        {id: '1', message: 'I\'m glad to see you here', date: new Date()},
+        {id: '3', message: 'It\'s my firs post', date: new Date()}];
+    const action = setPosts(updatedPostsData);
 
     // 2. action
     const newState = profileReducer(state, action);
@@ -58,7 +61,11 @@ it('after deleting length of posts should be decrement', () => {
 
 it('after deleting length shouldn\'t be decrement if id is incorrect', () => {
     // 1. test data
-    const action = deletePostAC('100');
+    const updatedPostsData = [
+        {id: '1', message: 'I\'m glad to see you here', date: new Date()},
+        {id: '2', message: 'Hello! How are you?', date: new Date()},
+        {id: '3', message: 'It\'s my firs post', date: new Date()}];
+    const action = setPosts(updatedPostsData);
 
     // 2. action
     const newState = profileReducer(state, action);

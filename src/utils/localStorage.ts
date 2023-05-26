@@ -1,4 +1,4 @@
-import {NewPostType} from '../redux/profile-reducer';
+import {NewPostType, PostDataType} from '../redux/profile-reducer';
 
 export const savePosts = (userID: number, newPost: NewPostType) => {
     try {
@@ -11,6 +11,31 @@ export const savePosts = (userID: number, newPost: NewPostType) => {
             localStorage.setItem('posts', JSON.stringify({[userID]: [newPost]}));
         }
     } catch {
+        return undefined;
+    }
+};
 
+export const updateSavedPosts = (userID: number, updatedPostsData: PostDataType[]) => {
+    try {
+        const serializedPosts = localStorage.getItem('posts');
+        if (serializedPosts) {
+            const savedPosts = JSON.parse(serializedPosts);
+            savedPosts[userID] = updatedPostsData;
+            localStorage.setItem('posts', JSON.stringify(savedPosts));
+        }
+    } catch {
+        return undefined;
+    }
+};
+
+export const loadPosts = (userID: number) => {
+    try {
+        const serializedPosts = localStorage.getItem('posts');
+        if (serializedPosts) {
+            return JSON.parse(serializedPosts)[userID];
+        }
+        return undefined;
+    } catch (err) {
+        return undefined;
     }
 };

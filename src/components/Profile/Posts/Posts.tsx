@@ -1,22 +1,24 @@
-import React, {memo} from 'react';
+import React, {memo, useEffect} from 'react';
 import {Post} from './Post/Post';
 import styles from './Posts.module.scss';
-import {PostsDataType} from '../../../redux/profile-reducer';
+import {PostDataType} from '../../../redux/profile-reducer';
 import {AddNewPostFormRedux, FormDataType} from './AddNewPostForm/AddNewPostForm';
-import {useDispatch} from 'react-redux';
-import {reset} from 'redux-form';
+import {loadPosts} from '../../../utils/localStorage';
 
 export const Posts = memo((props: PostsPropsType) => {
-    const dispatch = useDispatch();
-
     const postsElements = props.postsData.map(post => {
-        return <Post key={post.id} message={post.message} date={post.date}/>;
+        return <Post key={post.id} userID={props.userID} postID={post.id} message={post.message} date={post.date}/>;
     });
 
     const onAddPost = (values: FormDataType) => {
         props.addPost(props.userID, values.newPostText);
-        dispatch(reset('profileAddPostForm'));
+        props.reset('profileAddPostForm');
     };
+
+    useEffect(() => {
+        const savedPosts = loadPosts(props.userID);
+        props.setPosts(savedPosts);
+    }, []);
 
     return (
         <div className={styles.postsSection}>
@@ -30,7 +32,9 @@ export const Posts = memo((props: PostsPropsType) => {
 
 type PostsPropsType = {
     addPost: (userID: number, newPostText: string) => void;
+    setPosts: (updatedPostsData: PostDataType[]) => void;
+    reset: (formName: string) => void;
     userID: number;
-    postsData: Array<PostsDataType>;
+    postsData: Array<PostDataType>;
 }
 

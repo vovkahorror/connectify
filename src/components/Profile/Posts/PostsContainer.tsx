@@ -1,12 +1,12 @@
 import React from 'react';
-import {addPost, PostsDataType} from '../../../redux/profile-reducer';
+import {addPost, PostDataType, setPosts} from '../../../redux/profile-reducer';
 import {Posts} from './Posts';
 import {AppStateType} from '../../../redux/redux-store';
 import {connect} from 'react-redux';
+import {reset} from 'redux-form';
 
 type mapStateToPropsType = {
-    postsData: PostsDataType[];
-
+    postsData: PostDataType[];
 }
 
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
@@ -15,4 +15,4 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     };
 };
 
-export const PostsContainer = connect(mapStateToProps, {addPost})(Posts);
+export const PostsContainer = connect(mapStateToProps, {addPost, setPosts, reset})(Posts);
