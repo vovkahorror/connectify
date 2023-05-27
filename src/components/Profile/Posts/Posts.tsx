@@ -1,9 +1,8 @@
 import React, {memo, useEffect} from 'react';
 import {Post} from './Post/Post';
 import styles from './Posts.module.scss';
-import {PostDataType} from '../../../redux/profile-reducer';
+import {PostDataType, setPosts} from '../../../redux/profile-reducer';
 import {AddNewPostFormRedux, FormDataType} from './AddNewPostForm/AddNewPostForm';
-import {loadPosts} from '../../../utils/localStorage';
 
 export const Posts = memo((props: PostsPropsType) => {
     const postsElements = props.postsData.map(post => {
@@ -16,9 +15,12 @@ export const Posts = memo((props: PostsPropsType) => {
     };
 
     useEffect(() => {
-        const savedPosts = loadPosts(props.userID);
-        props.setPosts(savedPosts);
-    }, []);
+        props.getPosts(props.userID);
+
+        return () => {
+            setPosts([]);
+        };
+    }, [props]);
 
     return (
         <div className={styles.postsSection}>
@@ -31,6 +33,7 @@ export const Posts = memo((props: PostsPropsType) => {
 });
 
 type PostsPropsType = {
+    getPosts: (userID: number) => void;
     addPost: (userID: number, newPostText: string) => void;
     setPosts: (updatedPostsData: PostDataType[]) => void;
     reset: (formName: string) => void;

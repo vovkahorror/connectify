@@ -23,5 +23,5 @@ export type PostType = {
     userID: number;
     postID: string;
     message: string;
-    date: Date;
+    date: string;
 }

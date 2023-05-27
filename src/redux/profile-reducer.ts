@@ -6,7 +6,7 @@ import {toggleIsFetching} from './app-reducer';
 import {stopSubmit} from 'redux-form';
 import {setUserPhoto} from './auth-reducer';
 import {v1} from 'uuid';
-import {savePosts, updateSavedPosts} from '../utils/localStorage';
+import {postsAPI} from '../api/firebaseApi';
 
 const ADD_POST = 'profile/ADD_POST';
 const SET_USER_PROFILE = 'profile/SET_USER_PROFILE';
@@ -43,7 +43,7 @@ const profileReducer = (state = initialState, action: ActionsType): ProfilePageT
     }
 };
 
-export const addPostToState = (newPost: NewPostType): AddPostToStateActionType => ({type: ADD_POST, newPost});
+export const addPostToState = (newPost: PostDataType): AddPostToStateActionType => ({type: ADD_POST, newPost});
 
 export const setPosts = (updatedPostsData: PostDataType[]): SetPostsActionType => ({
     type: SET_POSTS,
@@ -65,27 +65,54 @@ export const setStatus = (status: string): SetStatusActionType => ({
     status,
 });
 
+export const getPosts = (userID: number) => {
+    return async (dispatch: Dispatch) => {
+        try {
+            const response = await postsAPI.getPosts(userID);
+            if (response) {
+                const postsData: PostDataType[] = Object.values(response);
+                const updatedPostsData = postsData.sort((a, b) => b.date.localeCompare(a.date));
+                dispatch(setPosts(updatedPostsData));
+            }
+        } catch (e) {
+            const error = e as Error;
+            alert(error.message);
+        }
+    };
+};
+
 export const addPost = (userID: number, newPostText: string) => {
-    return (dispatch: Dispatch, getState: () => AppStateType) => {
+    return async (dispatch: Dispatch, getState: () => AppStateType) => {
         const senderUserID = getState().auth.id as number;
 
         const newPost = {
             id: v1(),
             message: newPostText,
-            date: new Date(),
+            date: new Date().toJSON(),
             senderUserID,
         };
 
-        dispatch(addPostToState(newPost));
-        savePosts(userID, newPost);
+
+        try {
+            await postsAPI.addPost(userID, newPost);
+            dispatch(addPostToState(newPost));
+        } catch (e) {
+            const error = e as Error;
+            dispatch(stopSubmit('profileAddPostForm', {_error: error.message}));
+        }
     };
 };
 
 export const deletePost = (userID: number, postID: string) => {
-    return (dispatch: Dispatch, getState: () => AppStateType) => {
-        const updatedPostsData = getState().profilePage.postsData.filter(post => post.id !== postID);
-        dispatch(setPosts(updatedPostsData));
-        updateSavedPosts(userID, updatedPostsData);
+    return async (dispatch: Dispatch, getState: () => AppStateType) => {
+        try {
+            await postsAPI.deletePost(userID, postID);
+            const updatedPostsData = getState().profilePage.postsData.filter(post => post.id !== postID);
+            dispatch(setPosts(updatedPostsData));
+        } catch (e) {
+            const error = e as Error;
+            alert(error.message);
+        }
     };
 };
 
@@ -181,7 +208,8 @@ export type ProfileAPIType = {
 export type PostDataType = {
     id: string;
     message: string;
-    date: Date;
+    date: string;
+    senderUserID: number;
 }
 export type ProfilePageType = {
     postsData: Array<PostDataType>;
@@ -191,7 +219,7 @@ export type ProfilePageType = {
 
 export type AddPostToStateActionType = {
     type: 'profile/ADD_POST';
-    newPost: NewPostType;
+    newPost: PostDataType;
 }
 export type SetPostsActionType = {
     type: 'profile/SET_POSTS';
@@ -209,12 +237,6 @@ export type SavePhotoSuccessActionType = {
     type: 'profile/SAVE_PHOTO_SUCCESS';
     photos: PhotosProfileAPIType;
 }
-export type NewPostType = {
-    id: string;
-    message: string;
-    date: Date;
-    senderUserID: number;
-};
 
 export type ActionsType =
     AddPostToStateActionType

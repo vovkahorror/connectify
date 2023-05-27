@@ -3,9 +3,9 @@ import {v1} from 'uuid';
 
 const state: ProfilePageType = {
     postsData: [
-        {id: '1', message: 'I\'m glad to see you here', date: new Date()},
-        {id: '2', message: 'Hello! How are you?', date: new Date()},
-        {id: '3', message: 'It\'s my firs post', date: new Date()},
+        {id: '1', message: 'I\'m glad to see you here', date: JSON.stringify(new Date()), senderUserID: 1},
+        {id: '2', message: 'Hello! How are you?', date: JSON.stringify(new Date()), senderUserID: 1},
+        {id: '3', message: 'It\'s my firs post', date: JSON.stringify(new Date()), senderUserID: 1},
     ],
     profile: null,
     status: '',
@@ -16,7 +16,7 @@ it('length of posts should be incremented', () => {
     const newPost = {
         id: v1(),
         message: 'hello',
-        date: new Date(),
+        date: JSON.stringify(new Date()),
         senderUserID: 1,
     };
     const action = addPostToState(newPost);
@@ -33,7 +33,7 @@ it('message of new post should be correct', () => {
     const newPost = {
         id: v1(),
         message: 'hello',
-        date: new Date(),
+        date: JSON.stringify(new Date()),
         senderUserID: 1,
     };
     const action = addPostToState(newPost);
@@ -48,8 +48,8 @@ it('message of new post should be correct', () => {
 it('after deleting length of posts should be decrement', () => {
     // 1. test data
     const updatedPostsData = [
-        {id: '1', message: 'I\'m glad to see you here', date: new Date()},
-        {id: '3', message: 'It\'s my firs post', date: new Date()}];
+        {id: '1', message: 'I\'m glad to see you here', date: JSON.stringify(new Date()), senderUserID: 1},
+        {id: '3', message: 'It\'s my firs post', date: JSON.stringify(new Date()), senderUserID: 1}];
     const action = setPosts(updatedPostsData);
 
     // 2. action
@@ -62,9 +62,9 @@ it('after deleting length of posts should be decrement', () => {
 it('after deleting length shouldn\'t be decrement if id is incorrect', () => {
     // 1. test data
     const updatedPostsData = [
-        {id: '1', message: 'I\'m glad to see you here', date: new Date()},
-        {id: '2', message: 'Hello! How are you?', date: new Date()},
-        {id: '3', message: 'It\'s my firs post', date: new Date()}];
+        {id: '1', message: 'I\'m glad to see you here', date: JSON.stringify(new Date()), senderUserID: 1},
+        {id: '2', message: 'Hello! How are you?', date: JSON.stringify(new Date()), senderUserID: 1},
+        {id: '3', message: 'It\'s my firs post', date: JSON.stringify(new Date()), senderUserID: 1}];
     const action = setPosts(updatedPostsData);
 
     // 2. action
