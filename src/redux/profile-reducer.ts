@@ -26,7 +26,7 @@ const profileReducer = (state = initialState, action: ActionsType): ProfilePageT
             return {...state, postsData: [action.newPost, ...state.postsData]};
 
         case SET_POSTS:
-            return {...state, postsData: action.updatedPostsData};
+            return {...state, postsData: [...action.updatedPostsData]};
 
         case SET_STATUS:
             return {...state, status: action.status};
@@ -65,61 +65,24 @@ export const setStatus = (status: string): SetStatusActionType => ({
     status,
 });
 
-export const getPosts = (userID: number) => {
-    return async (dispatch: Dispatch) => {
+export const getProfilePage = (userID: number) => {
+    return async (dispatch: ThunkDispatch<AppStateType, any, AnyAction>) => {
+        dispatch(toggleIsFetching(true));
+
         try {
-            const response = await postsAPI.getPosts(userID);
-            if (response) {
-                const postsData: PostDataType[] = Object.values(response);
-                const updatedPostsData = postsData.sort((a, b) => b.date.localeCompare(a.date));
-                dispatch(setPosts(updatedPostsData));
-            }
+            const res = await Promise.all([getUserProfile(userID), getPosts(userID), getStatus(userID)]);
+            return await Promise.all(res.map(item => dispatch(item)));
         } catch (e) {
             const error = e as Error;
             alert(error.message);
-        }
-    };
-};
-
-export const addPost = (userID: number, newPostText: string) => {
-    return async (dispatch: Dispatch, getState: () => AppStateType) => {
-        const senderUserID = getState().auth.id as number;
-
-        const newPost = {
-            id: v1(),
-            message: newPostText,
-            date: new Date().toJSON(),
-            senderUserID,
-        };
-
-
-        try {
-            await postsAPI.addPost(userID, newPost);
-            dispatch(addPostToState(newPost));
-        } catch (e) {
-            const error = e as Error;
-            dispatch(stopSubmit('profileAddPostForm', {_error: error.message}));
-        }
-    };
-};
-
-export const deletePost = (userID: number, postID: string) => {
-    return async (dispatch: Dispatch, getState: () => AppStateType) => {
-        try {
-            await postsAPI.deletePost(userID, postID);
-            const updatedPostsData = getState().profilePage.postsData.filter(post => post.id !== postID);
-            dispatch(setPosts(updatedPostsData));
-        } catch (e) {
-            const error = e as Error;
-            alert(error.message);
+        } finally {
+            dispatch(toggleIsFetching(false));
         }
     };
 };
 
 export const getUserProfile = (userID: number) => {
     return async (dispatch: Dispatch, getState: () => AppStateType) => {
-        dispatch(toggleIsFetching(true));
-
         const currentUserID = getState().auth.id;
         const response = await profileAPI.getProfile(userID);
         if (currentUserID === userID) {
@@ -127,7 +90,6 @@ export const getUserProfile = (userID: number) => {
         }
 
         dispatch(setUserProfile(response.data));
-        dispatch(toggleIsFetching(false));
     };
 };
 
@@ -181,6 +143,51 @@ export const saveProfile = (profile: ProfileAPIType) => {
     };
 };
 
+
+export const getPosts = (userID: number) => {
+    return async (dispatch: Dispatch) => {
+        const response = await postsAPI.getPosts(userID);
+        if (response) {
+            const postsData: PostDataType[] = Object.values(response);
+            const updatedPostsData = postsData.sort((a, b) => b.date.localeCompare(a.date));
+            dispatch(setPosts(updatedPostsData));
+        } else {
+            dispatch(setPosts([]));
+        }
+    };
+};
+
+export const addPost = (userID: number, newPostText: string) => {
+    return async (dispatch: Dispatch, getState: () => AppStateType) => {
+        const senderUserID = getState().auth.id as number;
+
+        const newPost = {
+            id: v1(),
+            message: newPostText,
+            date: new Date().toJSON(),
+            senderUserID,
+        };
+
+
+        try {
+            await postsAPI.addPost(userID, newPost);
+            dispatch(addPostToState(newPost));
+        } catch (e) {
+            const error = e as Error;
+            dispatch(stopSubmit('profileAddPostForm', {_error: error.message}));
+        }
+    };
+};
+
+export const deletePost = (userID: number, postID: string) => {
+    return async (dispatch: Dispatch, getState: () => AppStateType) => {
+        await postsAPI.deletePost(userID, postID);
+        const updatedPostsData = getState().profilePage.postsData.filter(post => post.id !== postID);
+        dispatch(setPosts(updatedPostsData));
+    };
+};
+
+
 // types
 export type PhotosProfileAPIType = {
     small: string | null;
@@ -202,7 +209,7 @@ export type ProfileAPIType = {
     lookingForAJob: boolean | null;
     lookingForAJobDescription: string | null;
     fullName: string | null;
-    userID: number;
+    userId: number;
     photos: PhotosProfileAPIType;
 }
 export type PostDataType = {

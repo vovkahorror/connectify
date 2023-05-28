@@ -8,7 +8,7 @@ export const Profile = (props: ProfilePropsType) => {
     return (
         <main className={styles.main}>
             <ProfileInfo {...props}/>
-            <PostsContainer userID={props.userID}/>
+            <PostsContainer profile={props.profile}/>
         </main>
     );
 };
@@ -17,7 +17,6 @@ type ProfilePropsType = {
     profile: ProfileAPIType | null;
     status: string;
     isOwner: boolean;
-    userID: number;
     updateStatus: (status: string) => void;
     savePhoto: (file: File) => void;
     saveProfile: (formData: ProfileAPIType) => Promise<boolean>;

@@ -9,6 +9,7 @@ import {initializeApp} from './redux/app-reducer';
 import {AppStateType, store} from './redux/redux-store';
 import {Preloader} from './components/common/Preloader/Preloader';
 import {withSuspense} from './hoc/withSuspense';
+import {Alert} from 'antd';
 
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
@@ -20,7 +21,7 @@ const Settings = React.lazy(() => import('./components/Settings/Settings'));
 
 class App extends React.Component<AppPropsType, AppStateType> {
     caughtAllUnhandledRejection = (event: PromiseRejectionEvent) => {
-        alert(event.promise);
+        return <Alert message={event.promise.catch(error => error.message || 'Some error occurred')} type={'error'}/>;
     };
 
     componentDidMount() {

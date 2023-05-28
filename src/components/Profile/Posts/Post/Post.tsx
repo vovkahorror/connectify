@@ -3,11 +3,13 @@ import styles from './Post.module.css';
 import {useDispatch} from 'react-redux';
 import {deletePost} from '../../../../redux/profile-reducer';
 
-export const Post: FC<PostType> = ({userID, postID, message, date}) => {
+export const Post: FC<PostPropsType> = ({userID, postID, message, date}) => {
     const dispatch = useDispatch();
 
     const deletePostHandler = () => {
-        dispatch(deletePost(userID, postID));
+        if (userID) {
+            dispatch(deletePost(userID, postID));
+        }
     };
 
     return (
@@ -19,8 +21,8 @@ export const Post: FC<PostType> = ({userID, postID, message, date}) => {
     );
 };
 
-export type PostType = {
-    userID: number;
+export type PostPropsType = {
+    userID: number | null;
     postID: string;
     message: string;
     date: string;

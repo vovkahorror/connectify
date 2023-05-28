@@ -1,4 +1,4 @@
-import profileReducer, {addPostToState, setPosts, ProfilePageType} from './profile-reducer';
+import profileReducer, {addPostToState, setPosts, ProfilePageType, ProfileAPIType} from './profile-reducer';
 import {v1} from 'uuid';
 
 const state: ProfilePageType = {
@@ -7,7 +7,7 @@ const state: ProfilePageType = {
         {id: '2', message: 'Hello! How are you?', date: JSON.stringify(new Date()), senderUserID: 1},
         {id: '3', message: 'It\'s my firs post', date: JSON.stringify(new Date()), senderUserID: 1},
     ],
-    profile: null,
+    profile: {} as ProfileAPIType,
     status: '',
 };
 

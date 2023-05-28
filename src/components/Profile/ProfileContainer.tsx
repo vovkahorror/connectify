@@ -1,10 +1,10 @@
 import React, {ComponentType} from 'react';
 import {
-    getStatus,
-    getUserProfile,
+    getProfilePage,
     ProfileAPIType,
     ProfilePageType,
-    savePhoto, saveProfile,
+    savePhoto,
+    saveProfile,
     updateStatus,
 } from '../../redux/profile-reducer';
 import {Profile} from './Profile';
@@ -26,8 +26,7 @@ type MapStateToPropsType = {
     isFetching: boolean;
 }
 type MapDispatchToPropsType = {
-    getUserProfile: (userID: number) => void;
-    getStatus: (userID: number) => void;
+    getProfilePage: (userID: number) => void;
     updateStatus: (status: string) => void;
     savePhoto: (file: File) => void;
     saveProfile: (formData: ProfileAPIType) => Promise<boolean>;
@@ -41,8 +40,7 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType, Profil
         if (!userID) {
             userID = this.props.authorizedUserID as number;
         }
-        this.props.getUserProfile(userID);
-        this.props.getStatus(userID);
+        this.props.getProfilePage(userID);
     }
 
     componentDidMount() {
@@ -59,8 +57,7 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType, Profil
         return (
             <>
                 {this.props.isFetching ? <Preloader/> : null}
-                <Profile isOwner={!this.props.match.params.userID}
-                         userID={+this.props.match.params.userID || this.props.authorizedUserID as number} {...this.props}/>
+                <Profile isOwner={!this.props.match.params.userID} {...this.props}/>
             </>
         );
     };
@@ -77,8 +74,7 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 };
 
 export default compose<ComponentType>(connect(mapStateToProps, {
-    getUserProfile,
-    getStatus,
+    getProfilePage,
     updateStatus,
     savePhoto,
     saveProfile,
