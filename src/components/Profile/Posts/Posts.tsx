@@ -4,17 +4,21 @@ import styles from './Posts.module.scss';
 import {PostDataType, ProfileAPIType} from '../../../redux/profile-reducer';
 import {AddNewPostFormRedux, FormDataType} from './AddNewPostForm/AddNewPostForm';
 
-export const Posts: FC<PostsPropsType> = memo(({profile, postsData, addPost, reset}) => {
-    const postsElements = postsData.map(post => {
-        return <Post key={post.id} userID={profile && profile.userId} postID={post.id}
-                     message={post.message}
-                     date={post.date}/>;
-    });
-
+export const Posts: FC<PostsPropsType> = memo(({profile, postsData, addPost, deletePost, reset}) => {
     const onAddPost = (values: FormDataType) => {
         addPost(profile?.userId as number, values.newPostText);
         reset('profileAddPostForm');
     };
+
+    const onDeletePost = (postID: string) => {
+        if (profile && profile.userId) {
+            deletePost(profile.userId, postID);
+        }
+    };
+
+    const postsElements = postsData.map(post => {
+        return <Post key={post.id} post={post} onDeletePost={onDeletePost}/>;
+    });
 
     return (
         <div className={styles.postsSection}>
@@ -28,6 +32,7 @@ export const Posts: FC<PostsPropsType> = memo(({profile, postsData, addPost, res
 
 type PostsPropsType = {
     addPost: (userID: number, newPostText: string) => void;
+    deletePost: (userID: number, postID: string) => void;
     reset: (formName: string) => void;
     profile: ProfileAPIType | null
     postsData: Array<PostDataType>;

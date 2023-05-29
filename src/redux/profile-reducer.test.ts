@@ -3,9 +3,30 @@ import {v1} from 'uuid';
 
 const state: ProfilePageType = {
     postsData: [
-        {id: '1', message: 'I\'m glad to see you here', date: JSON.stringify(new Date()), senderUserID: 1},
-        {id: '2', message: 'Hello! How are you?', date: JSON.stringify(new Date()), senderUserID: 1},
-        {id: '3', message: 'It\'s my firs post', date: JSON.stringify(new Date()), senderUserID: 1},
+        {
+            id: '1',
+            message: 'I\'m glad to see you here',
+            date: JSON.stringify(new Date()),
+            senderUserID: 1,
+            likes: [],
+            dislikes: [],
+        },
+        {
+            id: '2',
+            message: 'Hello! How are you?',
+            date: JSON.stringify(new Date()),
+            senderUserID: 1,
+            likes: [],
+            dislikes: [],
+        },
+        {
+            id: '3',
+            message: 'It\'s my firs post',
+            date: JSON.stringify(new Date()),
+            senderUserID: 1,
+            likes: [],
+            dislikes: [],
+        },
     ],
     profile: {} as ProfileAPIType,
     status: '',
@@ -18,6 +39,8 @@ it('length of posts should be incremented', () => {
         message: 'hello',
         date: JSON.stringify(new Date()),
         senderUserID: 1,
+        likes: [],
+        dislikes: [],
     };
     const action = addPostToState(newPost);
 
@@ -35,6 +58,8 @@ it('message of new post should be correct', () => {
         message: 'hello',
         date: JSON.stringify(new Date()),
         senderUserID: 1,
+        likes: [],
+        dislikes: [],
     };
     const action = addPostToState(newPost);
 
@@ -48,23 +73,48 @@ it('message of new post should be correct', () => {
 it('after deleting length of posts should be decrement', () => {
     // 1. test data
     const updatedPostsData = [
-        {id: '1', message: 'I\'m glad to see you here', date: JSON.stringify(new Date()), senderUserID: 1},
-        {id: '3', message: 'It\'s my firs post', date: JSON.stringify(new Date()), senderUserID: 1}];
+        {
+            id: '1',
+            message: 'I\'m glad to see you here',
+            date: JSON.stringify(new Date()),
+            senderUserID: 1,
+            likes: [],
+            dislikes: [],
+        },
+        {
+            id: '3',
+            message: 'It\'s my firs post',
+            date: JSON.stringify(new Date()),
+            senderUserID: 1,
+            likes: [],
+            dislikes: [],
+        },
+    ];
     const action = setPosts(updatedPostsData);
 
-    // 2. action
+// 2. action
     const newState = profileReducer(state, action);
 
-    // 3. expectation
+// 3. expectation
     expect(newState.postsData.length).toBe(2);
-});
+})
+;
 
 it('after deleting length shouldn\'t be decrement if id is incorrect', () => {
     // 1. test data
     const updatedPostsData = [
-        {id: '1', message: 'I\'m glad to see you here', date: JSON.stringify(new Date()), senderUserID: 1},
-        {id: '2', message: 'Hello! How are you?', date: JSON.stringify(new Date()), senderUserID: 1},
-        {id: '3', message: 'It\'s my firs post', date: JSON.stringify(new Date()), senderUserID: 1}];
+        {
+            id: '1', message: 'I\'m glad to see you here', date: JSON.stringify(new Date()), senderUserID: 1, likes: [],
+            dislikes: [],
+        },
+        {
+            id: '2', message: 'Hello! How are you?', date: JSON.stringify(new Date()), senderUserID: 1, likes: [],
+            dislikes: [],
+        },
+        {
+            id: '3', message: 'It\'s my firs post', date: JSON.stringify(new Date()), senderUserID: 1, likes: [],
+            dislikes: [],
+        }];
     const action = setPosts(updatedPostsData);
 
     // 2. action

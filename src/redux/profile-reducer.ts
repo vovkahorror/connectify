@@ -147,6 +147,7 @@ export const saveProfile = (profile: ProfileAPIType) => {
 export const getPosts = (userID: number) => {
     return async (dispatch: Dispatch) => {
         const response = await postsAPI.getPosts(userID);
+        debugger
         if (response) {
             const postsData: PostDataType[] = Object.values(response);
             const updatedPostsData = postsData.sort((a, b) => b.date.localeCompare(a.date));
@@ -166,6 +167,8 @@ export const addPost = (userID: number, newPostText: string) => {
             message: newPostText,
             date: new Date().toJSON(),
             senderUserID,
+            likes: [],
+            dislikes: [],
         };
 
 
@@ -217,6 +220,8 @@ export type PostDataType = {
     message: string;
     date: string;
     senderUserID: number;
+    likes: number[];
+    dislikes: number[];
 }
 export type ProfilePageType = {
     postsData: Array<PostDataType>;
