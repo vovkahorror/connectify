@@ -1,0 +1,5 @@
+@import '../../../../styles/sass/mixins.scss';
+
+.post {
+  @include contentBlock();
+}

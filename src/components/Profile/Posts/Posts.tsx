@@ -8,13 +8,14 @@ export const Posts: FC<PostsPropsType> = memo(({
                                                    profile,
                                                    postsData,
                                                    userPhoto,
+                                                   userName,
                                                    addPost,
                                                    putReaction,
                                                    deletePost,
                                                    reset,
                                                }) => {
     const onAddPost = (values: FormDataType) => {
-        addPost(profile?.userId as number, values.newPostText);
+        addPost(profile?.userId as number, values.newPostText, userPhoto, userName);
         reset('profileAddPostForm');
     };
 
@@ -41,12 +42,13 @@ export const Posts: FC<PostsPropsType> = memo(({
 });
 
 type PostsPropsType = {
-    addPost: (userID: number, newPostText: string) => void;
+    addPost: (userID: number, newPostText: string, userPhoto?: string | null, userName?: string | null) => void;
     putReaction: (userID: number, postID: string, action: 'likes' | 'dislikes') => void;
     deletePost: (userID: number, postID: string) => void;
     reset: (formName: string) => void;
     profile: ProfileAPIType | null;
     userPhoto?: string | null;
+    userName?: string | null;
     postsData: Array<PostDataType>;
 }
 

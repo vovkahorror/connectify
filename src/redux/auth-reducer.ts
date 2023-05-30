@@ -7,12 +7,14 @@ import {stopSubmit} from 'redux-form';
 const SET_USER_DATA = 'auth/SET_USER_DATA';
 const GET_CAPTCHA_URL_SUCCESS = 'auth/GET_CAPTCHA_URL_SUCCESS';
 const SET_USER_PHOTO = 'auth/SET_USER_PHOTO';
+const SET_USER_NAME = 'auth/SET_USER_NAME';
 
 const initialState: AuthStateType = {
     id: null,
     email: null,
     login: null,
     photo: null,
+    fullName: null,
     isAuth: false,
     captcha: null,
 };
@@ -22,6 +24,7 @@ const authReducer = (state = initialState, action: ActionsType): AuthStateType =
         case SET_USER_DATA:
         case GET_CAPTCHA_URL_SUCCESS:
         case SET_USER_PHOTO:
+        case SET_USER_NAME:
             return {...state, ...action.payload};
 
         default:
@@ -50,6 +53,13 @@ export const setUserPhoto = (photo: string | null) => ({
     type: SET_USER_PHOTO,
     payload: {
         photo,
+    },
+});
+
+export const setUserName = (fullName: string | null) => ({
+    type: SET_USER_NAME,
+    payload: {
+        fullName,
     },
 });
 
@@ -107,6 +117,7 @@ type AuthDataType = {
     email: string | null;
     login: string | null;
     photo?: string | null;
+    fullName?: string | null;
 }
 
 export type AuthStateType = AuthDataType & {
@@ -133,6 +144,17 @@ type SetUserPhotoActionType = {
     }
 }
 
-type ActionsType = SetAuthUserDataActionType | GetCaptchaUrlSuccessActionType | SetUserPhotoActionType;
+type SetUserNameActionType = {
+    type: 'auth/SET_USER_NAME';
+    payload: {
+        fullName: string | null;
+    }
+}
+
+type ActionsType =
+    SetAuthUserDataActionType
+    | GetCaptchaUrlSuccessActionType
+    | SetUserPhotoActionType
+    | SetUserNameActionType;
 
 export default authReducer;

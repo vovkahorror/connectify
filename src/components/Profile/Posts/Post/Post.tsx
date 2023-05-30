@@ -1,6 +1,7 @@
 import React, {FC} from 'react';
-import styles from './Post.module.css';
+import styles from './Post.module.scss';
 import {PostDataType} from '../../../../redux/profile-reducer';
+import userPhoto from '../../../../assets/images/user.svg';
 
 export const Post: FC<PostPropsType> = ({post, onPutReaction, onDeletePost}) => {
     const putLikeHandler = () => onPutReaction(post.id, 'likes');
@@ -10,8 +11,9 @@ export const Post: FC<PostPropsType> = ({post, onPutReaction, onDeletePost}) => 
     const deletePostHandler = () => onDeletePost(post.id);
 
     return (
-        <div className={styles.item}>
-            <img src="https://www.terminal-a.com.ua/wp-content/uploads/2017/05/Koala.jpg" alt=""/>
+        <div className={styles.post}>
+            <span>{post.senderName}</span>
+            <img src={post.senderPhoto || userPhoto} alt=""/>
             <span>{post.message}</span> <span>Date: {new Date(post.date).toLocaleDateString()}</span>
             <button onClick={putLikeHandler}>Like: {post.likes.length}</button>
             <button onClick={putDislikeHandler}>Dislike: {post.dislikes.length}</button>
