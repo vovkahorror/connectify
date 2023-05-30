@@ -1,5 +1,5 @@
 import React from 'react';
-import {addPost, deletePost, PostDataType, putLike} from '../../../redux/profile-reducer';
+import {addPost, deletePost, PostDataType, putReaction} from '../../../redux/profile-reducer';
 import {Posts} from './Posts';
 import {AppStateType} from '../../../redux/redux-store';
 import {connect} from 'react-redux';
@@ -15,4 +15,4 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     };
 };
 
-export const PostsContainer = connect(mapStateToProps, {addPost, putLike, deletePost, reset})(Posts);
+export const PostsContainer = connect(mapStateToProps, {addPost, putReaction, deletePost, reset})(Posts);

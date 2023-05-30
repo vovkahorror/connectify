@@ -4,14 +4,14 @@ import styles from './Posts.module.scss';
 import {PostDataType, ProfileAPIType} from '../../../redux/profile-reducer';
 import {AddNewPostFormRedux, FormDataType} from './AddNewPostForm/AddNewPostForm';
 
-export const Posts: FC<PostsPropsType> = memo(({profile, postsData, addPost, putLike, deletePost, reset}) => {
+export const Posts: FC<PostsPropsType> = memo(({profile, postsData, addPost, putReaction, deletePost, reset}) => {
     const onAddPost = (values: FormDataType) => {
         addPost(profile?.userId as number, values.newPostText);
         reset('profileAddPostForm');
     };
 
-    const onPutLike = (postID: string) => {
-        profile && putLike(profile.userId, postID);
+    const onPutReaction = (postID: string, reactions: 'likes' | 'dislikes') => {
+        profile && putReaction(profile.userId, postID, reactions);
     };
 
     const onDeletePost = (postID: string) => {
@@ -19,7 +19,7 @@ export const Posts: FC<PostsPropsType> = memo(({profile, postsData, addPost, put
     };
 
     const postsElements = postsData.map(post => {
-        return <Post key={post.id} post={post} onPutLike={onPutLike} onDeletePost={onDeletePost}/>;
+        return <Post key={post.id} post={post} onPutReaction={onPutReaction} onDeletePost={onDeletePost}/>;
     });
 
     return (
@@ -34,7 +34,7 @@ export const Posts: FC<PostsPropsType> = memo(({profile, postsData, addPost, put
 
 type PostsPropsType = {
     addPost: (userID: number, newPostText: string) => void;
-    putLike: (userID: number, postID: string) => void;
+    putReaction: (userID: number, postID: string, action: 'likes' | 'dislikes') => void;
     deletePost: (userID: number, postID: string) => void;
     reset: (formName: string) => void;
     profile: ProfileAPIType | null

@@ -2,8 +2,10 @@ import React, {FC} from 'react';
 import styles from './Post.module.css';
 import {PostDataType} from '../../../../redux/profile-reducer';
 
-export const Post: FC<PostPropsType> = ({post, onPutLike, onDeletePost}) => {
-    const putLikeHandler = () => onPutLike(post.id);
+export const Post: FC<PostPropsType> = ({post, onPutReaction, onDeletePost}) => {
+    const putLikeHandler = () => onPutReaction(post.id, 'likes');
+
+    const putDislikeHandler = () => onPutReaction(post.id, 'dislikes');
 
     const deletePostHandler = () => onDeletePost(post.id);
 
@@ -12,7 +14,7 @@ export const Post: FC<PostPropsType> = ({post, onPutLike, onDeletePost}) => {
             <img src="https://www.terminal-a.com.ua/wp-content/uploads/2017/05/Koala.jpg" alt=""/>
             <span>{post.message}</span> <span>Date: {new Date(post.date).toLocaleDateString()}</span>
             <button onClick={putLikeHandler}>Like: {post.likes.length}</button>
-            <button>Dislike</button>
+            <button onClick={putDislikeHandler}>Dislike: {post.dislikes.length}</button>
             <button onClick={deletePostHandler}>Delete</button>
         </div>
     );
@@ -20,6 +22,6 @@ export const Post: FC<PostPropsType> = ({post, onPutLike, onDeletePost}) => {
 
 export type PostPropsType = {
     post: PostDataType;
-    onPutLike: (postID: string) => void;
+    onPutReaction: (postID: string, reactions: 'likes' | 'dislikes') => void;
     onDeletePost: (postID: string) => void;
 }
