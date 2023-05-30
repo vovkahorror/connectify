@@ -143,14 +143,19 @@ export const saveProfile = (profile: ProfileAPIType) => {
     };
 };
 
-
 export const getPosts = (userID: number) => {
     return async (dispatch: Dispatch) => {
         const response = await postsAPI.getPosts(userID);
         debugger
         if (response) {
             const postsData: PostDataType[] = Object.values(response);
-            const updatedPostsData = postsData.sort((a, b) => b.date.localeCompare(a.date));
+
+            const updatedPostsData = postsData.map(post => ({
+                ...post,
+                likes: post.likes ? [...post.likes] : [],
+                dislikes: post.dislikes ? [...post.dislikes] : [],
+            })).sort((a, b) => b.date.localeCompare(a.date));
+
             dispatch(setPosts(updatedPostsData));
         } else {
             dispatch(setPosts([]));
@@ -179,6 +184,20 @@ export const addPost = (userID: number, newPostText: string) => {
             const error = e as Error;
             dispatch(stopSubmit('profileAddPostForm', {_error: error.message}));
         }
+    };
+};
+
+export const putLike = (userID: number, postID: string) => {
+    return async (dispatch: Dispatch, getState: () => AppStateType) => {
+        const senderUserID = getState().auth.id as number;
+        const post = getState().profilePage.postsData.find(post => post.id === postID) as PostDataType;
+        const updatedPost = post.likes.includes(senderUserID)
+            ? {...post, likes: post.likes.filter(userID => userID !== senderUserID)}
+            : {...post, likes: [...post.likes, senderUserID]};
+
+        await postsAPI.updatePost(userID, updatedPost);
+        const updatedPostsData = getState().profilePage.postsData.map(post => post.id === updatedPost.id ? updatedPost : post);
+        dispatch(setPosts(updatedPostsData));
     };
 };
 

@@ -37,7 +37,8 @@ export const ProfileStatusWithHooks: FC<ProfileStatusPropsType> = ({status, isOw
                            autoFocus={true}
                            onBlur={deactivateEditMode}
                            value={localStatus}/>
-                </div>}
+                </div>
+            }
         </>
     );
 };

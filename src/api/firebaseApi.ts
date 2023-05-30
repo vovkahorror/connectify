@@ -27,6 +27,9 @@ export const postsAPI = {
     addPost(userID: number, newPost: PostDataType) {
         return set(ref(database, `posts/${userID}/${newPost.id}`), newPost);
     },
+    updatePost(userID: number, post: PostDataType) {
+        return set(ref(database, `posts/${userID}/${post.id}`), post);
+    },
     deletePost(userID: number, postID: string) {
         return remove(ref(database, `posts/${userID}/${postID}`));
     },
