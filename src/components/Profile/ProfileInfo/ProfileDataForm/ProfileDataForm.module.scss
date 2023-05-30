@@ -87,20 +87,11 @@
     gap: 20px;
 
     .submitButton, .cancelButton {
-      padding: 10px 40px;
-      width: min-content;
-      @include text();
-      border: none;
-      cursor: pointer;
-    }
-
-    .submitButton {
-      color: #ffffff;
-      background: #377dff;
-      border-radius: 8px;
+      @include button();
     }
 
     .cancelButton {
+      color: $textColor;
       background: none;
     }
   }

@@ -50,22 +50,27 @@ export const ProfileData: FC<ProfileDataPropsType> = ({profile, isOwner, status,
         }
     });
 
+    const noInfo = <span className={styles.noInfo}>no information</span>;
+
     return (
         <div className={styles.profileData}>
             {isOwner && <EditIcon className={styles.editButton} onClick={goToEditMode}>Edit</EditIcon>}
             <h2 className={styles.fullName}>{profile.fullName}</h2>
             <ProfileStatusWithHooks status={status} isOwner={isOwner} updateStatus={updateStatus}/>
             <ul className={styles.infoList}>
-                <li><span className={styles.itemTitle}>About me:</span> {profile.aboutMe}</li>
+                <li><span className={styles.itemTitle}>About me:</span> {profile.aboutMe || noInfo}</li>
                 <li><span className={styles.itemTitle}>Looking for a job:</span> {profile.lookingForAJob ? 'yes' : 'no'}
                 </li>
                 {profile.lookingForAJob && <li><span
-                    className={styles.itemTitle}>My professional skills:</span> {profile.lookingForAJobDescription}
+                    className={styles.itemTitle}>My professional skills:</span> {profile.lookingForAJobDescription || noInfo}
                 </li>}
-                <li><span className={styles.itemTitle}>Contacts:</span>
-                    <ul className={styles.contactsList}>
-                        {mappedContacts}
-                    </ul>
+                <li><span className={styles.itemTitle}>Contacts: </span>
+                    {!!Object.values(profile.contacts).filter(value => value !== null).length
+                        ? <ul className={styles.contactsList}>
+                            {mappedContacts}
+                        </ul>
+                        : noInfo
+                    }
                 </li>
             </ul>
         </div>

@@ -4,7 +4,15 @@ import styles from './Posts.module.scss';
 import {PostDataType, ProfileAPIType} from '../../../redux/profile-reducer';
 import {AddNewPostFormRedux, FormDataType} from './AddNewPostForm/AddNewPostForm';
 
-export const Posts: FC<PostsPropsType> = memo(({profile, postsData, addPost, putReaction, deletePost, reset}) => {
+export const Posts: FC<PostsPropsType> = memo(({
+                                                   profile,
+                                                   postsData,
+                                                   userPhoto,
+                                                   addPost,
+                                                   putReaction,
+                                                   deletePost,
+                                                   reset,
+                                               }) => {
     const onAddPost = (values: FormDataType) => {
         addPost(profile?.userId as number, values.newPostText);
         reset('profileAddPostForm');
@@ -24,8 +32,8 @@ export const Posts: FC<PostsPropsType> = memo(({profile, postsData, addPost, put
 
     return (
         <div className={styles.postsSection}>
-            <AddNewPostFormRedux onSubmit={onAddPost}/>
-            <div>
+            <AddNewPostFormRedux initialValues={{userPhoto}} onSubmit={onAddPost}/>
+            <div className={styles.posts}>
                 {postsElements}
             </div>
         </div>
@@ -37,7 +45,8 @@ type PostsPropsType = {
     putReaction: (userID: number, postID: string, action: 'likes' | 'dislikes') => void;
     deletePost: (userID: number, postID: string) => void;
     reset: (formName: string) => void;
-    profile: ProfileAPIType | null
+    profile: ProfileAPIType | null;
+    userPhoto?: string | null;
     postsData: Array<PostDataType>;
 }
 

@@ -7,11 +7,13 @@ import {reset} from 'redux-form';
 
 type mapStateToPropsType = {
     postsData: PostDataType[];
+    userPhoto?: string | null;
 }
 
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
         postsData: state.profilePage.postsData,
+        userPhoto: state.auth.photo,
     };
 };
 

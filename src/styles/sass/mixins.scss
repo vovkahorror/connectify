@@ -18,3 +18,18 @@ $boxShadow: 0 6px 20px rgba(0, 0, 0, 0.04), $backdropFilter: blur(25px)) {
   box-shadow: $boxShadow;
   backdrop-filter: $backdropFilter;
 }
+
+@mixin button($padding: 10px 40px, $width: min-content, $color: #ffffff, $background: $mainSecondColor, $border: none, $borderRadius: 8px, $cursor: pointer) {
+  padding: $padding;
+  width: $width;
+  @include text();
+  color: $color;
+  background: $background;
+  border: $border;
+  border-radius: $borderRadius;
+  cursor: $cursor;
+
+  &:hover {
+    filter: contrast(200%);
+  }
+}
