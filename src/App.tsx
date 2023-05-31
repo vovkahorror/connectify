@@ -1,7 +1,7 @@
 import React, {ComponentType} from 'react';
 import './App.scss';
 import {Navbar} from './components/Navbar/Navbar';
-import {HashRouter, Redirect, Route, Switch, withRouter} from 'react-router-dom';
+import {BrowserRouter, Redirect, Route, Switch, withRouter} from 'react-router-dom';
 import HeaderContainer from './components/Header/HeaderContainer';
 import {connect, Provider} from 'react-redux';
 import {compose} from 'redux';
@@ -68,11 +68,11 @@ const AppContainer = compose<ComponentType>(withRouter, connect(mapStateToProps,
 
 const SocialNetworkApp = () => {
     return (
-        <HashRouter>
+        <BrowserRouter basename={'samurai-way'}>
             <Provider store={store}>
                 <AppContainer/>
             </Provider>
-        </HashRouter>
+        </BrowserRouter>
     );
 };
 
