@@ -31,9 +31,11 @@ export const initializedSuccess = () => ({type: INITIALIZED_SUCCESS});
 
 export const initializeApp = () => async (dispatch: ThunkDispatch<AppStateType, any, AnyAction>) => {
     const authPromise = await dispatch(getAuthUserData());
-    const currentUserProfile = await dispatch(getProfileForInitialize(authPromise.data.data.id));
-    dispatch(setUserPhoto(currentUserProfile.data.photos.large));
-    dispatch(setUserName(currentUserProfile.data.fullName));
+    if (authPromise.data.resultCode === 0) {
+        const currentUserProfile = await dispatch(getProfileForInitialize(authPromise.data.data.id));
+        dispatch(setUserPhoto(currentUserProfile.data.photos.large));
+        dispatch(setUserName(currentUserProfile.data.fullName));
+    }
     return dispatch(initializedSuccess());
 };
 
