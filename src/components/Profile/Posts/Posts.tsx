@@ -6,16 +6,16 @@ import {AddNewPostFormRedux, FormDataType} from './AddNewPostForm/AddNewPostForm
 
 export const Posts: FC<PostsPropsType> = memo(({
                                                    profile,
+                                                   userID,
                                                    postsData,
                                                    userPhoto,
-                                                   userName,
                                                    addPost,
                                                    putReaction,
                                                    deletePost,
                                                    reset,
                                                }) => {
     const onAddPost = (values: FormDataType) => {
-        addPost(profile?.userId as number, values.newPostText, userPhoto, userName);
+        addPost(profile?.userId as number, values.newPostText);
         reset('profileAddPostForm');
     };
 
@@ -28,7 +28,8 @@ export const Posts: FC<PostsPropsType> = memo(({
     };
 
     const postsElements = postsData.map(post => {
-        return <Post key={post.id} post={post} onPutReaction={onPutReaction} onDeletePost={onDeletePost}/>;
+        return <Post key={post.id} userID={userID} post={post} profile={profile} onPutReaction={onPutReaction}
+                     onDeletePost={onDeletePost}/>;
     });
 
     return (
@@ -47,8 +48,8 @@ type PostsPropsType = {
     deletePost: (userID: number, postID: string) => void;
     reset: (formName: string) => void;
     profile: ProfileAPIType | null;
+    userID: number | null;
     userPhoto?: string | null;
-    userName?: string | null;
     postsData: Array<PostDataType>;
 }
 

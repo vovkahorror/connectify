@@ -12,7 +12,7 @@ const AddNewPostForm: FC<InjectedFormProps<FormDataType>> = ({initialValues: {us
                 <Field className={styles.message} component={Textarea} name={'newPostText'}
                        placeholder={'Write a post'}/>
             </div>
-            <button className={styles.button} disabled={!form.length}>Publish a post</button>
+            <button className={styles.button} disabled={!form.length}>Post</button>
         </form>
     );
 };

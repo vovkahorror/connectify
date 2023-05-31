@@ -1,6 +1,7 @@
 import {ThunkDispatch} from 'redux-thunk';
 import {AnyAction} from 'redux';
-import {getAuthUserData} from './auth-reducer';
+import {getAuthUserData, setUserName, setUserPhoto} from './auth-reducer';
+import {getProfileForInitialize} from './profile-reducer';
 
 const INITIALIZED_SUCCESS = 'app/INITIALIZED_SUCCESS';
 const TOGGLE_IS_FETCHING = 'app/TOGGLE_IS_FETCHING';
@@ -28,10 +29,12 @@ const appReducer = (state = initialState, action: ActionsType): AppStateType => 
 
 export const initializedSuccess = () => ({type: INITIALIZED_SUCCESS});
 
-export const initializeApp = () => (dispatch: ThunkDispatch<AppStateType, any, AnyAction>) => {
-    const promise = dispatch(getAuthUserData());
-
-    Promise.all([promise]).then(() => dispatch(initializedSuccess()));
+export const initializeApp = () => async (dispatch: ThunkDispatch<AppStateType, any, AnyAction>) => {
+    const authPromise = await dispatch(getAuthUserData());
+    const currentUserProfile = await dispatch(getProfileForInitialize(authPromise.data.data.id));
+    dispatch(setUserPhoto(currentUserProfile.data.photos.large));
+    dispatch(setUserName(currentUserProfile.data.fullName));
+    return dispatch(initializedSuccess());
 };
 
 export const toggleIsFetching = (isFetching: boolean): ToggleIsFetchingActionType => ({

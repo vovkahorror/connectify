@@ -4,7 +4,7 @@ import {AppStateType} from './redux-store';
 import {ThunkDispatch} from 'redux-thunk';
 import {toggleIsFetching} from './app-reducer';
 import {stopSubmit} from 'redux-form';
-import {setUserName, setUserPhoto} from './auth-reducer';
+import {setUserPhoto} from './auth-reducer';
 import {v1} from 'uuid';
 import {postsAPI} from '../api/firebaseApi';
 
@@ -82,17 +82,13 @@ export const getProfilePage = (userID: number) => {
 };
 
 export const getUserProfile = (userID: number) => {
-    return async (dispatch: Dispatch, getState: () => AppStateType) => {
-        const currentUserID = getState().auth.id;
+    return async (dispatch: Dispatch) => {
         const response = await profileAPI.getProfile(userID);
-        if (currentUserID === userID) {
-            dispatch(setUserPhoto(response.data.photos.large));
-            dispatch(setUserName(response.data.fullName));
-        }
-
         dispatch(setUserProfile(response.data));
     };
 };
+
+export const getProfileForInitialize = (userID: number) => async () => await profileAPI.getProfile(userID);
 
 export const getStatus = (userID: number) => {
     return async (dispatch: Dispatch) => {
@@ -164,7 +160,7 @@ export const getPosts = (userID: number) => {
     };
 };
 
-export const addPost = (userID: number, newPostText: string, senderPhoto?: string | null, senderName?: string | null) => {
+export const addPost = (userID: number, newPostText: string) => {
     return async (dispatch: Dispatch, getState: () => AppStateType) => {
         const senderUserID = getState().auth.id as number;
 
@@ -173,8 +169,6 @@ export const addPost = (userID: number, newPostText: string, senderPhoto?: strin
             message: newPostText,
             date: new Date().toJSON(),
             senderUserID,
-            senderPhoto,
-            senderName,
             likes: [],
             dislikes: [],
         };
@@ -252,8 +246,6 @@ export type PostDataType = {
     message: string;
     date: string;
     senderUserID: number;
-    senderPhoto?: string | null;
-    senderName?: string | null;
     likes: number[];
     dislikes: number[];
 }

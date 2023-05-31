@@ -1,5 +1,70 @@
+@import '../../../../styles/sass/variables.scss';
 @import '../../../../styles/sass/mixins.scss';
 
 .post {
-  @include contentBlock();
+  @include contentBlock($gap: 30px);
+  flex-direction: column;
+
+  .postHeader {
+    position: relative;
+    display: grid;
+    grid-template-areas: 'a n' 'a d';
+    width: max-content;
+
+    .photo {
+      grid-area: a;
+      margin-right: 20px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+
+    .name {
+      @include text();
+    }
+
+    .date {
+      display: flex;
+      gap: 15px;
+      @include text($fontSize: 12px, $lineHeight: 18px);
+    }
+  }
+
+  .message {
+    @include text($fontSize: 20px, $fontWeight: 400);
+  }
+
+  .reactions {
+    display: flex;
+    gap: 30px;
+
+    .reactionItem {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      font-weight: 700;
+
+      .reactionIcon {
+        width: 25px;
+        cursor: pointer;
+
+        &:hover * {
+          fill: $mainSecondColor;
+        }
+      }
+    }
+  }
+
+  .deletePost {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    width: 16px;
+    opacity: 0.7;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
 }
