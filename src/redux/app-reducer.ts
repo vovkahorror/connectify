@@ -30,13 +30,19 @@ const appReducer = (state = initialState, action: ActionsType): AppStateType => 
 export const initializedSuccess = () => ({type: INITIALIZED_SUCCESS});
 
 export const initializeApp = () => async (dispatch: ThunkDispatch<AppStateType, any, AnyAction>) => {
-    const authPromise = await dispatch(getAuthUserData());
-    if (authPromise.data.resultCode === 0) {
-        const currentUserProfile = await dispatch(getProfileForInitialize(authPromise.data.data.id));
-        dispatch(setUserPhoto(currentUserProfile.data.photos.large));
-        dispatch(setUserName(currentUserProfile.data.fullName));
+    try {
+        const authPromise = await dispatch(getAuthUserData());
+        if (authPromise.data.resultCode === 0) {
+            const currentUserProfile = await dispatch(getProfileForInitialize(authPromise.data.data.id));
+            dispatch(setUserPhoto(currentUserProfile.data.photos.large));
+            dispatch(setUserName(currentUserProfile.data.fullName));
+        }
+    } catch (e) {
+        const error = e as Error;
+        alert(error.message);
+    } finally {
+        dispatch(initializedSuccess());
     }
-    return dispatch(initializedSuccess());
 };
 
 export const toggleIsFetching = (isFetching: boolean): ToggleIsFetchingActionType => ({
