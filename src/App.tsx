@@ -68,7 +68,7 @@ const AppContainer = compose<ComponentType>(withRouter, connect(mapStateToProps,
 
 const SocialNetworkApp = () => {
     return (
-        <HashRouter>
+        <HashRouter basename={'/samurai-way'}>
             <Provider store={store}>
                 <AppContainer/>
             </Provider>
