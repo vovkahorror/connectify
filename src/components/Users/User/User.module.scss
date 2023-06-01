@@ -1,0 +1,43 @@
+@import '../../../styles/sass/variables';
+@import '../../../styles/sass/mixins';
+
+.user {
+  @include contentBlock($gap: 20px);
+  flex: 1 0 360px;
+
+  .userPhoto {
+    width: 120px;
+    border-radius: 50%;
+  }
+
+  .userInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+
+    .userName {
+      @include text($fontSize: 18px);
+      text-decoration: none;
+    }
+
+    .userStatus {
+      @include text($fontSize: 14px, $lineHeight: 18px);
+      opacity: 60%;
+    }
+
+    .followButton, .unfollowButton {
+      @include button($padding: 6px 20px);
+      align-self: flex-end;
+      width: 70%;
+      max-width: 150px;
+      border: 2px solid #ffffff;
+    }
+
+    .unfollowButton {
+      color: $textColor;
+      background: none;
+      border: 2px solid $textColor;
+    }
+  }
+}

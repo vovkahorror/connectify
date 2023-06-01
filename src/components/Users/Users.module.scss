@@ -1,0 +1,11 @@
+@import '../../styles/sass/mixins';
+
+.main {
+  @include pageWrapper();
+
+  .usersList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+}
