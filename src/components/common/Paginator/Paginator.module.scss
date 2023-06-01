@@ -1,0 +1,39 @@
+@import '../../../styles/sass/variables';
+@import '../../../styles/sass/mixins';
+
+.paginator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+
+  .buttonsBlock {
+    display: flex;
+    margin: 0 10px;
+
+    .navigationButton {
+      display: flex;
+      align-items: center;
+      padding: 0;
+      background: none;
+      border: none;
+      cursor: pointer;
+
+      &:disabled {
+        opacity: 0.5;
+        pointer-events: none;
+      }
+    }
+  }
+
+  .pageNumber {
+    @include text($fontWeight: 400);
+    cursor: pointer;
+  }
+
+  .selectedPageNumber {
+    font-weight: 700;
+  }
+
+}

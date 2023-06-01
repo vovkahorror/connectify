@@ -3,7 +3,9 @@
 
 .user {
   @include contentBlock($gap: 20px);
-  flex: 1 0 360px;
+  flex: 1 0 380px;
+  max-width: 380px;
+  word-break: break-word;
 
   .userPhoto {
     width: 120px;

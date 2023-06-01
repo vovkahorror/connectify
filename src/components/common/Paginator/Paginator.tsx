@@ -1,7 +1,11 @@
-import styles from './Paginator.module.css';
+import styles from './Paginator.module.scss';
 import React, {useState} from 'react';
 import {v1} from 'uuid';
 import classNames from 'classnames';
+import {ReactComponent as ArrowLeft} from '../../../assets/icons/arrowLeft.svg';
+import {ReactComponent as ArrowRight} from '../../../assets/icons/arrowRight.svg';
+import {ReactComponent as ArrowLeftDouble} from '../../../assets/icons/arrowLeftDouble.svg';
+import {ReactComponent as ArrowRightDouble} from '../../../assets/icons/arrowRightDouble.svg';
 
 export const Paginator = ({
                               currentPage,
@@ -24,11 +28,15 @@ export const Paginator = ({
 
     return (
         <div className={styles.paginator}>
-            <button disabled={portionNumber === 1} onClick={() => setPortionNumber(1)}>{'<---'}</button>
-            <button disabled={portionNumber === 1} onClick={() => setPortionNumber(portionNumber - 1)}>{'<--'}</button>
+            <div className={styles.buttonsBlock}>
+                <button className={styles.navigationButton} disabled={portionNumber === 1}
+                        onClick={() => setPortionNumber(1)}><ArrowLeftDouble/></button>
+                <button className={styles.navigationButton} disabled={portionNumber === 1}
+                        onClick={() => setPortionNumber(portionNumber - 1)}><ArrowLeft/>
+                </button>
+            </div>
 
-            {pages
-                .filter(page => page >= leftPortionPageNumber && page <= rightPortionPageNumber)
+            {pages.filter(page => page >= leftPortionPageNumber && page <= rightPortionPageNumber)
                 .map(page => {
                     return (
                         <span key={v1()}
@@ -38,10 +46,12 @@ export const Paginator = ({
                     );
                 })}
 
-            <button disabled={portionNumber === portionCount}
-                    onClick={() => setPortionNumber(portionNumber + 1)}>{'-->'}</button>
-            <button disabled={portionNumber === portionCount}
-                    onClick={() => setPortionNumber(portionCount)}>{'--->'}</button>
+            <div className={styles.buttonsBlock}>
+                <button className={styles.navigationButton} disabled={portionNumber === portionCount}
+                        onClick={() => setPortionNumber(portionNumber + 1)}><ArrowRight/></button>
+                <button className={styles.navigationButton} disabled={portionNumber === portionCount}
+                        onClick={() => setPortionNumber(portionCount)}><ArrowRightDouble/></button>
+            </div>
         </div>
     );
 };
