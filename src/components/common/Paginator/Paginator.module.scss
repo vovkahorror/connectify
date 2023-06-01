@@ -5,7 +5,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
   width: 100%;
 
   .buttonsBlock {
@@ -27,13 +26,25 @@
     }
   }
 
+  .pageNumbersBlock {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
   .pageNumber {
+    padding: 2px 8px;
     @include text($fontWeight: 400);
+    border: 1px solid transparent;
+    border-radius: 6px;
     cursor: pointer;
   }
 
   .selectedPageNumber {
     font-weight: 700;
+    color: $mainSecondColor;
+    border: 1px solid $mainSecondColor;
   }
 
 }

@@ -36,15 +36,17 @@ export const Paginator = ({
                 </button>
             </div>
 
-            {pages.filter(page => page >= leftPortionPageNumber && page <= rightPortionPageNumber)
-                .map(page => {
-                    return (
-                        <span key={v1()}
-                              className={classNames(styles.pageNumber, {[styles.selectedPageNumber]: currentPage === page})}
-                              onClick={() => onPageChanged(page)}
-                        >{page}</span>
-                    );
-                })}
+            <div className={styles.pageNumbersBlock}>
+                {pages.filter(page => page >= leftPortionPageNumber && page <= rightPortionPageNumber)
+                    .map(page => {
+                        return (
+                            <span key={v1()}
+                                  className={classNames(styles.pageNumber, {[styles.selectedPageNumber]: currentPage === page})}
+                                  onClick={() => onPageChanged(page)}
+                            >{page}</span>
+                        );
+                    })}
+            </div>
 
             <div className={styles.buttonsBlock}>
                 <button className={styles.navigationButton} disabled={portionNumber === portionCount}
