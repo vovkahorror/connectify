@@ -17,13 +17,6 @@ export const Users = ({
                           follow,
                           unfollow,
                       }: UsersPropsType) => {
-    const pagesCount = Math.ceil(totalUsersCount / pageSize);
-    const pages = [];
-
-    for (let i = 1; i <= pagesCount; i++) {
-        pages.push(i);
-    }
-
     return (
         <main className={styles.main}>
             <UsersSearch nameSearch={nameSearch} setNameSearch={setNameSearch}/>
@@ -32,11 +25,15 @@ export const Users = ({
                        onPageChanged={onPageChanged}/>
 
             <div className={styles.usersList}>
-                {users.map((user: UserDataType) => <User key={user.id} user={user}
-                                                         followingInProgress={followingInProgress}
-                                                         follow={follow}
-                                                         unfollow={unfollow}/>)}
+                {users.map((user: UserDataType) =>
+                    <User key={user.id} user={user}
+                          followingInProgress={followingInProgress}
+                          follow={follow}
+                          unfollow={unfollow}/>)
+                }
             </div>
+
+            {!users.length && <span className={styles.notFound}>Users not found</span>}
         </main>
     );
 };

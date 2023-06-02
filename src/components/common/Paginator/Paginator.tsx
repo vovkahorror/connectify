@@ -29,9 +29,9 @@ export const Paginator = ({
     return (
         <div className={styles.paginator}>
             <div className={styles.buttonsBlock}>
-                <button className={styles.navigationButton} disabled={portionNumber === 1}
+                <button className={styles.navigationButton} disabled={portionNumber === 1 || !totalItemsCount}
                         onClick={() => setPortionNumber(1)}><ArrowLeftDouble/></button>
-                <button className={styles.navigationButton} disabled={portionNumber === 1}
+                <button className={styles.navigationButton} disabled={portionNumber === 1 || !totalItemsCount}
                         onClick={() => setPortionNumber(portionNumber - 1)}><ArrowLeft/>
                 </button>
             </div>
@@ -49,9 +49,11 @@ export const Paginator = ({
             </div>
 
             <div className={styles.buttonsBlock}>
-                <button className={styles.navigationButton} disabled={portionNumber === portionCount}
+                <button className={styles.navigationButton}
+                        disabled={portionNumber === portionCount || !totalItemsCount}
                         onClick={() => setPortionNumber(portionNumber + 1)}><ArrowRight/></button>
-                <button className={styles.navigationButton} disabled={portionNumber === portionCount}
+                <button className={styles.navigationButton}
+                        disabled={portionNumber === portionCount || !totalItemsCount}
                         onClick={() => setPortionNumber(portionCount)}><ArrowRightDouble/></button>
             </div>
         </div>

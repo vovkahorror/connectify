@@ -2,10 +2,21 @@
 
 .main {
   @include pageWrapper();
+  height: 100%;
 
   .usersList {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
+  }
+
+  .notFound {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    @include text();
+    font-size: 24px;
+    font-weight: 700;
   }
 }

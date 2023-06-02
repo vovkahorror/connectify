@@ -1,10 +1,11 @@
+@import "../../../styles/sass/variables";
 @import "../../../styles/sass/mixins";
 
 .search {
   position: relative;
 
   .input {
-    padding: 10px 10px 10px 46px;
+    padding: 10px 46px;
     width: 100%;
     @include text();
     border-radius: 10px;
@@ -16,9 +17,21 @@
     }
   }
 
-  .icon {
+  .searchIcon {
     position: absolute;
     top: 15px;
     left: 20px;
+  }
+
+  .xmarkIcon {
+    position: absolute;
+    top: 12px;
+    right: 20px;
+    width: 16px;
+    cursor: pointer;
+
+    &:hover * {
+      fill: $mainSecondColor;
+    }
   }
 }

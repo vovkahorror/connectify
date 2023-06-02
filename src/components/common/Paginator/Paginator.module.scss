@@ -19,6 +19,10 @@
       border: none;
       cursor: pointer;
 
+      &:hover * {
+        fill: $mainSecondColor;
+      }
+
       &:disabled {
         opacity: 0.5;
         pointer-events: none;
@@ -39,6 +43,10 @@
     border: 1px solid transparent;
     border-radius: 6px;
     cursor: pointer;
+
+    &:hover {
+      color: $mainSecondColor;
+    }
   }
 
   .selectedPageNumber {

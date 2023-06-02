@@ -2,6 +2,7 @@ import React, {ChangeEvent, FC, useEffect, useState} from 'react';
 import {useDebounce} from 'usehooks-ts';
 import styles from './UsersSearch.module.scss';
 import {ReactComponent as SearchIcon} from '../../../assets/icons/search.svg';
+import {ReactComponent as XmarkIcon} from '../../../assets/icons/xmark.svg';
 
 export const UsersSearch: FC<UsersSearchPropsType> = ({nameSearch, setNameSearch}) => {
     const [value, setValue] = useState<string>(nameSearch);
@@ -9,6 +10,10 @@ export const UsersSearch: FC<UsersSearchPropsType> = ({nameSearch, setNameSearch
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         setValue(event.currentTarget.value);
+    };
+
+    const clearInput = () => {
+        setValue('');
     };
 
     useEffect(() => {
@@ -19,7 +24,8 @@ export const UsersSearch: FC<UsersSearchPropsType> = ({nameSearch, setNameSearch
         <div className={styles.search}>
             <input className={styles.input} type="text" value={value} placeholder={'Enter a name to search'}
                    onChange={handleChange}/>
-            <SearchIcon className={styles.icon}/>
+            <SearchIcon className={styles.searchIcon}/>
+            {value && <XmarkIcon className={styles.xmarkIcon} onClick={clearInput}/>}
         </div>
     );
 };

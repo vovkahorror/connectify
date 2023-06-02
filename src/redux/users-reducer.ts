@@ -39,9 +39,9 @@ const usersReducer = (state = initialState, action: ActionsType): UsersType => {
 
         case SET_CURRENT_PAGE:
             return {...state, currentPage: action.currentPage};
-            
+
         case SET_NAME_SEARCH:
-            return {...state, nameSearch: action.nameSearch};
+            return {...state, nameSearch: action.nameSearch, currentPage: 1};
 
         case SET_TOTAL_USERS_COUNT:
             return {...state, totalUsersCount: action.totalCount};
@@ -86,7 +86,7 @@ export const toggleIsFollowingInProgress = (isFollowingInProgress: boolean, user
     userID,
 });
 
-export const requestUsers = (pageNumber: number, pageSize: number, nameSearch: string, friend = false) => {
+export const requestUsers = (pageNumber: number, pageSize: number, nameSearch: string, friend?: boolean) => {
     return async (dispatch: Dispatch) => {
         dispatch(toggleIsFetching(true));
         dispatch(setCurrentPage(pageNumber));
