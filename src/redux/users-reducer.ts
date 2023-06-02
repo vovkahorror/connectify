@@ -7,6 +7,7 @@ const FOLLOW = 'users/FOLLOW';
 const UNFOLLOW = 'users/UNFOLLOW';
 const SET_USERS = 'users/SET_USERS';
 const SET_CURRENT_PAGE = 'users/SET_CURRENT_PAGE';
+const SET_NAME_SEARCH = 'users/SET_NAME_SEARCH';
 const SET_TOTAL_USERS_COUNT = 'users/SET_TOTAL_USERS_COUNT';
 const TOGGLE_IS_FOLLOWING_IN_PROGRESS = 'users/TOGGLE_IS_FOLLOWING_IN_PROGRESS';
 
@@ -15,6 +16,7 @@ const initialState: UsersType = {
     pageSize: 18,
     totalUsersCount: 0,
     currentPage: 1,
+    nameSearch: '',
     followingInProgress: [],
 };
 
@@ -37,6 +39,9 @@ const usersReducer = (state = initialState, action: ActionsType): UsersType => {
 
         case SET_CURRENT_PAGE:
             return {...state, currentPage: action.currentPage};
+            
+        case SET_NAME_SEARCH:
+            return {...state, nameSearch: action.nameSearch};
 
         case SET_TOTAL_USERS_COUNT:
             return {...state, totalUsersCount: action.totalCount};
@@ -70,18 +75,23 @@ export const setTotalUsersCount = (totalCount: number): SetTotalUsersCountAction
     totalCount,
 });
 
+export const setNameSearch = (nameSearch: string): SetNameSearchActionType => ({
+    type: SET_NAME_SEARCH,
+    nameSearch,
+});
+
 export const toggleIsFollowingInProgress = (isFollowingInProgress: boolean, userID: number): ToggleIsFollowingInProgressActionType => ({
     type: TOGGLE_IS_FOLLOWING_IN_PROGRESS,
     isFollowingInProgress,
     userID,
 });
 
-export const requestUsers = (pageNumber: number, pageSize: number) => {
+export const requestUsers = (pageNumber: number, pageSize: number, nameSearch: string, friend = false) => {
     return async (dispatch: Dispatch) => {
         dispatch(toggleIsFetching(true));
         dispatch(setCurrentPage(pageNumber));
 
-        const data = await usersAPI.getUsers(pageNumber, pageSize);
+        const data = await usersAPI.getUsers(pageNumber, pageSize, nameSearch, friend);
 
         dispatch(setUsers(data.items));
         dispatch(setTotalUsersCount(data.totalCount));
@@ -129,6 +139,7 @@ export type UsersType = {
     pageSize: number;
     totalUsersCount: number;
     currentPage: number;
+    nameSearch: string;
     followingInProgress: Array<number>;
 }
 
@@ -148,6 +159,10 @@ export type SetCurrentPageActionType = {
     type: 'users/SET_CURRENT_PAGE';
     currentPage: number;
 }
+export type SetNameSearchActionType = {
+    type: 'users/SET_NAME_SEARCH';
+    nameSearch: string;
+}
 export type SetTotalUsersCountActionType = {
     type: 'users/SET_TOTAL_USERS_COUNT';
     totalCount: number;
@@ -164,6 +179,7 @@ type ActionsType =
     | UnfollowSuccessActionType
     | SetUsersActionType
     | SetCurrentPageActionType
+    | SetNameSearchActionType
     | SetTotalUsersCountActionType
     | ToggleIsFollowingInProgressActionType;
 

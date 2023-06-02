@@ -1,0 +1,24 @@
+@import "../../../styles/sass/mixins";
+
+.search {
+  position: relative;
+
+  .input {
+    padding: 10px 10px 10px 46px;
+    width: 100%;
+    @include text();
+    border-radius: 10px;
+    border: 1px solid rgba(78, 93, 120, 0.4);
+    outline: none;
+
+    &::placeholder {
+      font-weight: 400;
+    }
+  }
+
+  .icon {
+    position: absolute;
+    top: 15px;
+    left: 20px;
+  }
+}

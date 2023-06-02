@@ -3,7 +3,7 @@ import {AppStateType} from '../../redux/redux-store';
 import {
     follow,
     requestUsers,
-    setCurrentPage,
+    setCurrentPage, setNameSearch,
     unfollow,
     UserDataType,
     UsersType,
@@ -27,13 +27,15 @@ type MapStateType = {
     pageSize: number;
     totalUsersCount: number;
     currentPage: number;
+    nameSearch: string;
     isFetching: boolean;
     followingInProgress: Array<number>;
 }
 
 type MapDispatchType = {
     setCurrentPage: (currentPage: number) => void;
-    requestUsers: (pageNumber: number, pageSize: number) => void;
+    setNameSearch: (nameSearch: string) => void;
+    requestUsers: (pageNumber: number, pageSize: number, nameSearch: string) => void;
     follow: (userID: number) => void;
     unfollow: (userID: number) => void;
 }
@@ -41,15 +43,25 @@ type MapDispatchType = {
 type UsersContainerPropsType = MapStateType & MapDispatchType;
 
 class UsersContainer extends React.Component<UsersContainerPropsType, UsersType> {
+    getUsers() {
+        const {currentPage, pageSize, nameSearch} = this.props;
+        this.props.requestUsers(currentPage, pageSize, nameSearch);
+    }
+
     componentDidMount() {
-        const {currentPage, pageSize} = this.props;
-        this.props.requestUsers(currentPage, pageSize);
+        this.getUsers();
+    }
+
+    componentDidUpdate(prevProps: Readonly<UsersContainerPropsType>) {
+        if (this.props.nameSearch !== prevProps.nameSearch) {
+            this.getUsers();
+        }
     }
 
     onPageChanged = (pageNumber: number) => {
-        const {pageSize, setCurrentPage, requestUsers} = this.props;
+        const {pageSize, nameSearch, setCurrentPage, requestUsers} = this.props;
         setCurrentPage(pageNumber);
-        requestUsers(pageNumber, pageSize);
+        requestUsers(pageNumber, pageSize, nameSearch);
     };
 
     render() {
@@ -61,7 +73,9 @@ class UsersContainer extends React.Component<UsersContainerPropsType, UsersType>
                     pageSize={this.props.pageSize}
                     totalUsersCount={this.props.totalUsersCount}
                     currentPage={this.props.currentPage}
+                    nameSearch={this.props.nameSearch}
                     followingInProgress={this.props.followingInProgress}
+                    setNameSearch={this.props.setNameSearch}
                     onPageChanged={this.onPageChanged}
                     follow={this.props.follow}
                     unfollow={this.props.unfollow}
@@ -77,6 +91,7 @@ const mapStateToProps = (state: AppStateType): MapStateType => {
         pageSize: getPageSize(state),
         totalUsersCount: getTotalUsersCount(state),
         currentPage: getCurrentPage(state),
+        nameSearch: state.usersPage.nameSearch,
         isFetching: getIsFetching(state),
         followingInProgress: getFollowingInProgress(state),
     };
@@ -84,6 +99,7 @@ const mapStateToProps = (state: AppStateType): MapStateType => {
 
 export default compose<ComponentType>(connect(mapStateToProps, {
     setCurrentPage,
+    setNameSearch,
     requestUsers,
     follow,
     unfollow,
