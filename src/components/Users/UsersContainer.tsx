@@ -3,7 +3,9 @@ import {AppStateType} from '../../redux/redux-store';
 import {
     follow,
     requestUsers,
-    setCurrentPage, setNameSearch,
+    setCurrentPage,
+    setNameSearch,
+    setOnlyFollowed,
     unfollow,
     UserDataType,
     UsersType,
@@ -28,6 +30,7 @@ type MapStateType = {
     totalUsersCount: number;
     currentPage: number;
     nameSearch: string;
+    onlyFollowed: boolean | null;
     isFetching: boolean;
     followingInProgress: Array<number>;
 }
@@ -35,7 +38,8 @@ type MapStateType = {
 type MapDispatchType = {
     setCurrentPage: (currentPage: number) => void;
     setNameSearch: (nameSearch: string) => void;
-    requestUsers: (pageNumber: number, pageSize: number, nameSearch: string) => void;
+    setOnlyFollowed: (onlyFollowed: boolean | null) => void;
+    requestUsers: (pageNumber: number, pageSize: number, nameSearch: string, onlyFollowed: boolean | null) => void;
     follow: (userID: number) => void;
     unfollow: (userID: number) => void;
 }
@@ -44,8 +48,8 @@ type UsersContainerPropsType = MapStateType & MapDispatchType;
 
 class UsersContainer extends React.Component<UsersContainerPropsType, UsersType> {
     getUsers() {
-        const {currentPage, pageSize, nameSearch} = this.props;
-        this.props.requestUsers(currentPage, pageSize, nameSearch);
+        const {currentPage, pageSize, nameSearch, onlyFollowed} = this.props;
+        this.props.requestUsers(currentPage, pageSize, nameSearch, onlyFollowed);
     }
 
     componentDidMount() {
@@ -53,15 +57,15 @@ class UsersContainer extends React.Component<UsersContainerPropsType, UsersType>
     }
 
     componentDidUpdate(prevProps: Readonly<UsersContainerPropsType>) {
-        if (this.props.nameSearch !== prevProps.nameSearch) {
+        if (this.props.nameSearch !== prevProps.nameSearch || this.props.onlyFollowed !== prevProps.onlyFollowed || this.props.currentPage !== prevProps.currentPage) {
             this.getUsers();
         }
     }
 
     onPageChanged = (pageNumber: number) => {
-        const {pageSize, nameSearch, setCurrentPage, requestUsers} = this.props;
+        const {pageSize, nameSearch, onlyFollowed, setCurrentPage, requestUsers} = this.props;
         setCurrentPage(pageNumber);
-        requestUsers(pageNumber, pageSize, nameSearch);
+        // requestUsers(pageNumber, pageSize, nameSearch, onlyFollowed);
     };
 
     render() {
@@ -74,8 +78,10 @@ class UsersContainer extends React.Component<UsersContainerPropsType, UsersType>
                     totalUsersCount={this.props.totalUsersCount}
                     currentPage={this.props.currentPage}
                     nameSearch={this.props.nameSearch}
+                    onlyFollowed={this.props.onlyFollowed}
                     followingInProgress={this.props.followingInProgress}
                     setNameSearch={this.props.setNameSearch}
+                    setOnlyFollowed={this.props.setOnlyFollowed}
                     onPageChanged={this.onPageChanged}
                     follow={this.props.follow}
                     unfollow={this.props.unfollow}
@@ -92,6 +98,7 @@ const mapStateToProps = (state: AppStateType): MapStateType => {
         totalUsersCount: getTotalUsersCount(state),
         currentPage: getCurrentPage(state),
         nameSearch: state.usersPage.nameSearch,
+        onlyFollowed: state.usersPage.onlyFollowed,
         isFetching: getIsFetching(state),
         followingInProgress: getFollowingInProgress(state),
     };
@@ -100,6 +107,7 @@ const mapStateToProps = (state: AppStateType): MapStateType => {
 export default compose<ComponentType>(connect(mapStateToProps, {
     setCurrentPage,
     setNameSearch,
+    setOnlyFollowed,
     requestUsers,
     follow,
     unfollow,

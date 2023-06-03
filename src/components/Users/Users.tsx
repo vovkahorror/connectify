@@ -10,16 +10,19 @@ export const Users = ({
                           totalUsersCount,
                           pageSize,
                           nameSearch,
+                          onlyFollowed,
                           onPageChanged,
                           users,
                           followingInProgress,
                           setNameSearch,
+                          setOnlyFollowed,
                           follow,
                           unfollow,
                       }: UsersPropsType) => {
     return (
         <main className={styles.main}>
-            <UsersSearch nameSearch={nameSearch} setNameSearch={setNameSearch}/>
+            <UsersSearch nameSearch={nameSearch} onlyFollowed={onlyFollowed} setNameSearch={setNameSearch}
+                         setOnlyFollowed={setOnlyFollowed}/>
 
             <Paginator currentPage={currentPage} totalItemsCount={totalUsersCount} pageSize={pageSize}
                        onPageChanged={onPageChanged}/>
@@ -45,8 +48,10 @@ export type UsersPropsType = {
     totalUsersCount: number;
     currentPage: number;
     nameSearch: string;
+    onlyFollowed: boolean | null;
     followingInProgress: Array<number>;
     setNameSearch: (nameSearch: string) => void;
+    setOnlyFollowed: (onlyFollowed: boolean | null) => void;
     onPageChanged: (pageNumber: number) => void;
     follow: (userID: number) => void;
     unfollow: (userID: number) => void;

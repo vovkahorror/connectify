@@ -1,37 +1,73 @@
 @import "../../../styles/sass/variables";
 @import "../../../styles/sass/mixins";
 
-.search {
-  position: relative;
+.searchPanel {
+  display: flex;
+  align-items: center;
+  gap: 40px;
 
-  .input {
-    padding: 10px 46px;
-    width: 100%;
-    @include text();
-    border-radius: 10px;
-    border: 1px solid rgba(78, 93, 120, 0.4);
-    outline: none;
+  .search {
+    position: relative;
+    flex-grow: 1;
 
-    &::placeholder {
-      font-weight: 400;
+    .input {
+      padding: 10px 46px;
+      width: 100%;
+      @include text();
+      border-radius: 10px;
+      border: 1px solid rgba(78, 93, 120, 0.4);
+      outline: none;
+
+      &::placeholder {
+        font-weight: 400;
+      }
+    }
+
+    .searchIcon {
+      position: absolute;
+      top: 15px;
+      left: 20px;
+    }
+
+    .xmarkIcon {
+      position: absolute;
+      top: 12px;
+      right: 20px;
+      width: 16px;
+      cursor: pointer;
+
+      &:hover * {
+        fill: $mainSecondColor;
+      }
     }
   }
 
-  .searchIcon {
-    position: absolute;
-    top: 15px;
-    left: 20px;
-  }
+  .onlyFollowed {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: max-content;
 
-  .xmarkIcon {
-    position: absolute;
-    top: 12px;
-    right: 20px;
-    width: 16px;
-    cursor: pointer;
+    input {
+      appearance: none;
+      padding: 0;
+      width: 22px;
+      height: 22px;
+      border: 1px solid rgba(78, 93, 120, 0.4);
+      border-radius: 4px;
+      background-position: center;
+      background-size: 90%;
+      background-repeat: no-repeat;
+      cursor: pointer;
 
-    &:hover * {
-      fill: $mainSecondColor;
+      &:checked {
+        background-color: $mainSecondColor;
+        background-image: url('../../../assets/icons/checked.svg')
+      }
+    }
+
+    span {
+      @include text();
     }
   }
 }

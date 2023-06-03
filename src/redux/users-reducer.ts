@@ -8,6 +8,7 @@ const UNFOLLOW = 'users/UNFOLLOW';
 const SET_USERS = 'users/SET_USERS';
 const SET_CURRENT_PAGE = 'users/SET_CURRENT_PAGE';
 const SET_NAME_SEARCH = 'users/SET_NAME_SEARCH';
+const SET_ONLY_FOLLOWED = 'users/SET_ONLY_FOLLOWED';
 const SET_TOTAL_USERS_COUNT = 'users/SET_TOTAL_USERS_COUNT';
 const TOGGLE_IS_FOLLOWING_IN_PROGRESS = 'users/TOGGLE_IS_FOLLOWING_IN_PROGRESS';
 
@@ -17,6 +18,7 @@ const initialState: UsersType = {
     totalUsersCount: 0,
     currentPage: 1,
     nameSearch: '',
+    onlyFollowed: null,
     followingInProgress: [],
 };
 
@@ -41,7 +43,10 @@ const usersReducer = (state = initialState, action: ActionsType): UsersType => {
             return {...state, currentPage: action.currentPage};
 
         case SET_NAME_SEARCH:
-            return {...state, nameSearch: action.nameSearch, currentPage: 1};
+            return {...state, nameSearch: action.nameSearch};
+
+        case SET_ONLY_FOLLOWED:
+            return {...state, onlyFollowed: action.onlyFollowed};
 
         case SET_TOTAL_USERS_COUNT:
             return {...state, totalUsersCount: action.totalCount};
@@ -80,19 +85,26 @@ export const setNameSearch = (nameSearch: string): SetNameSearchActionType => ({
     nameSearch,
 });
 
+export const setOnlyFollowed = (onlyFollowed: boolean | null): SetOnlyFollowedActionType => ({
+    type: SET_ONLY_FOLLOWED,
+    onlyFollowed,
+});
+
 export const toggleIsFollowingInProgress = (isFollowingInProgress: boolean, userID: number): ToggleIsFollowingInProgressActionType => ({
     type: TOGGLE_IS_FOLLOWING_IN_PROGRESS,
     isFollowingInProgress,
     userID,
 });
 
-export const requestUsers = (pageNumber: number, pageSize: number, nameSearch: string, friend?: boolean) => {
+export const requestUsers = (pageNumber: number, pageSize: number, nameSearch: string, friend: boolean | null) => {
     return async (dispatch: Dispatch) => {
         dispatch(toggleIsFetching(true));
-        dispatch(setCurrentPage(pageNumber));
+        // dispatch(setCurrentPage(pageNumber));
 
         const data = await usersAPI.getUsers(pageNumber, pageSize, nameSearch, friend);
+        const newCurrentPage = data.totalCount < pageNumber * pageSize ? 1 : pageNumber;
 
+        dispatch(setCurrentPage(newCurrentPage));
         dispatch(setUsers(data.items));
         dispatch(setTotalUsersCount(data.totalCount));
         dispatch(toggleIsFetching(false));
@@ -140,6 +152,7 @@ export type UsersType = {
     totalUsersCount: number;
     currentPage: number;
     nameSearch: string;
+    onlyFollowed: boolean | null;
     followingInProgress: Array<number>;
 }
 
@@ -163,6 +176,10 @@ export type SetNameSearchActionType = {
     type: 'users/SET_NAME_SEARCH';
     nameSearch: string;
 }
+export type SetOnlyFollowedActionType = {
+    type: 'users/SET_ONLY_FOLLOWED';
+    onlyFollowed: boolean | null;
+}
 export type SetTotalUsersCountActionType = {
     type: 'users/SET_TOTAL_USERS_COUNT';
     totalCount: number;
@@ -180,6 +197,7 @@ type ActionsType =
     | SetUsersActionType
     | SetCurrentPageActionType
     | SetNameSearchActionType
+    | SetOnlyFollowedActionType
     | SetTotalUsersCountActionType
     | ToggleIsFollowingInProgressActionType;
 
