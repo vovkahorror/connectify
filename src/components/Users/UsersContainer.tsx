@@ -47,8 +47,8 @@ type MapDispatchType = {
 type UsersContainerPropsType = MapStateType & MapDispatchType;
 
 class UsersContainer extends React.Component<UsersContainerPropsType, UsersType> {
-    getUsers() {
-        const {currentPage, pageSize, nameSearch, onlyFollowed} = this.props;
+    getUsers(currentPage: number = this.props.currentPage) {
+        const {pageSize, nameSearch, onlyFollowed} = this.props;
         this.props.requestUsers(currentPage, pageSize, nameSearch, onlyFollowed);
     }
 
@@ -57,15 +57,16 @@ class UsersContainer extends React.Component<UsersContainerPropsType, UsersType>
     }
 
     componentDidUpdate(prevProps: Readonly<UsersContainerPropsType>) {
-        if (this.props.nameSearch !== prevProps.nameSearch || this.props.onlyFollowed !== prevProps.onlyFollowed || this.props.currentPage !== prevProps.currentPage) {
+        if (this.props.nameSearch !== prevProps.nameSearch || this.props.onlyFollowed !== prevProps.onlyFollowed) {
+            this.getUsers(1);
+        } else if (this.props.currentPage !== prevProps.currentPage && this.props.currentPage !== 1) {
             this.getUsers();
         }
     }
 
     onPageChanged = (pageNumber: number) => {
-        const {pageSize, nameSearch, onlyFollowed, setCurrentPage, requestUsers} = this.props;
+        const {setCurrentPage} = this.props;
         setCurrentPage(pageNumber);
-        // requestUsers(pageNumber, pageSize, nameSearch, onlyFollowed);
     };
 
     render() {

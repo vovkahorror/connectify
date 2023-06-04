@@ -99,12 +99,10 @@ export const toggleIsFollowingInProgress = (isFollowingInProgress: boolean, user
 export const requestUsers = (pageNumber: number, pageSize: number, nameSearch: string, friend: boolean | null) => {
     return async (dispatch: Dispatch) => {
         dispatch(toggleIsFetching(true));
-        // dispatch(setCurrentPage(pageNumber));
+        dispatch(setCurrentPage(pageNumber));
 
         const data = await usersAPI.getUsers(pageNumber, pageSize, nameSearch, friend);
-        const newCurrentPage = data.totalCount < pageNumber * pageSize ? 1 : pageNumber;
 
-        dispatch(setCurrentPage(newCurrentPage));
         dispatch(setUsers(data.items));
         dispatch(setTotalUsersCount(data.totalCount));
         dispatch(toggleIsFetching(false));

@@ -1,5 +1,5 @@
 import styles from './Paginator.module.scss';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {v1} from 'uuid';
 import classNames from 'classnames';
 import {ReactComponent as ArrowLeft} from '../../../assets/icons/arrowLeft.svg';
@@ -15,6 +15,7 @@ export const Paginator = ({
                               portionSize = 20,
                           }: PaginatorPropsType) => {
     const pagesCount = Math.ceil(totalItemsCount / pageSize);
+    const initialPortionNumber = Math.ceil(currentPage / portionSize);
     const pages = [];
 
     for (let i = 1; i <= pagesCount; i++) {
@@ -22,9 +23,13 @@ export const Paginator = ({
     }
 
     const portionCount = Math.ceil(pagesCount / portionSize);
-    const [portionNumber, setPortionNumber] = useState(Math.ceil(currentPage / portionSize));
+    const [portionNumber, setPortionNumber] = useState(initialPortionNumber);
     const leftPortionPageNumber = (portionNumber - 1) * portionSize + 1;
     const rightPortionPageNumber = portionNumber * portionSize;
+
+    useEffect(() => {
+        setPortionNumber(initialPortionNumber);
+    }, [initialPortionNumber]);
 
     return (
         <div className={styles.paginator}>
@@ -57,7 +62,8 @@ export const Paginator = ({
                         onClick={() => setPortionNumber(portionCount)}><ArrowRightDouble/></button>
             </div>
         </div>
-    );
+    )
+        ;
 };
 
 type PaginatorPropsType = {
