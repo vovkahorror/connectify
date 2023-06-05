@@ -26,6 +26,9 @@ export const profileAPI = {
     getStatus(userID: number) {
         return instance.get(`profile/status/${userID}`);
     },
+    getIsFollows(userID: number) {
+        return instance.get(`follow/${userID}`);
+    },
     updateStatus(status: string) {
         return instance.put(`profile/status`, {status});
     },

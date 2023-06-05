@@ -18,6 +18,7 @@ const initialState: ProfilePageType = {
     postsData: [],
     profile: null,
     status: '',
+    isFollows: false,
 };
 
 const profileReducer = (state = initialState, action: ActionsType): ProfilePageType => {
@@ -70,7 +71,7 @@ export const getProfilePage = (userID: number) => {
         dispatch(toggleIsFetching(true));
 
         try {
-            const res = await Promise.all([getUserProfile(userID), getPosts(userID), getStatus(userID)]);
+            const res = await Promise.all([getUserProfile(userID), getStatus(userID), getPosts(userID)]);
             return await Promise.all(res.map(item => dispatch(item)));
         } catch (e) {
             const error = e as Error;
@@ -253,6 +254,7 @@ export type ProfilePageType = {
     postsData: Array<PostDataType>;
     profile: ProfileAPIType | null;
     status: string;
+    isFollows: boolean;
 }
 
 export type AddPostToStateActionType = {

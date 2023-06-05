@@ -30,6 +30,7 @@ const state: ProfilePageType = {
     ],
     profile: {} as ProfileAPIType,
     status: '',
+    isFollows: false,
 };
 
 it('length of posts should be incremented', () => {
