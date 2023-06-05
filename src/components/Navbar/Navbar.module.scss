@@ -23,6 +23,10 @@
         text-decoration: none;
         border-radius: 10px;
 
+        .icon {
+          width: 16px;
+        }
+
         &.active {
           color: #ffffff;
           background: linear-gradient(0deg, #4e5d78, #4e5d78), #ffffff;

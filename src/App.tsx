@@ -12,8 +12,9 @@ import {withSuspense} from './hoc/withSuspense';
 import {Alert} from 'antd';
 
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
-const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
 const UsersContainer = React.lazy(() => import('./components/Users/UsersContainer'));
+const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
+const ChatPage = React.lazy(() => import('./components/Chat/ChatPage'));
 const Login = React.lazy(() => import('./components/Login/Login'));
 const News = React.lazy(() => import('./components/News/News'));
 const Music = React.lazy(() => import('./components/Music/Music'));
@@ -46,8 +47,9 @@ class App extends React.Component<AppPropsType, AppStateType> {
                     <Switch>
                         <Route path={'/'} exact render={() => <Redirect to={'/profile'}/>}/>
                         <Route path={'/profile/:userID?'} render={withSuspense(ProfileContainer)}/>
-                        <Route path={'/dialogs'} render={withSuspense(DialogsContainer)}/>
                         <Route path={'/users'} render={withSuspense(UsersContainer)}/>
+                        <Route path={'/dialogs'} render={withSuspense(DialogsContainer)}/>
+                        <Route path={'/chat'} render={withSuspense(ChatPage)}/>
                         <Route path={'/login'} render={withSuspense(Login)}/>
                         <Route path={'/news'} render={withSuspense(News)}/>
                         <Route path={'/music'} render={withSuspense(Music)}/>

@@ -3,6 +3,7 @@ import styles from './Navbar.module.scss';
 import {NavLink} from 'react-router-dom';
 import {ReactComponent as ProfileIcon} from '../../assets/icons/profile.svg';
 import {ReactComponent as MessageIcon} from '../../assets/icons/message.svg';
+import {ReactComponent as ChatIcon} from '../../assets/icons/chat.svg';
 import {ReactComponent as UsersIcon} from '../../assets/icons/users.svg';
 import {ReactComponent as NewsIcon} from '../../assets/icons/newspaper.svg';
 import {ReactComponent as MusicIcon} from '../../assets/icons/music.svg';
@@ -19,15 +20,21 @@ export const Navbar = () => {
                     </NavLink>
                 </li>
                 <li className={styles.item}>
+                    <NavLink to="/users" className={styles.link} activeClassName={styles.active}>
+                        <UsersIcon className={styles.icon}/>
+                        <span>Users</span>
+                    </NavLink>
+                </li>
+                <li className={styles.item}>
                     <NavLink to="/dialogs" className={styles.link} activeClassName={styles.active}>
                         <MessageIcon className={styles.icon}/>
                         <span>Messages</span>
                     </NavLink>
                 </li>
                 <li className={styles.item}>
-                    <NavLink to="/users" className={styles.link} activeClassName={styles.active}>
-                        <UsersIcon className={styles.icon}/>
-                        <span>Users</span>
+                    <NavLink to="/chat" className={styles.link} activeClassName={styles.active}>
+                        <ChatIcon className={styles.icon}/>
+                        <span>Chat</span>
                     </NavLink>
                 </li>
                 <li className={styles.item}>
