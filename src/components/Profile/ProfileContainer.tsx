@@ -1,5 +1,6 @@
 import React, {ComponentType} from 'react';
 import {
+    followUnfollowFlow,
     getProfilePage,
     ProfileAPIType,
     ProfilePageType,
@@ -21,6 +22,8 @@ type PathParamsType = {
 type MapStateToPropsType = {
     profile: ProfileAPIType | null;
     status: string;
+    isFollows: boolean;
+    isFollowingInProgress: boolean;
     authorizedUserID: number | null;
     isAuth: boolean;
     isFetching: boolean;
@@ -28,6 +31,7 @@ type MapStateToPropsType = {
 type MapDispatchToPropsType = {
     getProfilePage: (userID: number) => void;
     updateStatus: (status: string) => void;
+    followUnfollowFlow: (userID: number, isFollow: boolean) => void;
     savePhoto: (file: File) => void;
     saveProfile: (formData: ProfileAPIType) => Promise<boolean>;
 }
@@ -67,6 +71,8 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
         profile: state.profilePage.profile,
         status: state.profilePage.status,
+        isFollows: state.profilePage.isFollows,
+        isFollowingInProgress: state.profilePage.isFollowingInProgress,
         authorizedUserID: state.auth.id,
         isAuth: state.auth.isAuth,
         isFetching: state.app.isFetching,
@@ -76,6 +82,7 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 export default compose<ComponentType>(connect(mapStateToProps, {
     getProfilePage,
     updateStatus,
+    followUnfollowFlow,
     savePhoto,
     saveProfile,
 }), withRouter, withAuthRedirect)(ProfileContainer);

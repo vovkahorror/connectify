@@ -1,5 +1,5 @@
 import {AnyAction, Dispatch} from 'redux';
-import {profileAPI} from '../api/api';
+import {profileAPI, usersAPI} from '../api/api';
 import {AppStateType} from './redux-store';
 import {ThunkDispatch} from 'redux-thunk';
 import {toggleIsFetching} from './app-reducer';
@@ -12,6 +12,8 @@ const ADD_POST = 'profile/ADD_POST';
 const SET_USER_PROFILE = 'profile/SET_USER_PROFILE';
 const SET_STATUS = 'profile/SET_STATUS';
 const SET_POSTS = 'profile/SET_POSTS';
+const SET_IS_FOLLOWS = 'profile/SET_IS_FOLLOWS';
+const SET_IS_FOLLOWING_IN_PROGRESS = 'profile/SET_IS_FOLLOWING_IN_PROGRESS';
 const SAVE_PHOTO_SUCCESS = 'profile/SAVE_PHOTO_SUCCESS';
 
 const initialState: ProfilePageType = {
@@ -19,6 +21,7 @@ const initialState: ProfilePageType = {
     profile: null,
     status: '',
     isFollows: false,
+    isFollowingInProgress: false,
 };
 
 const profileReducer = (state = initialState, action: ActionsType): ProfilePageType => {
@@ -31,6 +34,12 @@ const profileReducer = (state = initialState, action: ActionsType): ProfilePageT
 
         case SET_STATUS:
             return {...state, status: action.status};
+
+        case SET_IS_FOLLOWS:
+            return {...state, isFollows: action.isFollows};
+
+        case SET_IS_FOLLOWING_IN_PROGRESS:
+            return {...state, isFollowingInProgress: action.isFollowingInProgress};
 
         case SET_USER_PROFILE:
             return {...state, profile: action.profile};
@@ -66,12 +75,22 @@ export const setStatus = (status: string): SetStatusActionType => ({
     status,
 });
 
+export const setIsFollows = (isFollows: boolean): SetIsFollowsActionType => ({
+    type: SET_IS_FOLLOWS,
+    isFollows,
+});
+
+export const setIsFollowingInProgress = (isFollowingInProgress: boolean): SetIsFollowingInProgressActionType => ({
+    type: SET_IS_FOLLOWING_IN_PROGRESS,
+    isFollowingInProgress,
+});
+
 export const getProfilePage = (userID: number) => {
     return async (dispatch: ThunkDispatch<AppStateType, any, AnyAction>) => {
         dispatch(toggleIsFetching(true));
 
         try {
-            const res = await Promise.all([getUserProfile(userID), getStatus(userID), getPosts(userID)]);
+            const res = await Promise.all([getUserProfile(userID), getStatus(userID), getPosts(userID), getIsFollows(userID)]);
             return await Promise.all(res.map(item => dispatch(item)));
         } catch (e) {
             const error = e as Error;
@@ -98,6 +117,13 @@ export const getStatus = (userID: number) => {
     };
 };
 
+export const getIsFollows = (userID: number) => {
+    return async (dispatch: Dispatch) => {
+        const response = await profileAPI.getIsFollows(userID);
+        dispatch(setIsFollows(response.data));
+    };
+};
+
 export const updateStatus = (status: string) => {
     return async (dispatch: Dispatch) => {
         const response = await profileAPI.updateStatus(status);
@@ -105,6 +131,22 @@ export const updateStatus = (status: string) => {
         if (response.data.resultCode === 0) {
             dispatch(setStatus(status));
         }
+    };
+};
+
+export const followUnfollowFlow = (userID: number, isFollow: boolean) => {
+    return async (dispatch: Dispatch) => {
+        dispatch(setIsFollowingInProgress(true));
+
+        const res = await (isFollow ? usersAPI.unfollow(userID) : usersAPI.follow(userID));
+
+        if (res.data.resultCode === 0) {
+            dispatch(setIsFollows(!isFollow));
+        } else {
+            alert(res.data.messages[0]);
+        }
+
+        dispatch(setIsFollowingInProgress(false));
     };
 };
 
@@ -255,6 +297,7 @@ export type ProfilePageType = {
     profile: ProfileAPIType | null;
     status: string;
     isFollows: boolean;
+    isFollowingInProgress: boolean;
 }
 
 export type AddPostToStateActionType = {
@@ -273,6 +316,14 @@ export type SetStatusActionType = {
     type: 'profile/SET_STATUS';
     status: string;
 }
+export type SetIsFollowsActionType = {
+    type: 'profile/SET_IS_FOLLOWS';
+    isFollows: boolean;
+}
+export type SetIsFollowingInProgressActionType = {
+    type: 'profile/SET_IS_FOLLOWING_IN_PROGRESS';
+    isFollowingInProgress: boolean;
+}
 export type SavePhotoSuccessActionType = {
     type: 'profile/SAVE_PHOTO_SUCCESS';
     photos: PhotosProfileAPIType;
@@ -283,5 +334,7 @@ export type ActionsType =
     | SetPostsActionType
     | SetUserProfileActionType
     | SetStatusActionType
+    | SetIsFollowsActionType
+    | SetIsFollowingInProgressActionType
     | SavePhotoSuccessActionType;
 export default profileReducer;

@@ -1,44 +1,66 @@
 @import "../../../styles/sass/variables";
 @import "../../../styles/sass/mixins";
 
-.descriptionBlock {
+.profileInfo {
   @include contentBlock($padding: 18px 38px 18px 18px);
 
-  .imageBlock {
-    position: relative;
+  .photoButtonsWrapper {
     display: flex;
     flex-direction: column;
-    align-self: flex-start;
+    gap: 20px;
 
-    .mainPhoto {
-      width: 280px;
-      border-radius: 50%;
-    }
+    .imageBlock {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-self: flex-start;
 
-    .uploadWrapper {
-      position: absolute;
-      right: 16px;
-      bottom: 16px;
-
-      .input {
-        display: none;
+      .mainPhoto {
+        width: 280px;
+        border-radius: 50%;
       }
 
-      .uploadIconBlock {
-        padding: 7px;
-        background: #ffffff;
-        border-radius: 50%;
-        cursor: pointer;
+      .uploadWrapper {
+        position: absolute;
+        right: 16px;
+        bottom: 16px;
 
-        .icon {
-          width: 30px;
-          height: 30px;
+        .input {
+          display: none;
+        }
 
-          &:hover * {
-            fill: $mainSecondColor;
+        .uploadIconBlock {
+          padding: 7px;
+          background: #ffffff;
+          border-radius: 50%;
+          cursor: pointer;
+
+          .icon {
+            width: 30px;
+            height: 30px;
+
+            &:hover * {
+              fill: $mainSecondColor;
+            }
           }
         }
       }
+    }
+
+    .followButton, .unfollowButton {
+      @include button();
+      width: 100%;
+      border: 1px solid transparent;
+
+      &:disabled {
+        opacity: 0.5;
+      }
+    }
+
+    .unfollowButton {
+      color: $textColor;
+      background: none;
+      border: 1px solid rgba(78, 93, 120, 0.4);
     }
   }
 }

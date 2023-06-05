@@ -7,7 +7,17 @@ import {ProfileData} from './ProfileData/ProfileData';
 import {ProfileDataFormRedux} from './ProfileDataForm/ProfileDataForm';
 import {ReactComponent as UploadIcon} from '../../../assets/icons/upload.svg';
 
-export const ProfileInfo = ({profile, status, isOwner, updateStatus, savePhoto, saveProfile}: ProfileInfoPropsType) => {
+export const ProfileInfo = ({
+                                profile,
+                                status,
+                                isFollows,
+                                isFollowingInProgress,
+                                isOwner,
+                                updateStatus,
+                                followUnfollowFlow,
+                                savePhoto,
+                                saveProfile,
+                            }: ProfileInfoPropsType) => {
     const [editMode, setEditMode] = useState(false);
 
     if (!profile) {
@@ -25,15 +35,24 @@ export const ProfileInfo = ({profile, status, isOwner, updateStatus, savePhoto, 
     };
 
     return (
-        <div className={styles.descriptionBlock}>
-            <div className={styles.imageBlock}>
-                <img className={styles.mainPhoto} src={profile.photos.large || userPhoto} alt=""/>
-                {isOwner &&
-                    <label className={styles.uploadWrapper}>
-                        <input className={styles.input} type="file" onChange={onMainPhotoSelected}
-                               accept=".jpg, .jpeg, .png"/>
-                        <div className={styles.uploadIconBlock}><UploadIcon className={styles.icon}/></div>
-                    </label>}
+        <div className={styles.profileInfo}>
+            <div className={styles.photoButtonsWrapper}>
+                <div className={styles.imageBlock}>
+                    <img className={styles.mainPhoto} src={profile.photos.large || userPhoto} alt=""/>
+                    {isOwner &&
+                        <label className={styles.uploadWrapper}>
+                            <input className={styles.input} type="file" onChange={onMainPhotoSelected}
+                                   accept=".jpg, .jpeg, .png"/>
+                            <div className={styles.uploadIconBlock}><UploadIcon className={styles.icon}/></div>
+                        </label>}
+                </div>
+
+                {!isOwner &&
+                    <button className={isFollows ? styles.unfollowButton : styles.followButton}
+                            disabled={isFollowingInProgress}
+                            onClick={() => followUnfollowFlow(profile.userId, isFollows)}>
+                        {isFollows ? 'Unfollow' : 'Follow'}
+                    </button>}
             </div>
 
             {editMode
@@ -48,7 +67,10 @@ export const ProfileInfo = ({profile, status, isOwner, updateStatus, savePhoto, 
 type ProfileInfoPropsType = {
     profile: ProfileAPIType | null;
     status: string;
+    isFollows: boolean;
+    isFollowingInProgress: boolean;
     updateStatus: (status: string) => void;
+    followUnfollowFlow: (userID: number, isFollow: boolean) => void;
     isOwner: boolean;
     savePhoto: (file: File) => void;
     saveProfile: (formData: ProfileAPIType) => Promise<boolean>;

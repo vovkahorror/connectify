@@ -17,7 +17,10 @@ type ProfilePropsType = {
     profile: ProfileAPIType | null;
     status: string;
     isOwner: boolean;
+    isFollows: boolean;
+    isFollowingInProgress: boolean;
     updateStatus: (status: string) => void;
+    followUnfollowFlow: (userID: number, isFollow: boolean) => void;
     savePhoto: (file: File) => void;
     saveProfile: (formData: ProfileAPIType) => Promise<boolean>;
 }
