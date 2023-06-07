@@ -6,7 +6,7 @@ import {toggleIsFetching} from './app-reducer';
 import {stopSubmit} from 'redux-form';
 import {setUserPhoto} from './auth-reducer';
 import {v1} from 'uuid';
-import {postsAPI} from '../api/firebaseApi';
+import {postsAPI} from '../api/posts-api';
 
 const ADD_POST = 'profile/ADD_POST';
 const SET_USER_PROFILE = 'profile/SET_USER_PROFILE';
@@ -337,4 +337,5 @@ export type ActionsType =
     | SetIsFollowsActionType
     | SetIsFollowingInProgressActionType
     | SavePhotoSuccessActionType;
+
 export default profileReducer;
