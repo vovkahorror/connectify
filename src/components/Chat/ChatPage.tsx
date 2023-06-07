@@ -1,19 +1,20 @@
 import React, {FC, useEffect, useState} from 'react';
 import {v1} from 'uuid';
-import {ChatMessageType} from '../../api/chat-api';
+import {ChatMessageType, StatusType} from '../../api/chat-api';
 import {sendMessage, startMessagesListening, stopMessagesListening} from '../../redux/chat-reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppStateType} from '../../redux/redux-store';
 
 const ChatPage: FC = () => {
     return (
-        <div>
+        <div style={{display: 'flex', flexDirection: 'column'}}>
             <Chat/>
         </div>
     );
 };
 
 const Chat: FC = () => {
+    const status = useSelector<AppStateType, StatusType>(state => state.chat.status);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -26,8 +27,13 @@ const Chat: FC = () => {
 
     return (
         <div>
-            <Messages/>
-            <AddMessageForm/>
+            {status === 'error'
+                ? <div>Some error occurred. Please refresh the page</div>
+                : <>
+                    <Messages/>
+                    <AddMessageForm/>
+                </>
+            }
         </div>
     );
 };
@@ -36,7 +42,7 @@ const Messages: FC = () => {
     const messages = useSelector<AppStateType, ChatMessageType[]>(state => state.chat.messages);
 
     return (
-        <div style={{height: '800px', overflowY: 'scroll'}}>
+        <div style={{height: '80vh', overflowY: 'scroll'}}>
             {messages.map(m =>
                 <Message key={v1()} {...m}/>,
             )}
@@ -56,7 +62,7 @@ const Message: FC<ChatMessageType> = ({userId, photo, userName, message}) => {
 
 const AddMessageForm: FC = () => {
     const [message, setMessage] = useState('');
-    const [readyStatus, setReadyStatus] = useState<'pending' | 'ready'>('pending');
+    const status = useSelector<AppStateType, StatusType>(state => state.chat.status);
     const dispatch = useDispatch();
 
     const sendMessageHandler = () => {
@@ -71,7 +77,7 @@ const AddMessageForm: FC = () => {
     return (
         <div>
             <textarea value={message} onChange={(e) => setMessage(e.currentTarget.value)}></textarea>
-            <button disabled={false} onClick={sendMessageHandler}>Send</button>
+            <button disabled={status !== 'ready'} onClick={sendMessageHandler}>Send</button>
         </div>
     );
 };
