@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, useEffect, useRef, useState, UIEvent} from 'react';
 import {v1} from 'uuid';
 import {ChatMessageType, StatusType} from '../../api/chat-api';
 import {sendMessage, startMessagesListening, stopMessagesListening} from '../../redux/chat-reducer';
@@ -27,25 +27,34 @@ const Chat: FC = () => {
 
     return (
         <div>
-            {status === 'error'
-                ? <div>Some error occurred. Please refresh the page</div>
-                : <>
-                    <Messages/>
-                    <AddMessageForm/>
-                </>
-            }
+            {status === 'error' && <div>Some error occurred. Please refresh the page</div>}
+            <Messages/>
+            <AddMessageForm/>
         </div>
     );
 };
 
 const Messages: FC = () => {
     const messages = useSelector<AppStateType, ChatMessageType[]>(state => state.chat.messages);
+    const messagesAnchorRef = useRef<HTMLDivElement>(null);
+    const [isAutoScroll, setIsAutoScroll] = useState(false);
+
+    const scrollHandler = (e: UIEvent<HTMLDivElement>) => {
+
+    };
+
+    useEffect(() => {
+        if (isAutoScroll) {
+            messagesAnchorRef.current?.scrollIntoView({behavior: 'smooth'});
+        }
+    }, [isAutoScroll, messages]);
 
     return (
-        <div style={{height: '80vh', overflowY: 'scroll'}}>
+        <div style={{height: '80vh', overflowY: 'scroll'}} onScroll={scrollHandler}>
             {messages.map(m =>
                 <Message key={v1()} {...m}/>,
             )}
+            <div ref={messagesAnchorRef}></div>
         </div>
     );
 };
