@@ -1,0 +1,29 @@
+@import '../../../styles/sass/variables';
+
+.messages {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-right: 20px;
+  height: 70vh;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    border-radius: 5px;
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: rgba(78, 93, 120, 0.3);
+    opacity: 0.1;
+
+    &:hover {
+      background-color: rgba(78, 93, 120, 0.7);
+    }
+  }
+}

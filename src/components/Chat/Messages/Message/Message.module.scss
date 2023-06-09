@@ -1,0 +1,27 @@
+@import '../../../../styles/sass/mixins';
+
+.message {
+  @include contentBlock($gap: 20px, $padding: 12px);
+  word-break: break-word;
+
+  .userPhoto {
+    width: 80px;
+    border-radius: 50%;
+  }
+
+  .messageInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .userName {
+      @include text();
+      text-decoration: none;
+    }
+
+    .messageText {
+      @include text($fontSize: 16px, $fontWeight: 400);
+
+    }
+  }
+}
