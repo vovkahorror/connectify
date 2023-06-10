@@ -1,13 +1,14 @@
 import React, {FC, memo} from 'react';
 import {ChatMessageType} from '../../../../api/chat-api';
 import {NavLink} from 'react-router-dom';
+import noPhoto from '../../../../assets/images/user.svg';
 import styles from './Message.module.scss';
 
 export const Message: FC<ChatMessageType> = memo(({userId, photo, userName, message}) => {
     return (
         <div className={styles.message}>
             <NavLink to={`/profile/${userId}`}>
-                <img className={styles.userPhoto} src={photo} alt=""/>
+                <img className={styles.userPhoto} src={photo || noPhoto} alt=""/>
             </NavLink>
 
             <div className={styles.messageInfo}>
