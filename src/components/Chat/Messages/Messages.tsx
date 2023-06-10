@@ -22,7 +22,9 @@ export const Messages: FC = () => {
 
     useEffect(() => {
         if (isAutoScroll) {
-            messagesAnchorRef.current?.scrollIntoView({behavior: 'smooth'});
+            setTimeout(() => {
+                messagesAnchorRef.current?.scrollIntoView({behavior: 'smooth'});
+            }, 100);
         }
     }, [isAutoScroll, messages]);
 
