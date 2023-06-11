@@ -8,7 +8,6 @@ import {
     setOnlyFollowed,
     unfollow,
     UserDataType,
-    UsersType,
 } from '../../redux/users-reducer';
 import React, {ComponentType} from 'react';
 import {Users} from './Users';
@@ -24,29 +23,7 @@ import {
     getUsers,
 } from '../../redux/users-selectors';
 
-type MapStateType = {
-    users: UserDataType[];
-    pageSize: number;
-    totalUsersCount: number;
-    currentPage: number;
-    nameSearch: string;
-    onlyFollowed: boolean | null;
-    isFetching: boolean;
-    followingInProgress: Array<number>;
-}
-
-type MapDispatchType = {
-    setCurrentPage: (currentPage: number) => void;
-    setNameSearch: (nameSearch: string) => void;
-    setOnlyFollowed: (onlyFollowed: boolean | null) => void;
-    requestUsers: (pageNumber: number, pageSize: number, nameSearch: string, onlyFollowed: boolean | null) => void;
-    follow: (userID: number) => void;
-    unfollow: (userID: number) => void;
-}
-
-type UsersContainerPropsType = MapStateType & MapDispatchType;
-
-class UsersContainer extends React.Component<UsersContainerPropsType, UsersType> {
+class UsersContainer extends React.Component<UsersContainerPropsType> {
     getUsers(currentPage = this.props.currentPage) {
         const {pageSize, nameSearch, onlyFollowed} = this.props;
         this.props.requestUsers(currentPage, pageSize, nameSearch, onlyFollowed);
@@ -104,6 +81,28 @@ const mapStateToProps = (state: AppStateType): MapStateType => {
         followingInProgress: getFollowingInProgress(state),
     };
 };
+
+type MapStateType = {
+    users: UserDataType[];
+    pageSize: number;
+    totalUsersCount: number;
+    currentPage: number;
+    nameSearch: string;
+    onlyFollowed: boolean | null;
+    isFetching: boolean;
+    followingInProgress: Array<number>;
+}
+
+type MapDispatchType = {
+    setCurrentPage: (currentPage: number) => void;
+    setNameSearch: (nameSearch: string) => void;
+    setOnlyFollowed: (onlyFollowed: boolean | null) => void;
+    requestUsers: (pageNumber: number, pageSize: number, nameSearch: string, onlyFollowed: boolean | null) => void;
+    follow: (userID: number) => void;
+    unfollow: (userID: number) => void;
+}
+
+type UsersContainerPropsType = MapStateType & MapDispatchType;
 
 export default compose<ComponentType>(connect(mapStateToProps, {
     setCurrentPage,

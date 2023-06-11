@@ -3,7 +3,6 @@ import {
     followUnfollowFlow,
     getProfilePage,
     ProfileAPIType,
-    ProfilePageType,
     savePhoto,
     saveProfile,
     updateStatus,
@@ -16,29 +15,7 @@ import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 import {compose} from 'redux';
 import {Preloader} from '../common/Preloader/Preloader';
 
-type PathParamsType = {
-    userID: string;
-}
-type MapStateToPropsType = {
-    profile: ProfileAPIType | null;
-    status: string;
-    isFollows: boolean;
-    isFollowingInProgress: boolean;
-    authorizedUserID: number | null;
-    isAuth: boolean;
-    isFetching: boolean;
-}
-type MapDispatchToPropsType = {
-    getProfilePage: (userID: number) => void;
-    updateStatus: (status: string) => void;
-    followUnfollowFlow: (userID: number, isFollow: boolean) => void;
-    savePhoto: (file: File) => void;
-    saveProfile: (formData: ProfileAPIType) => Promise<boolean>;
-}
-type OwnPropsType = MapStateToPropsType & MapDispatchToPropsType;
-type ProfileContainerPropsType = RouteComponentProps<PathParamsType> & OwnPropsType;
-
-class ProfileContainer extends React.Component<ProfileContainerPropsType, ProfilePageType> {
+class ProfileContainer extends React.Component<ProfileContainerPropsType> {
     refreshProfile() {
         let userID = +this.props.match.params.userID;
         if (!userID) {
@@ -78,6 +55,28 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
         isFetching: state.app.isFetching,
     };
 };
+
+type PathParamsType = {
+    userID: string;
+}
+type MapStateToPropsType = {
+    profile: ProfileAPIType | null;
+    status: string;
+    isFollows: boolean;
+    isFollowingInProgress: boolean;
+    authorizedUserID: number | null;
+    isAuth: boolean;
+    isFetching: boolean;
+}
+type MapDispatchToPropsType = {
+    getProfilePage: (userID: number) => void;
+    updateStatus: (status: string) => void;
+    followUnfollowFlow: (userID: number, isFollow: boolean) => void;
+    savePhoto: (file: File) => void;
+    saveProfile: (formData: ProfileAPIType) => Promise<boolean>;
+}
+type OwnPropsType = MapStateToPropsType & MapDispatchToPropsType;
+type ProfileContainerPropsType = RouteComponentProps<PathParamsType> & OwnPropsType;
 
 export default compose<ComponentType>(connect(mapStateToProps, {
     getProfilePage,

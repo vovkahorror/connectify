@@ -5,7 +5,7 @@ import {DialogsPageType} from '../../redux/dialogs-reducer';
 import {AddMessageFormRedux, FormDataType} from './AddMessageForm/AddMessageForm';
 
 type DialogsPropsType = {
-    sendMessage: (newMessageBody: string) => void;
+    sendMessage: (userID: number, newMessageBody: string) => void;
     dialogsPage: DialogsPageType;
 }
 
@@ -13,7 +13,7 @@ export const Dialogs = (props: DialogsPropsType) => {
     const state = props.dialogsPage;
 
     const dialogsElements = state.dialogsData.map(dialog => {
-        return <DialogItem key={dialog.id} name={dialog.name} id={dialog.id}/>;
+        return <DialogItem key={dialog.id} name={dialog.userName} id={dialog.id}/>;
     });
 
     const messagesElements = state.messagesData.map(message => {
@@ -21,7 +21,7 @@ export const Dialogs = (props: DialogsPropsType) => {
     });
 
     const addNewMessage = (values: FormDataType) => {
-        props.sendMessage(values.newMessageBody);
+        props.sendMessage(27772, values.newMessageBody);
     };
 
     return (

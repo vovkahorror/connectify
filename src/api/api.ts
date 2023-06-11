@@ -58,6 +58,21 @@ export const authAPI = {
     },
 };
 
+export const dialogsAPI = {
+    getDialogs() {
+        return instance.get(`dialogs`).then(response => response.data);
+    },
+    getMessages(userID: number) {
+        return instance.get(`dialogs/${userID}/messages`).then(response => response.data);
+    },
+    startChatting(userID: number) {
+        return instance.put(`dialogs/${userID}`, {});
+    },
+    sendMessage(userID: number, body: string) {
+        return instance.post(`dialogs/${userID}/messages`, {body}).then(response => response.data);
+    },
+};
+
 export const securityAPI = {
     getCaptchaUrl() {
         return instance.get(`security/get-captcha-url`);

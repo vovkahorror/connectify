@@ -1,17 +1,19 @@
-import styles from './Dialogs.module.css';
-import {DialogsPageType, sendMessageAC} from '../../redux/dialogs-reducer';
+import {DialogsPageType, requestDialogs, sendMessage} from '../../redux/dialogs-reducer';
 import {Dialogs} from './Dialogs';
 import {connect} from 'react-redux';
 import {AppStateType} from '../../redux/redux-store';
-import {compose, Dispatch} from 'redux';
+import {compose} from 'redux';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
-import {ComponentType} from 'react';
+import React, {ComponentType} from 'react';
 
-type MapStateToPropsType = {
-    dialogsPage: DialogsPageType;
-}
-type MapDispatchToPropsType = {
-    sendMessage: (newMessageBody: string) => void;
+class DialogsContainer extends React.Component<DialogsContainerPropsType> {
+    componentDidMount() {
+        this.props.requestDialogs();
+    }
+
+    render() {
+        return <Dialogs {...this.props} />;
+    }
 }
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
@@ -20,12 +22,18 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
-    return {
-        sendMessage: (newMessageBody: string) => {
-            dispatch(sendMessageAC(newMessageBody));
-        },
-    };
-};
+type MapStateToPropsType = {
+    dialogsPage: DialogsPageType;
+}
 
-export default compose<ComponentType>(connect(mapStateToProps, mapDispatchToProps), withAuthRedirect)(Dialogs);
+type MapDispatchToPropsType = {
+    requestDialogs: () => void;
+    sendMessage: (userID: number, newMessageBody: string) => void;
+}
+
+type DialogsContainerPropsType = MapStateToPropsType & MapDispatchToPropsType;
+
+export default compose<ComponentType>(connect(mapStateToProps, {
+    requestDialogs,
+    sendMessage,
+}), withAuthRedirect)(DialogsContainer);

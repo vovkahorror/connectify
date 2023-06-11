@@ -1,56 +1,66 @@
-const SEND_MESSAGE = 'dialogs/SEND-MESSAGE';
+import {AnyAction, Dispatch} from 'redux';
+import {toggleIsFetching} from './app-reducer';
+import {dialogsAPI} from '../api/api';
+import {PhotosProfileAPIType} from './profile-reducer';
+import {ThunkDispatch} from 'redux-thunk';
+import {AppStateType} from './redux-store';
+
+const SET_DIALOGS = 'dialogs/SET_DIALOGS';
 
 const initialState: DialogsPageType = {
-    dialogsData: [
-        {id: 1, name: 'Nastya'},
-        {id: 2, name: 'Vova'},
-        {id: 3, name: 'Pavlik'},
-        {id: 4, name: 'Natasha'},
-        {id: 5, name: 'Sasha'},
-        {id: 6, name: 'Nila'},
-    ],
-    messagesData: [
-        {id: 1, message: 'I\'m OK'},
-        {id: 2, message: 'How are you?'},
-        {id: 3, message: 'Hi!'},
-        {id: 4, message: 'It is my family'},
-    ],
+    dialogsData: [],
+    messagesData: [],
 };
 
 const dialogsReducer = (state = initialState, action: ActionsType): DialogsPageType => {
     switch (action.type) {
-        case SEND_MESSAGE:
-            return {
-                ...state,
-                messagesData: [...state.messagesData, {id: 5, message: action.newMessageBody}],
-            };
+        case SET_DIALOGS:
+            return {...state, dialogsData: action.dialogsData};
 
         default:
             return state;
     }
 };
 
-export const sendMessageAC = (newMessageBody: string): SendMessageActionType => ({type: SEND_MESSAGE, newMessageBody});
+export const setDialogsData = (dialogsData: DialogsDataType[]) => ({
+    type: SET_DIALOGS,
+    dialogsData,
+} as const);
+
+export const requestDialogs = () => async (dispatch: Dispatch) => {
+    dispatch(toggleIsFetching(true));
+    const data = await dialogsAPI.getDialogs();
+    dispatch(setDialogsData(data));
+    dispatch(toggleIsFetching(false));
+};
+
+export const sendMessage = (userID: number, newMessageBody: string) => async (dispatch: ThunkDispatch<AppStateType, any, AnyAction>) => {
+    dispatch(toggleIsFetching(true));
+    await dialogsAPI.startChatting(userID);
+    await dialogsAPI.sendMessage(userID, newMessageBody);
+    await dispatch(requestDialogs());
+    dispatch(toggleIsFetching(false));
+};
 
 // types
 export type DialogsDataType = {
+    hasNewMessages: boolean;
     id: number;
-    name: string;
+    lastDialogActivityDate: string;
+    lastUserActivityDate: string;
+    newMessagesCount: number;
+    photos: PhotosProfileAPIType;
+    userName: string;
 }
 export type MessagesDataType = {
     id: number;
     message: string;
 }
 export type DialogsPageType = {
-    dialogsData: Array<DialogsDataType>;
-    messagesData: Array<MessagesDataType>;
+    dialogsData: DialogsDataType[];
+    messagesData: MessagesDataType[];
 }
 
-export type SendMessageActionType = {
-    type: 'dialogs/SEND-MESSAGE';
-    newMessageBody: string;
-}
-
-type ActionsType = SendMessageActionType;
+type ActionsType = ReturnType<typeof setDialogsData>;
 
 export default dialogsReducer;
