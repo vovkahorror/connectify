@@ -35,11 +35,8 @@ export const requestDialogs = () => async (dispatch: Dispatch) => {
 };
 
 export const sendMessage = (userID: number, newMessageBody: string) => async (dispatch: ThunkDispatch<AppStateType, any, AnyAction>) => {
-    dispatch(toggleIsFetching(true));
-    await dialogsAPI.startChatting(userID);
     await dialogsAPI.sendMessage(userID, newMessageBody);
     await dispatch(requestDialogs());
-    dispatch(toggleIsFetching(false));
 };
 
 // types

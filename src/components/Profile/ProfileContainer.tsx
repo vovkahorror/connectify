@@ -56,7 +56,7 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     };
 };
 
-type PathParamsType = {
+export type PathParamsType = {
     userID: string;
 }
 type MapStateToPropsType = {

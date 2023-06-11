@@ -6,6 +6,7 @@ import userPhoto from '../../../assets/images/user.svg';
 import {ProfileData} from './ProfileData/ProfileData';
 import {ProfileDataFormRedux} from './ProfileDataForm/ProfileDataForm';
 import {ReactComponent as UploadIcon} from '../../../assets/icons/upload.svg';
+import {Modal} from 'antd';
 
 export const ProfileInfo = ({
                                 profile,
@@ -19,6 +20,8 @@ export const ProfileInfo = ({
                                 saveProfile,
                             }: ProfileInfoPropsType) => {
     const [editMode, setEditMode] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [messageText, setMessageText] = useState('');
 
     if (!profile) {
         return <Preloader/>;
@@ -32,6 +35,16 @@ export const ProfileInfo = ({
 
     const onSubmit = (formData: ProfileAPIType) => {
         saveProfile(formData).then(() => setEditMode(false)).catch(e => e);
+    };
+
+    const showModal = () => setIsModalOpen(true);
+
+    const handleOk = () => setIsModalOpen(false);
+
+    const handleCancel = () => setIsModalOpen(false);
+    
+    const handleMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        setMessageText(e.currentTarget.value);
     };
 
     return (
@@ -48,11 +61,27 @@ export const ProfileInfo = ({
                 </div>
 
                 {!isOwner &&
-                    <button className={isFollows ? styles.unfollowButton : styles.followButton}
-                            disabled={isFollowingInProgress}
-                            onClick={() => followUnfollowFlow(profile.userId, isFollows)}>
-                        {isFollows ? 'Unfollow' : 'Follow'}
-                    </button>}
+                    <>
+                        <button className={isFollows ? styles.unfollowButton : styles.followButton}
+                                disabled={isFollowingInProgress}
+                                onClick={() => followUnfollowFlow(profile.userId, isFollows)}>
+                            {isFollows ? 'Unfollow' : 'Follow'}
+                        </button>
+                        <button className={styles.writeMessageButton} onClick={showModal}>
+                            Write a message
+                        </button>
+                    </>
+                }
+
+                <Modal title={`Write your message to ${profile.fullName}`} open={isModalOpen} onOk={handleOk}
+                       onCancel={handleCancel} centered
+                       footer={[
+                           <button className={styles.cancelButton} onClick={handleCancel}>Cancel</button>,
+                           <button className={styles.sendButton} onClick={handleOk}>Send</button>,
+                       ]}>
+                    <hr className={styles.divider}/>
+                    <textarea value={messageText} onChange={handleMessageChange}/>
+                </Modal>
             </div>
 
             {editMode

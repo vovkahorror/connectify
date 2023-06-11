@@ -3,14 +3,10 @@ import {DialogItem} from './DialogItem/DialogItem';
 import {Message} from './Message/Message';
 import {DialogsPageType} from '../../redux/dialogs-reducer';
 import {AddMessageFormRedux, FormDataType} from './AddMessageForm/AddMessageForm';
+import {FC} from 'react';
 
-type DialogsPropsType = {
-    sendMessage: (userID: number, newMessageBody: string) => void;
-    dialogsPage: DialogsPageType;
-}
-
-export const Dialogs = (props: DialogsPropsType) => {
-    const state = props.dialogsPage;
+export const Dialogs: FC<DialogsPropsType> = ({userID, sendMessage, dialogsPage}) => {
+    const state = dialogsPage;
 
     const dialogsElements = state.dialogsData.map(dialog => {
         return <DialogItem key={dialog.id} name={dialog.userName} id={dialog.id}/>;
@@ -21,7 +17,7 @@ export const Dialogs = (props: DialogsPropsType) => {
     });
 
     const addNewMessage = (values: FormDataType) => {
-        props.sendMessage(27772, values.newMessageBody);
+        sendMessage(userID, values.newMessageBody);
     };
 
     return (
@@ -36,4 +32,10 @@ export const Dialogs = (props: DialogsPropsType) => {
         </div>
     );
 };
+
+type DialogsPropsType = {
+    userID: number;
+    sendMessage: (userID: number, newMessageBody: string) => void;
+    dialogsPage: DialogsPageType;
+}
 

@@ -62,11 +62,8 @@ export const dialogsAPI = {
     getDialogs() {
         return instance.get(`dialogs`).then(response => response.data);
     },
-    getMessages(userID: number) {
-        return instance.get(`dialogs/${userID}/messages`).then(response => response.data);
-    },
-    startChatting(userID: number) {
-        return instance.put(`dialogs/${userID}`, {});
+    getMessages(userID: number, page = 1, pageSize = 10) {
+        return instance.get(`dialogs/${userID}/messages?page=${page}&count=${pageSize}`).then(response => response.data);
     },
     sendMessage(userID: number, body: string) {
         return instance.post(`dialogs/${userID}/messages`, {body}).then(response => response.data);

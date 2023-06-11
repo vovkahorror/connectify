@@ -2,7 +2,6 @@
 
 .addMessageForm {
   @include contentBlock($gap: 18px);
-  flex-grow: 1;
 
   .inputWrapper {
     flex-grow: 1;
