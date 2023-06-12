@@ -6,7 +6,7 @@ import userPhoto from '../../../assets/images/user.svg';
 import {ProfileData} from './ProfileData/ProfileData';
 import {ProfileDataFormRedux} from './ProfileDataForm/ProfileDataForm';
 import {ReactComponent as UploadIcon} from '../../../assets/icons/upload.svg';
-import {Modal} from 'antd';
+import {message, Modal} from 'antd';
 
 export const ProfileInfo = ({
                                 profile,
@@ -18,10 +18,12 @@ export const ProfileInfo = ({
                                 followUnfollowFlow,
                                 savePhoto,
                                 saveProfile,
+                                sendMessage,
                             }: ProfileInfoPropsType) => {
     const [editMode, setEditMode] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [messageText, setMessageText] = useState('');
+    const [messageApi, contextHolder] = message.useMessage();
 
     if (!profile) {
         return <Preloader/>;
@@ -39,16 +41,32 @@ export const ProfileInfo = ({
 
     const showModal = () => setIsModalOpen(true);
 
-    const handleOk = () => setIsModalOpen(false);
-
     const handleCancel = () => setIsModalOpen(false);
-    
+
     const handleMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         setMessageText(e.currentTarget.value);
     };
 
+    const handleSendMessage = () => {
+        sendAndSetSuccessfulNotification();
+        handleCancel();
+        setMessageText('');
+    };
+
+    const sendAndSetSuccessfulNotification = async () => {
+        await sendMessage(profile.userId, messageText);
+
+        messageApi.open({
+            type: 'success',
+            content: 'Your message has been sent successfully',
+            duration: 2,
+        });
+    };
+
     return (
         <div className={styles.profileInfo}>
+            {contextHolder}
+
             <div className={styles.photoButtonsWrapper}>
                 <div className={styles.imageBlock}>
                     <img className={styles.mainPhoto} src={profile.photos.large || userPhoto} alt=""/>
@@ -73,12 +91,8 @@ export const ProfileInfo = ({
                     </>
                 }
 
-                <Modal title={`Write your message to ${profile.fullName}`} open={isModalOpen} onOk={handleOk}
-                       onCancel={handleCancel} centered
-                       footer={[
-                           <button className={styles.cancelButton} onClick={handleCancel}>Cancel</button>,
-                           <button className={styles.sendButton} onClick={handleOk}>Send</button>,
-                       ]}>
+                <Modal title={`Write your message to ${profile.fullName}`} open={isModalOpen} onOk={handleSendMessage}
+                       okText={'Send'} onCancel={handleCancel} centered>
                     <hr className={styles.divider}/>
                     <textarea value={messageText} onChange={handleMessageChange}/>
                 </Modal>
@@ -103,5 +117,6 @@ type ProfileInfoPropsType = {
     isOwner: boolean;
     savePhoto: (file: File) => void;
     saveProfile: (formData: ProfileAPIType) => Promise<boolean>;
+    sendMessage: (userID: number, newMessageBody: string) => Promise<void>;
 }
 

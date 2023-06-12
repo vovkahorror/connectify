@@ -14,6 +14,7 @@ import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 import {compose} from 'redux';
 import {Preloader} from '../common/Preloader/Preloader';
+import {sendMessage} from '../../redux/dialogs-reducer';
 
 class ProfileContainer extends React.Component<ProfileContainerPropsType> {
     refreshProfile() {
@@ -74,6 +75,7 @@ type MapDispatchToPropsType = {
     followUnfollowFlow: (userID: number, isFollow: boolean) => void;
     savePhoto: (file: File) => void;
     saveProfile: (formData: ProfileAPIType) => Promise<boolean>;
+    sendMessage: (userID: number, newMessageBody: string) => Promise<void>;
 }
 type OwnPropsType = MapStateToPropsType & MapDispatchToPropsType;
 type ProfileContainerPropsType = RouteComponentProps<PathParamsType> & OwnPropsType;
@@ -84,4 +86,5 @@ export default compose<ComponentType>(connect(mapStateToProps, {
     followUnfollowFlow,
     savePhoto,
     saveProfile,
+    sendMessage,
 }), withRouter, withAuthRedirect)(ProfileContainer);
