@@ -31,13 +31,19 @@
       align-self: flex-end;
       width: 70%;
       max-width: 150px;
-      border: 2px solid #ffffff;
+      border: 1px solid #ffffff;
     }
 
     .unfollowButton {
       color: $textColor;
       background: none;
-      border: 2px solid $textColor;
+      border: 1px solid $textColor;
+
+      &:hover {
+        color: #4096ff;
+        border: 1px solid #4096ff;
+        background: none;
+      }
     }
   }
 }

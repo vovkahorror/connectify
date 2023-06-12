@@ -29,9 +29,15 @@
       border: none;
       outline: none;
       border-radius: 10px;
+      @include scrollbar();
+      cursor: auto;
 
       &::placeholder {
         font-weight: 400;
+      }
+
+      &:focus {
+        box-shadow: 0 0 0 2px rgba(55, 125, 255, 0.4);
       }
     }
   }

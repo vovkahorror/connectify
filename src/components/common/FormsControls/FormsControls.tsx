@@ -1,6 +1,7 @@
 import {Field, Validator, WrappedFieldProps} from 'redux-form';
 import styles from './FormsControls.module.css';
 import React, {FC, ReactNode} from 'react';
+import TextArea from 'antd/es/input/TextArea';
 
 type FormControlType = WrappedFieldProps & {
     children: ReactNode;
@@ -21,7 +22,7 @@ export const Textarea = (props: WrappedFieldProps) => {
     const {input, meta, ...restProps} = props;
 
     return (
-        <FormControl {...props}><textarea {...input} {...restProps}/></FormControl>
+        <FormControl {...props}><TextArea  {...input} {...restProps}/></FormControl>
     );
 };
 

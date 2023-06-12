@@ -8,7 +8,7 @@ export const Profile = memo((props: ProfilePropsType) => {
     return (
         <main className={styles.main}>
             <ProfileInfo {...props}/>
-            <PostsContainer profile={props.profile}/>
+            <PostsContainer profile={props.profile} userPhoto={props.userPhoto}/>
         </main>
     );
 });
@@ -19,6 +19,7 @@ type ProfilePropsType = {
     isOwner: boolean;
     isFollows: boolean;
     isFollowingInProgress: boolean;
+    userPhoto?: string | null;
     updateStatus: (status: string) => void;
     followUnfollowFlow: (userID: number, isFollow: boolean) => void;
     savePhoto: (file: File) => void;

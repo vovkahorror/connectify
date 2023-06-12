@@ -93,6 +93,11 @@
     .cancelButton {
       color: $textColor;
       background: none;
+
+      &:hover {
+        color: #4096ff;
+        background: none;
+      }
     }
   }
 }

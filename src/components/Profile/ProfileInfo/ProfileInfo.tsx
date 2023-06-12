@@ -2,11 +2,12 @@ import React, {ChangeEvent, useState} from 'react';
 import styles from './ProfileInfo.module.scss';
 import {ProfileAPIType} from '../../../redux/profile-reducer';
 import {Preloader} from '../../common/Preloader/Preloader';
-import userPhoto from '../../../assets/images/user.svg';
+import userNoPhoto from '../../../assets/images/user.svg';
 import {ProfileData} from './ProfileData/ProfileData';
 import {ProfileDataFormRedux} from './ProfileDataForm/ProfileDataForm';
 import {ReactComponent as UploadIcon} from '../../../assets/icons/upload.svg';
-import {message, Modal} from 'antd';
+import {message} from 'antd';
+import SendMessageModal from './SendMessageModal/SendMessageModal';
 
 export const ProfileInfo = ({
                                 profile,
@@ -14,6 +15,7 @@ export const ProfileInfo = ({
                                 isFollows,
                                 isFollowingInProgress,
                                 isOwner,
+                                userPhoto,
                                 updateStatus,
                                 followUnfollowFlow,
                                 savePhoto,
@@ -22,7 +24,6 @@ export const ProfileInfo = ({
                             }: ProfileInfoPropsType) => {
     const [editMode, setEditMode] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [messageText, setMessageText] = useState('');
     const [messageApi, contextHolder] = message.useMessage();
 
     if (!profile) {
@@ -41,27 +42,7 @@ export const ProfileInfo = ({
 
     const showModal = () => setIsModalOpen(true);
 
-    const handleCancel = () => setIsModalOpen(false);
-
-    const handleMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        setMessageText(e.currentTarget.value);
-    };
-
-    const handleSendMessage = () => {
-        sendAndSetSuccessfulNotification();
-        handleCancel();
-        setMessageText('');
-    };
-
-    const sendAndSetSuccessfulNotification = async () => {
-        await sendMessage(profile.userId, messageText);
-
-        messageApi.open({
-            type: 'success',
-            content: 'Your message has been sent successfully',
-            duration: 2,
-        });
-    };
+    const hideModal = () => setIsModalOpen(false);
 
     return (
         <div className={styles.profileInfo}>
@@ -69,7 +50,7 @@ export const ProfileInfo = ({
 
             <div className={styles.photoButtonsWrapper}>
                 <div className={styles.imageBlock}>
-                    <img className={styles.mainPhoto} src={profile.photos.large || userPhoto} alt=""/>
+                    <img className={styles.mainPhoto} src={profile.photos.large || userNoPhoto} alt=""/>
                     {isOwner &&
                         <label className={styles.uploadWrapper}>
                             <input className={styles.input} type="file" onChange={onMainPhotoSelected}
@@ -88,14 +69,12 @@ export const ProfileInfo = ({
                         <button className={styles.writeMessageButton} onClick={showModal}>
                             Write a message
                         </button>
+
+                        <SendMessageModal isModalOpen={isModalOpen} userID={profile.userId} messageApi={messageApi}
+                                          userPhoto={userPhoto} fullName={profile.fullName} sendMessage={sendMessage}
+                                          hideModal={hideModal}/>
                     </>
                 }
-
-                <Modal title={`Write your message to ${profile.fullName}`} open={isModalOpen} onOk={handleSendMessage}
-                       okText={'Send'} onCancel={handleCancel} centered>
-                    <hr className={styles.divider}/>
-                    <textarea value={messageText} onChange={handleMessageChange}/>
-                </Modal>
             </div>
 
             {editMode
@@ -115,6 +94,7 @@ type ProfileInfoPropsType = {
     updateStatus: (status: string) => void;
     followUnfollowFlow: (userID: number, isFollow: boolean) => void;
     isOwner: boolean;
+    userPhoto?: string | null;
     savePhoto: (file: File) => void;
     saveProfile: (formData: ProfileAPIType) => Promise<boolean>;
     sendMessage: (userID: number, newMessageBody: string) => Promise<void>;

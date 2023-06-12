@@ -61,22 +61,12 @@
       color: $textColor;
       background: none;
       border: 1px solid rgba(78, 93, 120, 0.4);
+
+      &:hover {
+        color: #4096ff;
+        border: 1px solid #4096ff;
+        background: none;
+      }
     }
   }
-}
-
-.sendButton, .cancelButton {
-  @include button();
-}
-
-.cancelButton {
-  color: $textColor;
-  background: none;
-}
-
-.divider {
-  margin-bottom: 18px;
-  height: 1px;
-  background: rgba(78, 93, 120, 0.2);
-  border: none;
 }

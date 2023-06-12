@@ -54,6 +54,7 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
         authorizedUserID: state.auth.id,
         isAuth: state.auth.isAuth,
         isFetching: state.app.isFetching,
+        userPhoto: state.auth.photo,
     };
 };
 
@@ -68,6 +69,7 @@ type MapStateToPropsType = {
     authorizedUserID: number | null;
     isAuth: boolean;
     isFetching: boolean;
+    userPhoto?: string | null;
 }
 type MapDispatchToPropsType = {
     getProfilePage: (userID: number) => void;

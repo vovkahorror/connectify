@@ -1,4 +1,4 @@
-import React, {FC, KeyboardEvent, useState} from 'react';
+import React, {ChangeEvent, FC, KeyboardEvent, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppStateType} from '../../../redux/redux-store';
 import {StatusType} from '../../../api/chat-api';
@@ -11,8 +11,12 @@ export const AddMessageForm: FC = () => {
     const status = useSelector<AppStateType, StatusType>(state => state.chat.status);
     const dispatch = useDispatch();
 
+    const writeMessageHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setMessage(e.currentTarget.value.slice(0, 100));
+    };
+
     const sendMessageHandler = () => {
-        if (!message.trim() || message.length >= 100) {
+        if (!message.trim() || message.length > 100) {
             return;
         }
 
@@ -30,10 +34,10 @@ export const AddMessageForm: FC = () => {
         <div className={styles.addMessageForm}>
             <div className={styles.inputWrapper}>
                 <input value={message} onKeyDown={onKeyDownHandler} placeholder={'Write a message'}
-                       onChange={(e) => setMessage(e.currentTarget.value)}/>
-                <span className={styles.notice}>The maximum length of a message is 100 characters</span>
+                       onChange={writeMessageHandler}/>
+                <span className={styles.notice}>You have {100 - message.length} characters left</span>
             </div>
-            <button className={styles.sendButton} disabled={status !== 'ready' || message.length >= 100}
+            <button className={styles.sendButton} disabled={status !== 'ready'}
                     onClick={sendMessageHandler}>
                 <SendIcon className={styles.sendIcon}/>
             </button>
