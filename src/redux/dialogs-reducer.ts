@@ -1,9 +1,7 @@
-import {AnyAction, Dispatch} from 'redux';
+import {Dispatch} from 'redux';
 import {toggleIsFetching} from './app-reducer';
 import {dialogsAPI} from '../api/api';
 import {PhotosProfileAPIType} from './profile-reducer';
-import {ThunkDispatch} from 'redux-thunk';
-import {AppStateType} from './redux-store';
 
 const SET_DIALOGS = 'dialogs/SET_DIALOGS';
 
@@ -34,9 +32,8 @@ export const requestDialogs = () => async (dispatch: Dispatch) => {
     dispatch(toggleIsFetching(false));
 };
 
-export const sendMessage = (userID: number, newMessageBody: string) => async (dispatch: ThunkDispatch<AppStateType, any, AnyAction>) => {
+export const sendMessage = (userID: number, newMessageBody: string) => async () => {
     await dialogsAPI.sendMessage(userID, newMessageBody);
-    await dispatch(requestDialogs());
 };
 
 // types
