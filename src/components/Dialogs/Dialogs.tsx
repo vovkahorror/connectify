@@ -17,10 +17,10 @@ export const Dialogs: FC<DialogsPropsType> = ({
     const state = dialogsPage;
 
     useEffect(() => {
-        if (state.dialogsData.length) {
+        if (state.dialogsData.length && !userID) {
             history.push(`/dialogs/${state.dialogsData[0].id}`);
         }
-    }, []);
+    }, [state.dialogsData]);
 
     return (
         <div className={styles.dialogs}>
