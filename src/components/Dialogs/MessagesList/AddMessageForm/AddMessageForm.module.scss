@@ -1,22 +1,26 @@
-@import '../../../styles/sass/mixins';
+@import '../../../../styles/sass/mixins';
 
-.addMessageForm {
-  @include contentBlock($gap: 18px);
+.form {
+  display: flex;
+  gap: 20px;
 
-  .inputWrapper {
+  .textareaWrapper {
+    position: relative;
     flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
 
-    input {
-      padding: 15px;
+    textarea {
+      padding: 18px 20px;
+      width: 100%;
+      min-height: 80px;
+      height: unset;
+      resize: none;
       @include text();
       background: linear-gradient(0deg, rgba(78, 93, 120, 0.05), rgba(78, 93, 120, 0.05)), #ffffff;
-      border: none;
-      outline: none;
       border-radius: 10px;
-      transition: all 0.3s, height 0s;
+      border: none;
+      @include scrollbar();
+      box-shadow: none;
+      cursor: auto;
 
       &::placeholder {
         font-weight: 400;
@@ -27,7 +31,10 @@
       }
     }
 
-    .notice {
+    .counter {
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
       font-size: 14px;
       font-style: italic;
     }
@@ -44,6 +51,7 @@
 
     .sendIcon {
       width: 30px;
+      height: 30px;
     }
   }
 }

@@ -1,11 +1,11 @@
 @import './variables';
 
-@mixin text($fontFamily: 'Roboto', $fontSize: 16px, $fontWeight: 500, $lineHeight: 24px) {
+@mixin text($fontFamily: 'Roboto', $fontSize: 16px, $fontWeight: 500, $lineHeight: 24px, $color: $textColor) {
   font-family: $fontFamily, sans-serif;
   font-size: $fontSize;
   font-weight: $fontWeight;
   line-height: $lineHeight;
-  color: $textColor;
+  color: $color;
 }
 
 @mixin pageWrapper($display: flex, $flexDirection: column, $gap: 30px, $padding: 30px,

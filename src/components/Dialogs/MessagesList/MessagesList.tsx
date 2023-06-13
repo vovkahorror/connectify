@@ -1,11 +1,10 @@
-import React, {FC, useEffect} from 'react';
+import React, {FC, useEffect, useRef, useState} from 'react';
 import {AddMessageFormRedux, FormDataType} from './AddMessageForm/AddMessageForm';
 import {Message} from './Message/Message';
 import {DialogsPageType} from '../../../redux/dialogs-reducer';
-import {setTimezoneOffsetDate, toFormatDate, toFormatTime} from '../../../utils/date-helpers';
-import userNoPhoto from '../../../assets/images/user.svg';
+import {ReactComponent as PreloaderIcon} from '../../../assets/images/preloader.svg';
 import styles from './MessagesList.module.scss';
-import {NavLink} from 'react-router-dom';
+import MessagesListHeader from './MessagesListHeader/MessagesListHeader';
 
 const MessagesList: FC<MessagesListPropsType> = ({
                                                      state,
@@ -14,51 +13,62 @@ const MessagesList: FC<MessagesListPropsType> = ({
                                                      authUserPhoto,
                                                      requestMessages,
                                                      sendMessage,
+                                                     reset,
                                                  }) => {
     const userName = state.dialogsData.find(dialog => dialog.id === userID)?.userName;
     const userPhoto = state.dialogsData.find(dialog => dialog.id === userID)?.photos.large;
     const lastUserActivityDate = state.dialogsData.find(dialog => dialog.id === userID)?.lastUserActivityDate;
+    const messagesAnchorRef = useRef<HTMLDivElement>(null);
+    const [isRequesting, setIsRequesting] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
-    const customizedDate = lastUserActivityDate && setTimezoneOffsetDate(lastUserActivityDate);
-    const date = customizedDate && toFormatDate(customizedDate);
-    const time = customizedDate && toFormatTime(customizedDate);
-
-    const messagesElements = state.messagesData.map(message => {
-        return <Message key={message.id} message={message.body} senderID={message.senderId} userID={userID}
+    const messagesElements = state.messagesData.items.map(message => {
+        return <Message key={message.id} message={message.body} senderID={message.senderId} addedAt={message.addedAt}
+                        viewed={message.viewed}
                         userPhoto={userPhoto}
                         authUserID={authUserID}
                         authUserPhoto={authUserPhoto}/>;
     });
 
     const addNewMessage = (values: FormDataType) => {
-        sendMessage(userID, values.newMessageBody);
+        if (values.newMessageBody.trim()) {
+            setIsRequesting(true);
+            sendMessage(userID, values.newMessageBody)
+                .then(() => requestMessages(userID))
+                .then(() => messagesAnchorRef.current?.scrollIntoView({behavior: 'smooth'}))
+                .catch(error => alert(error.message))
+                .finally(() => setIsRequesting(false));
+            reset('dialogAddMessageForm');
+        }
     };
 
     useEffect(() => {
         if (userID) {
-            requestMessages(userID);
+            setIsLoading(true);
+            requestMessages(userID)
+                .then(() => messagesAnchorRef.current?.scrollIntoView({behavior: 'smooth'}))
+                .catch(error => alert(error.message))
+                .finally(() => setIsLoading(false));
         }
     }, [userID]);
 
     return (
         <div className={styles.messagesList}>
-            <div className={styles.messagesListHeader}>
-                <NavLink className={styles.userName} to={`/profile/${userID}`}>
-                    <img className={styles.userPhoto} src={userPhoto || userNoPhoto} alt=""/>
-                </NavLink>
-                <div className={styles.userInfo}>
-                    <NavLink className={styles.userName} to={`/profile/${userID}`}>
-                        <h2 className={styles.userName}>{userName}</h2>
-                    </NavLink>
-                    <span className={styles.userActivity}>Was online on {date} at {time}</span>
-                </div>
-            </div>
+            {isLoading
+                ? <PreloaderIcon className={styles.preloaderIcon}/>
+                : <>
+                    <MessagesListHeader userID={userID}
+                                        userPhoto={userPhoto}
+                                        userName={userName}
+                                        lastUserActivityDate={lastUserActivityDate}/>
 
-            <div className={styles.messagesListBody}>
-                {messagesElements}
-            </div>
+                    <div className={styles.messagesListBody}>
+                        {messagesElements}
+                        <div ref={messagesAnchorRef}></div>
+                    </div>
 
-            <AddMessageFormRedux onSubmit={addNewMessage}/>
+                    <AddMessageFormRedux initialValues={{isRequesting: isRequesting}} onSubmit={addNewMessage}/>
+                </>}
         </div>
     );
 };
@@ -70,6 +80,7 @@ type MessagesListPropsType = {
     authUserPhoto?: string | null;
     requestMessages: (userID: number) => Promise<void>;
     sendMessage: (userID: number, message: string) => Promise<void>;
+    reset: (formName: string) => void;
 }
 
 export default MessagesList;

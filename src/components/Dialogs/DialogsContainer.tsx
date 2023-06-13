@@ -8,6 +8,7 @@ import React, {ComponentType} from 'react';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {PathParamsType} from '../Profile/ProfileContainer';
 import {Preloader} from '../common/Preloader/Preloader';
+import {reset} from 'redux-form';
 
 class DialogsContainer extends React.Component<DialogsContainerPropsType> {
     componentDidMount() {
@@ -46,6 +47,7 @@ type MapDispatchToPropsType = {
     requestDialogs: () => Promise<void>;
     requestMessages: (userID: number) => Promise<void>;
     sendMessage: (userID: number, newMessageBody: string) => Promise<void>;
+    reset: (formName: string) => void;
 }
 
 type DialogsContainerPropsType = RouteComponentProps<PathParamsType> & MapStateToPropsType & MapDispatchToPropsType;
@@ -54,4 +56,5 @@ export default compose<ComponentType>(connect(mapStateToProps, {
     requestDialogs,
     requestMessages,
     sendMessage,
+    reset,
 }), withRouter, withAuthRedirect)(DialogsContainer);

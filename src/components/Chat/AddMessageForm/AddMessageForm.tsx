@@ -34,10 +34,10 @@ export const AddMessageForm: FC = () => {
         <div className={styles.addMessageForm}>
             <div className={styles.inputWrapper}>
                 <input value={message} onKeyDown={onKeyDownHandler} placeholder={'Write a message'}
-                       onChange={writeMessageHandler}/>
+                       onChange={writeMessageHandler} autoFocus/>
                 <span className={styles.notice}>You have {100 - message.length} characters left</span>
             </div>
-            <button className={styles.sendButton} disabled={status !== 'ready'}
+            <button className={styles.sendButton} disabled={status !== 'ready' || !message.length}
                     onClick={sendMessageHandler}>
                 <SendIcon className={styles.sendIcon}/>
             </button>

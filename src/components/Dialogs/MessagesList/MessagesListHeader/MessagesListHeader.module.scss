@@ -1,0 +1,33 @@
+@import '../../../../styles/sass/mixins';
+
+.messagesListHeader {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 18px;
+  border-bottom: 1px solid rgba(78, 93, 120, 0.2);
+
+  .userPhoto {
+    width: 70px;
+    border-radius: 50%;
+  }
+
+  .userInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 100%;
+
+    .userName {
+      @include text($fontSize: 20px);
+      text-decoration: none;
+    }
+
+    .userActivity {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 18px;
+      color: rgba(78, 93, 120, 0.6);
+    }
+  }
+}

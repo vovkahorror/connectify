@@ -8,7 +8,11 @@ const SET_MESSAGES = 'dialogs/SET_MESSAGES';
 
 const initialState: DialogsPageType = {
     dialogsData: [],
-    messagesData: [],
+    messagesData: {
+        items: [],
+        totalCount: 0,
+        error: null,
+    },
 };
 
 const dialogsReducer = (state = initialState, action: ActionsType): DialogsPageType => {
@@ -24,12 +28,12 @@ const dialogsReducer = (state = initialState, action: ActionsType): DialogsPageT
     }
 };
 
-export const setDialogsData = (dialogsData: DialogsDataType[]) => ({
+export const setDialogsData = (dialogsData: DialogType[]) => ({
     type: SET_DIALOGS,
     dialogsData,
 } as const);
 
-export const setMessagesData = (messagesData: MessagesDataType[]) => ({
+export const setMessagesData = (messagesData: MessagesDataType) => ({
     type: SET_MESSAGES,
     messagesData,
 } as const);
@@ -42,10 +46,8 @@ export const requestDialogs = () => async (dispatch: Dispatch) => {
 };
 
 export const requestMessages = (userID: number) => async (dispatch: Dispatch) => {
-    dispatch(toggleIsFetching(true));
     const data = await dialogsAPI.getMessages(userID);
-    dispatch(setMessagesData(data.items));
-    dispatch(toggleIsFetching(false));
+    dispatch(setMessagesData(data));
 };
 
 export const sendMessage = (userID: number, newMessageBody: string) => async () => {
@@ -53,7 +55,7 @@ export const sendMessage = (userID: number, newMessageBody: string) => async () 
 };
 
 // types
-export type DialogsDataType = {
+export type DialogType = {
     hasNewMessages: boolean;
     id: number;
     lastDialogActivityDate: string;
@@ -62,7 +64,7 @@ export type DialogsDataType = {
     photos: PhotosProfileAPIType;
     userName: string;
 }
-export type MessagesDataType = {
+export type MessageType = {
     id: string;
     body: string;
     translatedBody: string | null;
@@ -72,9 +74,14 @@ export type MessagesDataType = {
     recipientId: number;
     viewed: boolean;
 }
+type MessagesDataType = {
+    items: MessageType[];
+    totalCount: number;
+    error: string | null;
+}
 export type DialogsPageType = {
-    dialogsData: DialogsDataType[];
-    messagesData: MessagesDataType[];
+    dialogsData: DialogType[];
+    messagesData: MessagesDataType;
 }
 
 type ActionsType = ReturnType<typeof setDialogsData> | ReturnType<typeof setMessagesData>;
