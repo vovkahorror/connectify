@@ -1,0 +1,61 @@
+@import '../../../../styles/sass/variables';
+@import '../../../../styles/sass/mixins';
+
+.messageBlock {
+  display: flex;
+  gap: 20px;
+
+  .messageContent {
+    position: relative;
+    padding: 10px 18px;
+    max-width: 700px;
+    @include text($fontWeight: 400);
+    background: rgba(78, 93, 120, 0.1);
+    backdrop-filter: blur(25px);
+    border-radius: 10px 10px 10px 0;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      right: 100%;
+      display: block;
+      width: 30px;
+      height: 30px;
+      background: radial-gradient(60px at top left, transparent 49%, rgba(78, 93, 120, 0.1) 51%) no-repeat right bottom;
+    }
+
+    .messageText {
+      word-wrap: break-word;
+    }
+  }
+}
+
+.ownerMessageBlock {
+  @extend .messageBlock;
+  flex-direction: row-reverse;
+
+  .messageContent {
+    @extend .messageContent;
+    color: #ffffff;
+    background: $mainSecondColor;
+    border-radius: 10px 10px 0 10px;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 100%;
+      display: block;
+      width: 30px;
+      height: 30px;
+      background: radial-gradient(60px at top right, transparent 49%, $mainSecondColor 51%) no-repeat left bottom;
+    }
+  }
+}
+
+.photo {
+  align-self: flex-end;
+  width: 60px;
+  border-radius: 50%;
+}

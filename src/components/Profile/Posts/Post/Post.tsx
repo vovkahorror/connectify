@@ -12,6 +12,7 @@ import {AxiosResponse} from 'axios';
 import {ThunkDispatch} from 'redux-thunk';
 import {AppStateType} from '../../../../redux/redux-store';
 import {AnyAction} from 'redux';
+import {toFormatDate, toFormatTime} from '../../../../utils/date-helpers';
 
 export const Post: FC<PostPropsType> = memo(({userID, post, profile, onPutReaction, onDeletePost}) => {
     const dispatch = useDispatch<ThunkDispatch<AppStateType, any, AnyAction>>();
@@ -24,16 +25,8 @@ export const Post: FC<PostPropsType> = memo(({userID, post, profile, onPutReacti
 
     const deletePostHandler = () => onDeletePost(post.id);
 
-    const date = new Date(post.date).toLocaleDateString('en-GB', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-    });
-    const time = new Date(post.date).toLocaleTimeString('en-GB', {
-        hour: 'numeric',
-        minute: 'numeric',
-        hour12: false,
-    });
+    const date = toFormatDate(post.date);
+    const time = toFormatTime(post.date);
 
     const LikeIcon = (props: SVGProps<SVGSVGElement>) => {
         return post.likes.some(like => like === userID)

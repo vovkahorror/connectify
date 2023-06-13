@@ -1,0 +1,11 @@
+@import '../../../styles/sass/mixins';
+
+.dialogsList {
+  @include contentBlock();
+  flex-direction: column;
+  gap: 0;
+  padding: 20px;
+  width: 35%;
+  overflow: auto;
+  @include scrollbar();
+}

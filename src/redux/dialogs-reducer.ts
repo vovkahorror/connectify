@@ -4,6 +4,7 @@ import {dialogsAPI} from '../api/api';
 import {PhotosProfileAPIType} from './profile-reducer';
 
 const SET_DIALOGS = 'dialogs/SET_DIALOGS';
+const SET_MESSAGES = 'dialogs/SET_MESSAGES';
 
 const initialState: DialogsPageType = {
     dialogsData: [],
@@ -15,6 +16,9 @@ const dialogsReducer = (state = initialState, action: ActionsType): DialogsPageT
         case SET_DIALOGS:
             return {...state, dialogsData: action.dialogsData};
 
+        case SET_MESSAGES:
+            return {...state, messagesData: action.messagesData};
+
         default:
             return state;
     }
@@ -25,10 +29,22 @@ export const setDialogsData = (dialogsData: DialogsDataType[]) => ({
     dialogsData,
 } as const);
 
+export const setMessagesData = (messagesData: MessagesDataType[]) => ({
+    type: SET_MESSAGES,
+    messagesData,
+} as const);
+
 export const requestDialogs = () => async (dispatch: Dispatch) => {
     dispatch(toggleIsFetching(true));
     const data = await dialogsAPI.getDialogs();
     dispatch(setDialogsData(data));
+    dispatch(toggleIsFetching(false));
+};
+
+export const requestMessages = (userID: number) => async (dispatch: Dispatch) => {
+    dispatch(toggleIsFetching(true));
+    const data = await dialogsAPI.getMessages(userID);
+    dispatch(setMessagesData(data.items));
     dispatch(toggleIsFetching(false));
 };
 
@@ -47,14 +63,20 @@ export type DialogsDataType = {
     userName: string;
 }
 export type MessagesDataType = {
-    id: number;
-    message: string;
+    id: string;
+    body: string;
+    translatedBody: string | null;
+    addedAt: string;
+    senderId: number;
+    senderName: string;
+    recipientId: number;
+    viewed: boolean;
 }
 export type DialogsPageType = {
     dialogsData: DialogsDataType[];
     messagesData: MessagesDataType[];
 }
 
-type ActionsType = ReturnType<typeof setDialogsData>;
+type ActionsType = ReturnType<typeof setDialogsData> | ReturnType<typeof setMessagesData>;
 
 export default dialogsReducer;
