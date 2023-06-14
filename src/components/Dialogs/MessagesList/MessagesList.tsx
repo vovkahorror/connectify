@@ -13,6 +13,7 @@ const MessagesList: FC<MessagesListPropsType> = ({
                                                      authUserPhoto,
                                                      requestMessages,
                                                      sendMessage,
+                                                     onPageChanged,
                                                      reset,
                                                  }) => {
     const userName = state.dialogsData.find(dialog => dialog.id === userID)?.userName;
@@ -34,7 +35,7 @@ const MessagesList: FC<MessagesListPropsType> = ({
         if (values.newMessageBody.trim()) {
             setIsRequesting(true);
             sendMessage(userID, values.newMessageBody)
-                .then(() => requestMessages(userID))
+                .then(() => requestMessages(userID, 1, state.messagesData.pageSize))
                 .then(() => messagesAnchorRef.current?.scrollIntoView({behavior: 'smooth'}))
                 .catch(error => alert(error.message))
                 .finally(() => setIsRequesting(false));
@@ -45,12 +46,12 @@ const MessagesList: FC<MessagesListPropsType> = ({
     useEffect(() => {
         if (userID) {
             setIsLoading(true);
-            requestMessages(userID)
+            requestMessages(userID, state.messagesData.currentPage, state.messagesData.pageSize)
                 .then(() => setTimeout(() => messagesAnchorRef.current?.scrollIntoView({behavior: 'smooth'})))
                 .catch(error => alert(error.message))
                 .finally(() => setIsLoading(false));
         }
-    }, [userID]);
+    }, [userID, state.messagesData.currentPage, state.messagesData.pageSize]);
 
     return (
         <div className={styles.messagesList}>
@@ -60,9 +61,15 @@ const MessagesList: FC<MessagesListPropsType> = ({
                     <MessagesListHeader userID={userID}
                                         userPhoto={userPhoto}
                                         userName={userName}
-                                        lastUserActivityDate={lastUserActivityDate}/>
+                                        lastUserActivityDate={lastUserActivityDate}
+                                        currentPage={state.messagesData.currentPage}
+                                        totalCount={state.messagesData.totalCount}
+                                        pageSize={state.messagesData.pageSize}
+                                        onPageChanged={onPageChanged}
+                    />
 
                     <div className={styles.messagesListBody}>
+                        <div>loading</div>
                         {messagesElements}
                         <div ref={messagesAnchorRef}></div>
                     </div>
@@ -78,8 +85,9 @@ type MessagesListPropsType = {
     userID: number;
     authUserID: number | null;
     authUserPhoto?: string | null;
-    requestMessages: (userID: number) => Promise<void>;
+    requestMessages: (userID: number, page: number, pageSize: number) => Promise<void>;
     sendMessage: (userID: number, message: string) => Promise<void>;
+    onPageChanged: (pageNumber: number) => void;
     reset: (formName: string) => void;
 }
 

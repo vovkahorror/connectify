@@ -5,6 +5,7 @@ import {PhotosProfileAPIType} from './profile-reducer';
 
 const SET_DIALOGS = 'dialogs/SET_DIALOGS';
 const SET_MESSAGES = 'dialogs/SET_MESSAGES';
+const SET_CURRENT_PAGE = 'dialogs/SET_CURRENT_PAGE';
 
 const initialState: DialogsPageType = {
     dialogsData: [],
@@ -12,6 +13,8 @@ const initialState: DialogsPageType = {
         items: [],
         totalCount: 0,
         error: null,
+        currentPage: 1,
+        pageSize: 5,
     },
 };
 
@@ -21,7 +24,10 @@ const dialogsReducer = (state = initialState, action: ActionsType): DialogsPageT
             return {...state, dialogsData: action.dialogsData};
 
         case SET_MESSAGES:
-            return {...state, messagesData: action.messagesData};
+            return {...state, messagesData: {...state.messagesData, ...action.messagesData}};
+
+        case SET_CURRENT_PAGE:
+            return {...state, messagesData: {...state.messagesData, currentPage: action.currentPage}};
 
         default:
             return state;
@@ -38,6 +44,11 @@ export const setMessagesData = (messagesData: MessagesDataType) => ({
     messagesData,
 } as const);
 
+export const setCurrentPage = (currentPage: number) => ({
+    type: SET_CURRENT_PAGE,
+    currentPage,
+} as const);
+
 export const requestDialogs = () => async (dispatch: Dispatch) => {
     dispatch(toggleIsFetching(true));
     const data = await dialogsAPI.getDialogs();
@@ -45,8 +56,8 @@ export const requestDialogs = () => async (dispatch: Dispatch) => {
     dispatch(toggleIsFetching(false));
 };
 
-export const requestMessages = (userID: number) => async (dispatch: Dispatch) => {
-    const data = await dialogsAPI.getMessages(userID);
+export const requestMessages = (userID: number, page: number, pageSize: number) => async (dispatch: Dispatch) => {
+    const data = await dialogsAPI.getMessages(userID, page, pageSize);
     dispatch(setMessagesData(data));
 };
 
@@ -78,12 +89,17 @@ type MessagesDataType = {
     items: MessageType[];
     totalCount: number;
     error: string | null;
+    currentPage: number;
+    pageSize: number;
 }
 export type DialogsPageType = {
     dialogsData: DialogType[];
     messagesData: MessagesDataType;
 }
 
-type ActionsType = ReturnType<typeof setDialogsData> | ReturnType<typeof setMessagesData>;
+type ActionsType =
+    ReturnType<typeof setDialogsData>
+    | ReturnType<typeof setMessagesData>
+    | ReturnType<typeof setCurrentPage>;
 
 export default dialogsReducer;

@@ -9,11 +9,16 @@ import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {PathParamsType} from '../Profile/ProfileContainer';
 import {Preloader} from '../common/Preloader/Preloader';
 import {reset} from 'redux-form';
+import {setCurrentPage} from '../../redux/dialogs-reducer';
 
 class DialogsContainer extends React.Component<DialogsContainerPropsType> {
     componentDidMount() {
         this.props.requestDialogs();
     }
+
+    onPageChanged = (pageNumber: number) => {
+        this.props.setCurrentPage(pageNumber);
+    };
 
     render() {
         const userID = +this.props.match.params.userID;
@@ -21,7 +26,7 @@ class DialogsContainer extends React.Component<DialogsContainerPropsType> {
         return (
             <>
                 {this.props.isFetching ? <Preloader/> : null}
-                <Dialogs userID={userID} {...this.props} />
+                <Dialogs userID={userID} onPageChanged={this.onPageChanged} {...this.props} />
             </>
         );
     }
@@ -45,8 +50,9 @@ type MapStateToPropsType = {
 
 type MapDispatchToPropsType = {
     requestDialogs: () => Promise<void>;
-    requestMessages: (userID: number) => Promise<void>;
+    requestMessages: (userID: number, page: number, pageSize: number) => Promise<void>;
     sendMessage: (userID: number, newMessageBody: string) => Promise<void>;
+    setCurrentPage: (pageNumber: number) => void;
     reset: (formName: string) => void;
 }
 
@@ -56,5 +62,6 @@ export default compose<ComponentType>(connect(mapStateToProps, {
     requestDialogs,
     requestMessages,
     sendMessage,
+    setCurrentPage,
     reset,
 }), withRouter, withAuthRedirect)(DialogsContainer);

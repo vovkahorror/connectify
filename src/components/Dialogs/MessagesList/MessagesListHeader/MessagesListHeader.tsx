@@ -5,7 +5,16 @@ import userNoPhoto from '../../../../assets/images/user.svg';
 import {setTimezoneOffsetDate, toFormatDate, toFormatTime} from '../../../../utils/date-helpers';
 import {Paginator} from '../../../common/Paginator/Paginator';
 
-const MessagesListHeader: FC<MessagesListHeaderPropsType> = ({userID, userPhoto, userName, lastUserActivityDate}) => {
+const MessagesListHeader: FC<MessagesListHeaderPropsType> = ({
+                                                                 userID,
+                                                                 userPhoto,
+                                                                 userName,
+                                                                 lastUserActivityDate,
+                                                                 currentPage,
+                                                                 totalCount,
+                                                                 pageSize,
+                                                                 onPageChanged,
+                                                             }) => {
     const customizedDate = lastUserActivityDate && setTimezoneOffsetDate(lastUserActivityDate);
     const date = customizedDate && toFormatDate(customizedDate);
     const time = customizedDate && toFormatTime(customizedDate);
@@ -21,7 +30,8 @@ const MessagesListHeader: FC<MessagesListHeaderPropsType> = ({userID, userPhoto,
                 </NavLink>
                 <span className={styles.userActivity}>Was online on {date} at {time}</span>
             </div>
-            {/*<Paginator/>*/}
+            <Paginator currentPage={currentPage} totalItemsCount={totalCount} pageSize={pageSize} portionSize={5}
+                       onPageChanged={onPageChanged}/>
         </div>
     );
 };
@@ -31,6 +41,10 @@ type MessagesListHeaderPropsType = {
     userPhoto?: string | null;
     userName?: string;
     lastUserActivityDate?: string;
+    currentPage: number;
+    totalCount: number;
+    pageSize: number;
+    onPageChanged: (pageNumber: number) => void;
 }
 
 export default MessagesListHeader;
