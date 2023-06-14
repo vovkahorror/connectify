@@ -3,6 +3,7 @@ import styles from './MessagesListHeader.module.scss';
 import {NavLink} from 'react-router-dom';
 import userNoPhoto from '../../../../assets/images/user.svg';
 import {setTimezoneOffsetDate, toFormatDate, toFormatTime} from '../../../../utils/date-helpers';
+import {Paginator} from '../../../common/Paginator/Paginator';
 
 const MessagesListHeader: FC<MessagesListHeaderPropsType> = ({userID, userPhoto, userName, lastUserActivityDate}) => {
     const customizedDate = lastUserActivityDate && setTimezoneOffsetDate(lastUserActivityDate);
@@ -20,6 +21,7 @@ const MessagesListHeader: FC<MessagesListHeaderPropsType> = ({userID, userPhoto,
                 </NavLink>
                 <span className={styles.userActivity}>Was online on {date} at {time}</span>
             </div>
+            {/*<Paginator/>*/}
         </div>
     );
 };

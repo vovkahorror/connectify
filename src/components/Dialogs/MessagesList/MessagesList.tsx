@@ -46,7 +46,7 @@ const MessagesList: FC<MessagesListPropsType> = ({
         if (userID) {
             setIsLoading(true);
             requestMessages(userID)
-                .then(() => messagesAnchorRef.current?.scrollIntoView({behavior: 'smooth'}))
+                .then(() => setTimeout(() => messagesAnchorRef.current?.scrollIntoView({behavior: 'smooth'})))
                 .catch(error => alert(error.message))
                 .finally(() => setIsLoading(false));
         }
