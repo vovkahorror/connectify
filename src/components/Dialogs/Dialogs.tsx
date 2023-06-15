@@ -12,6 +12,7 @@ export const Dialogs: FC<DialogsPropsType> = ({
                                                   authUserPhoto,
                                                   requestMessages,
                                                   sendMessage,
+                                                  deleteMessage,
                                                   onPageChanged,
                                                   reset,
                                               }) => {
@@ -28,8 +29,9 @@ export const Dialogs: FC<DialogsPropsType> = ({
         <div className={styles.dialogs}>
             <DialogsList state={state}/>
             <MessagesList state={state} userID={userID} authUserPhoto={authUserPhoto} authUserID={authUserID}
-                          requestMessages={requestMessages}
-                          sendMessage={sendMessage} onPageChanged={onPageChanged} reset={reset}/>
+                          requestMessages={requestMessages} sendMessage={sendMessage} deleteMessage={deleteMessage}
+                          onPageChanged={onPageChanged}
+                          reset={reset}/>
         </div>
     );
 };
@@ -41,6 +43,7 @@ type DialogsPropsType = {
     authUserPhoto?: string | null;
     requestMessages: (userID: number, page: number, pageSize: number) => Promise<void>;
     sendMessage: (userID: number, newMessageBody: string) => Promise<void>;
+    deleteMessage: (messageID: string) => Promise<void>;
     onPageChanged: (pageNumber: number) => void;
     reset: (formName: string) => void;
 }

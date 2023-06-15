@@ -30,8 +30,10 @@ const MessagesListHeader: FC<MessagesListHeaderPropsType> = ({
                 </NavLink>
                 <span className={styles.userActivity}>Was online on {date} at {time}</span>
             </div>
-            <Paginator currentPage={currentPage} totalItemsCount={totalCount} pageSize={pageSize} portionSize={5}
-                       onPageChanged={onPageChanged}/>
+            <div>
+                <Paginator currentPage={currentPage} totalItemsCount={totalCount} pageSize={pageSize} portionSize={5}
+                           onPageChanged={onPageChanged}/>
+            </div>
         </div>
     );
 };

@@ -14,7 +14,7 @@ const initialState: DialogsPageType = {
         totalCount: 0,
         error: null,
         currentPage: 1,
-        pageSize: 5,
+        pageSize: 20,
     },
 };
 
@@ -24,7 +24,10 @@ const dialogsReducer = (state = initialState, action: ActionsType): DialogsPageT
             return {...state, dialogsData: action.dialogsData};
 
         case SET_MESSAGES:
-            return {...state, messagesData: {...state.messagesData, ...action.messagesData}};
+            return {
+                ...state,
+                messagesData: {...state.messagesData, ...action.messagesData},
+            };
 
         case SET_CURRENT_PAGE:
             return {...state, messagesData: {...state.messagesData, currentPage: action.currentPage}};
@@ -65,6 +68,10 @@ export const sendMessage = (userID: number, newMessageBody: string) => async () 
     await dialogsAPI.sendMessage(userID, newMessageBody);
 };
 
+export const deleteMessage = (messageID: string) => async () => {
+    await dialogsAPI.deleteMessage(messageID);
+};
+
 // types
 export type DialogType = {
     hasNewMessages: boolean;
@@ -85,7 +92,7 @@ export type MessageType = {
     recipientId: number;
     viewed: boolean;
 }
-type MessagesDataType = {
+export type MessagesDataType = {
     items: MessageType[];
     totalCount: number;
     error: string | null;
@@ -100,6 +107,6 @@ export type DialogsPageType = {
 type ActionsType =
     ReturnType<typeof setDialogsData>
     | ReturnType<typeof setMessagesData>
-    | ReturnType<typeof setCurrentPage>;
+    | ReturnType<typeof setCurrentPage>
 
 export default dialogsReducer;

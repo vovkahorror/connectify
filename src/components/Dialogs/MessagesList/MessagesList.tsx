@@ -13,6 +13,7 @@ const MessagesList: FC<MessagesListPropsType> = ({
                                                      authUserPhoto,
                                                      requestMessages,
                                                      sendMessage,
+                                                     deleteMessage,
                                                      onPageChanged,
                                                      reset,
                                                  }) => {
@@ -20,28 +21,33 @@ const MessagesList: FC<MessagesListPropsType> = ({
     const userPhoto = state.dialogsData.find(dialog => dialog.id === userID)?.photos.large;
     const lastUserActivityDate = state.dialogsData.find(dialog => dialog.id === userID)?.lastUserActivityDate;
     const messagesAnchorRef = useRef<HTMLDivElement>(null);
-    const [isRequesting, setIsRequesting] = useState(false);
+    const [isSending, setIsSending] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-
-    const messagesElements = state.messagesData.items.map(message => {
-        return <Message key={message.id} message={message.body} senderID={message.senderId} addedAt={message.addedAt}
-                        viewed={message.viewed}
-                        userPhoto={userPhoto}
-                        authUserID={authUserID}
-                        authUserPhoto={authUserPhoto}/>;
-    });
 
     const addNewMessage = (values: FormDataType) => {
         if (values.newMessageBody.trim()) {
-            setIsRequesting(true);
+            setIsSending(true);
             sendMessage(userID, values.newMessageBody)
                 .then(() => requestMessages(userID, 1, state.messagesData.pageSize))
                 .then(() => messagesAnchorRef.current?.scrollIntoView({behavior: 'smooth'}))
                 .catch(error => alert(error.message))
-                .finally(() => setIsRequesting(false));
+                .finally(() => setIsSending(false));
             reset('dialogAddMessageForm');
         }
     };
+
+    const messagesElements = state.messagesData.items.map(message => {
+        return <Message key={message.id} messageID={message.id} message={message.body} senderID={message.senderId}
+                        addedAt={message.addedAt}
+                        viewed={message.viewed}
+                        state={state}
+                        userID={userID}
+                        userPhoto={userPhoto}
+                        authUserID={authUserID}
+                        authUserPhoto={authUserPhoto}
+                        deleteMessage={deleteMessage}
+                        requestMessages={requestMessages}/>;
+    });
 
     useEffect(() => {
         if (userID) {
@@ -69,12 +75,11 @@ const MessagesList: FC<MessagesListPropsType> = ({
                     />
 
                     <div className={styles.messagesListBody}>
-                        <div>loading</div>
                         {messagesElements}
                         <div ref={messagesAnchorRef}></div>
                     </div>
 
-                    <AddMessageFormRedux initialValues={{isRequesting: isRequesting}} onSubmit={addNewMessage}/>
+                    <AddMessageFormRedux initialValues={{isRequesting: isSending}} onSubmit={addNewMessage}/>
                 </>}
         </div>
     );
@@ -87,6 +92,7 @@ type MessagesListPropsType = {
     authUserPhoto?: string | null;
     requestMessages: (userID: number, page: number, pageSize: number) => Promise<void>;
     sendMessage: (userID: number, message: string) => Promise<void>;
+    deleteMessage: (messageID: string) => Promise<void>;
     onPageChanged: (pageNumber: number) => void;
     reset: (formName: string) => void;
 }

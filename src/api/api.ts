@@ -68,6 +68,9 @@ export const dialogsAPI = {
     sendMessage(userID: number, body: string) {
         return instance.post(`dialogs/${userID}/messages`, {body}).then(response => response.data);
     },
+    deleteMessage(messageID: string) {
+        return instance.delete(`dialogs/messages/${messageID}`).then(response => response.data);
+    },
 };
 
 export const securityAPI = {

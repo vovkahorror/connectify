@@ -1,4 +1,11 @@
-import {DialogsPageType, requestDialogs, requestMessages, sendMessage} from '../../redux/dialogs-reducer';
+import {
+    deleteMessage,
+    DialogsPageType,
+    requestDialogs,
+    requestMessages,
+    sendMessage,
+    setCurrentPage,
+} from '../../redux/dialogs-reducer';
 import {Dialogs} from './Dialogs';
 import {connect} from 'react-redux';
 import {AppStateType} from '../../redux/redux-store';
@@ -9,7 +16,6 @@ import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {PathParamsType} from '../Profile/ProfileContainer';
 import {Preloader} from '../common/Preloader/Preloader';
 import {reset} from 'redux-form';
-import {setCurrentPage} from '../../redux/dialogs-reducer';
 
 class DialogsContainer extends React.Component<DialogsContainerPropsType> {
     componentDidMount() {
@@ -52,6 +58,7 @@ type MapDispatchToPropsType = {
     requestDialogs: () => Promise<void>;
     requestMessages: (userID: number, page: number, pageSize: number) => Promise<void>;
     sendMessage: (userID: number, newMessageBody: string) => Promise<void>;
+    deleteMessage: (messageID: string) => Promise<void>;
     setCurrentPage: (pageNumber: number) => void;
     reset: (formName: string) => void;
 }
@@ -62,6 +69,7 @@ export default compose<ComponentType>(connect(mapStateToProps, {
     requestDialogs,
     requestMessages,
     sendMessage,
+    deleteMessage,
     setCurrentPage,
     reset,
 }), withRouter, withAuthRedirect)(DialogsContainer);

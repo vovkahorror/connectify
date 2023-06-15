@@ -5,10 +5,17 @@
   display: flex;
   gap: 20px;
 
+  .photo {
+    align-self: flex-end;
+    width: 60px;
+    border-radius: 50%;
+  }
+
   .messageContent {
     position: relative;
     padding: 10px 18px;
-    max-width: 700px;
+    width: max-content;
+    max-width: 600px;
     @include text($fontWeight: 400);
     background: rgba(78, 93, 120, 0.1);
     backdrop-filter: blur(25px);
@@ -32,11 +39,37 @@
     .messageDate {
       position: absolute;
       left: 0;
-      top: calc(100% + 10px);
+      top: calc(100% + 6px);
       display: flex;
       gap: 10px;
       @include text($fontSize: 12px, $lineHeight: 18px, $color: rgba(78, 93, 120, 0.6));
       white-space: nowrap;
+    }
+
+    .deleteMessage {
+      position: absolute;
+      top: 4px;
+      right: calc(100% + 10px);
+      width: 12px;
+      height: 12px;
+      opacity: 0.5;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    .deletingMessage {
+      @extend .deleteMessage;
+      top: 0;
+      width: 60px;
+      height: 60px;
+      cursor: auto;
+
+      &:hover {
+        opacity: 0.5;
+      }
     }
   }
 }
@@ -80,10 +113,4 @@
     width: 15px;
     opacity: 0.7;
   }
-}
-
-.photo {
-  align-self: flex-end;
-  width: 60px;
-  border-radius: 50%;
 }
