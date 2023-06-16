@@ -49,7 +49,7 @@
     .deleteMessage {
       position: absolute;
       top: 4px;
-      right: calc(100% + 10px);
+      left: calc(100% + 10px);
       width: 12px;
       height: 12px;
       opacity: 0.5;
@@ -103,6 +103,12 @@
       @extend .messageDate;
       left: unset;
       right: 0;
+    }
+
+    .deleteMessage {
+      @extend .deleteMessage;
+      left: unset;
+      right: calc(100% + 10px);
     }
   }
 

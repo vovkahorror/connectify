@@ -61,7 +61,7 @@ export const requestDialogs = () => async (dispatch: Dispatch) => {
 
 export const requestMessages = (userID: number, page: number, pageSize: number) => async (dispatch: Dispatch) => {
     const data = await dialogsAPI.getMessages(userID, page, pageSize);
-    dispatch(setMessagesData(data));
+    dispatch(setMessagesData({...data, currentPage: page}));
 };
 
 export const sendMessage = (userID: number, newMessageBody: string) => async () => {

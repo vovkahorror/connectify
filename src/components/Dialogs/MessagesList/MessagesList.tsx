@@ -74,9 +74,11 @@ const MessagesList: FC<MessagesListPropsType> = ({
                                         onPageChanged={onPageChanged}
                     />
 
-                    <div className={styles.messagesListBody}>
-                        {messagesElements}
-                        <div ref={messagesAnchorRef}></div>
+                    <div className={styles.messagesListBodyWrapper}>
+                        <div className={styles.messagesListBody}>
+                            {messagesElements}
+                            <div ref={messagesAnchorRef}></div>
+                        </div>
                     </div>
 
                     <AddMessageFormRedux initialValues={{isRequesting: isSending}} onSubmit={addNewMessage}/>

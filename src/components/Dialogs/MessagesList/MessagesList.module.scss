@@ -5,13 +5,18 @@
   flex-direction: column;
   width: 100%;
 
-  .messagesListBody {
+  .messagesListBodyWrapper {
     flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 48px;
-    padding-right: 20px;
-    overflow: auto;
+    overflow-y: scroll;
     @include scrollbar();
+
+    .messagesListBody {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: 48px;
+      min-height: 100%;
+      padding-right: 20px;
+    }
   }
 }
