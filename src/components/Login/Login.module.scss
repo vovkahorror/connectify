@@ -1,0 +1,15 @@
+@import '../../styles/sass/mixins';
+
+.main {
+  @include pageWrapper();
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
+  .login {
+    @include contentBlock($padding: 40px, $gap: 20px);
+    flex-direction: column;
+    align-items: center;
+    width: 30%;
+  }
+}

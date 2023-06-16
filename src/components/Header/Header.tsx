@@ -20,7 +20,7 @@ export const Header: FC<HeaderPropsType> = ({isAuth, login, photo, logout}) => {
                                                   alt=""/></NavLink>
                     <LogOutIcon className={styles.logOut} onClick={logout}/>
                 </div>
-                : <NavLink to={'/login'}>Log in</NavLink>}
+                : <NavLink className={styles.loginLink} to={'/login'}>Sign In</NavLink>}
         </header>
     );
 };
@@ -28,6 +28,6 @@ export const Header: FC<HeaderPropsType> = ({isAuth, login, photo, logout}) => {
 type HeaderPropsType = {
     isAuth: boolean;
     login: string | null;
-    photo?: string | null;
+    photo: string | null;
     logout: () => void;
 }

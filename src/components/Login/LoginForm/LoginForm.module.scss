@@ -1,0 +1,63 @@
+@import '../../../styles/sass/mixins';
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+
+  input {
+    width: 100%;
+    padding: 15px;
+    @include text();
+    background: linear-gradient(0deg, rgba(78, 93, 120, 0.05), rgba(78, 93, 120, 0.05)), #ffffff;
+    border: 1px solid rgba(78, 93, 120, 0.2);
+    outline: none;
+    border-radius: 10px;
+    transition: all 0.3s, height 0s;
+
+    &::placeholder {
+      font-weight: 400;
+    }
+
+    &:focus {
+      border: 1px solid transparent;
+      box-shadow: 0 0 0 2px rgba(55, 125, 255, 0.4);
+    }
+  }
+
+  .rememberMe {
+    display: flex;
+    gap: 10px;
+    width: max-content;
+    @include text();
+
+    input {
+      appearance: none;
+      padding: 0;
+      width: 22px;
+      height: 22px;
+      border: 1px solid rgba(78, 93, 120, 0.2);
+      border-radius: 4px;
+      background-position: center;
+      background-size: 90%;
+      background-repeat: no-repeat;
+      cursor: pointer;
+
+      &:checked {
+        background-color: $mainSecondColor;
+        background-image: url('../../../assets/icons/checked.svg')
+      }
+
+      &:focus {
+        box-shadow: none;
+      }
+    }
+  }
+
+
+  button {
+    @include button();
+    width: 100%;
+  }
+}

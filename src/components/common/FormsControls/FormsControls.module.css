@@ -4,6 +4,8 @@
 }
 
 .formControl.error span {
+    display: block;
+    margin-top: 6px;
     color: red;
 }
 
@@ -11,5 +13,4 @@
     padding: 10px;
     font-weight: 700;
     color: darkred;
-    border: 1px solid red;
 }

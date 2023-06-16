@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {login} from '../../redux/auth-reducer';
 import {AppStateType} from '../../redux/redux-store';
 import {Redirect} from 'react-router-dom';
+import styles from './Login.module.scss';
 
 type MapStateToPropsType = {
     captcha?: string | null;
@@ -26,10 +27,12 @@ const Login: FC<LoginPropsType> = ({login, isAuth, captcha}) => {
     }
 
     return (
-        <div>
-            <h1>Login</h1>
-            <LoginFormRedux onSubmit={onSubmit} initialValues={{captcha}}/>
-        </div>
+        <main className={styles.main}>
+            <h1>Sign In</h1>
+            <div className={styles.login}>
+                <LoginFormRedux onSubmit={onSubmit} initialValues={{captcha}}/>
+            </div>
+        </main>
     );
 };
 

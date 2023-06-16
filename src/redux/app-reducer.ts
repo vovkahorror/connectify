@@ -1,7 +1,6 @@
 import {ThunkDispatch} from 'redux-thunk';
 import {AnyAction} from 'redux';
-import {getAuthUserData, setUserName, setUserPhoto} from './auth-reducer';
-import {getProfileForInitialize} from './profile-reducer';
+import {getAuthUserData} from './auth-reducer';
 
 const INITIALIZED_SUCCESS = 'app/INITIALIZED_SUCCESS';
 const TOGGLE_IS_FETCHING = 'app/TOGGLE_IS_FETCHING';
@@ -31,12 +30,7 @@ export const initializedSuccess = () => ({type: INITIALIZED_SUCCESS});
 
 export const initializeApp = () => async (dispatch: ThunkDispatch<AppStateType, any, AnyAction>) => {
     try {
-        const authPromise = await dispatch(getAuthUserData());
-        if (authPromise.data.resultCode === 0) {
-            const currentUserProfile = await dispatch(getProfileForInitialize(authPromise.data.data.id));
-            dispatch(setUserPhoto(currentUserProfile.data.photos.large));
-            dispatch(setUserName(currentUserProfile.data.fullName));
-        }
+        await dispatch(getAuthUserData());
     } catch (e) {
         const error = e as Error;
         alert(error.message);

@@ -21,7 +21,7 @@ const mapStateToProps = (state: AppStateType): MapStateType => ({
 type MapStateType = {
     isAuth: boolean;
     login: string | null;
-    photo?: string | null;
+    photo: string | null;
 }
 
 type MapDispatchType = {
