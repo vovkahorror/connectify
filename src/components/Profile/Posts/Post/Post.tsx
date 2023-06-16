@@ -7,26 +7,33 @@ import {ReactComponent as ThumbsUpRegularIcon} from '../../../../assets/icons/th
 import {ReactComponent as ThumbsDownRegularIcon} from '../../../../assets/icons/thumbsDownRegular.svg';
 import {ReactComponent as ThumbsUpSolidIcon} from '../../../../assets/icons/thumbsUpSolid.svg';
 import {ReactComponent as ThumbsDownSolidIcon} from '../../../../assets/icons/thumbsDownSolid.svg';
+import {ReactComponent as DeletingIcon} from '../../../../assets/icons/requestGrey.svg';
 import {useDispatch} from 'react-redux';
 import {AxiosResponse} from 'axios';
 import {ThunkDispatch} from 'redux-thunk';
 import {AppStateType} from '../../../../redux/redux-store';
 import {AnyAction} from 'redux';
 import {toFormatDate, toFormatTime} from '../../../../utils/date-helpers';
+import {Popconfirm} from 'antd';
 
 export const Post: FC<PostPropsType> = memo(({userID, post, profile, onPutReaction, onDeletePost}) => {
     const dispatch = useDispatch<ThunkDispatch<AppStateType, any, AnyAction>>();
     const [senderPhoto, setSenderPhoto] = useState<string | null>(null);
     const [senderName, setSenderName] = useState<string | null>(null);
+    const [isDeleting, setIsDeleting] = useState(false);
+
+    const date = toFormatDate(post.date);
+    const time = toFormatTime(post.date);
 
     const putLikeHandler = () => onPutReaction(post.id, 'likes');
 
     const putDislikeHandler = () => onPutReaction(post.id, 'dislikes');
 
-    const deletePostHandler = () => onDeletePost(post.id);
-
-    const date = toFormatDate(post.date);
-    const time = toFormatTime(post.date);
+    const deletePostHandler = () => {
+        setIsDeleting(true);
+        onDeletePost(post.id)
+            .then(() => setIsDeleting(false));
+    };
 
     const LikeIcon = (props: SVGProps<SVGSVGElement>) => {
         return post.likes.some(like => like === userID)
@@ -75,7 +82,20 @@ export const Post: FC<PostPropsType> = memo(({userID, post, profile, onPutReacti
                 </div>
             </div>
 
-            {userID === post.senderUserID && <DeleteIcon className={styles.deletePost} onClick={deletePostHandler}/>}
+            {userID === post.senderUserID &&
+                <Popconfirm
+                    title="Delete this post"
+                    description="Are you sure to delete this post?"
+                    onConfirm={() => deletePostHandler()}
+                    okText="Yes"
+                    cancelText="No"
+                    disabled={isDeleting}
+                >
+                    {isDeleting
+                        ? <DeletingIcon className={styles.deletingPost}/>
+                        : <DeleteIcon className={styles.deletePost}/>}
+                </Popconfirm>
+            }
         </article>
     );
 });
@@ -85,5 +105,5 @@ export type PostPropsType = {
     post: PostDataType;
     profile: ProfileAPIType | null;
     onPutReaction: (postID: string, reactions: 'likes' | 'dislikes') => void;
-    onDeletePost: (postID: string) => void;
+    onDeletePost: (postID: string) => Promise<void>;
 }

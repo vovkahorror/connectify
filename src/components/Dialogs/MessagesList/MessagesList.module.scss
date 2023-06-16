@@ -7,6 +7,7 @@
 
   .messagesListBodyWrapper {
     flex-grow: 1;
+    padding-right: 20px;
     overflow-y: scroll;
     @include scrollbar();
 
@@ -16,7 +17,6 @@
       justify-content: flex-end;
       gap: 48px;
       min-height: 100%;
-      padding-right: 20px;
     }
   }
 }

@@ -23,8 +23,8 @@ export const Posts: FC<PostsPropsType> = memo(({
         profile && putReaction(profile.userId, postID, reactions);
     };
 
-    const onDeletePost = (postID: string) => {
-        profile && deletePost(profile.userId, postID);
+    const onDeletePost = async (postID: string) => {
+        profile && await deletePost(profile.userId, postID);
     };
 
     const postsElements = postsData.map(post => {
@@ -45,7 +45,7 @@ export const Posts: FC<PostsPropsType> = memo(({
 type PostsPropsType = {
     addPost: (userID: number, newPostText: string, userPhoto?: string | null, userName?: string | null) => void;
     putReaction: (userID: number, postID: string, action: 'likes' | 'dislikes') => void;
-    deletePost: (userID: number, postID: string) => void;
+    deletePost: (userID: number, postID: string) => Promise<void>;
     reset: (formName: string) => void;
     profile: ProfileAPIType | null;
     userID: number | null;
