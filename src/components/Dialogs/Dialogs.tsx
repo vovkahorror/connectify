@@ -27,11 +27,17 @@ export const Dialogs: FC<DialogsPropsType> = ({
 
     return (
         <div className={styles.dialogs}>
-            <DialogsList state={state}/>
-            <MessagesList state={state} userID={userID} authUserPhoto={authUserPhoto} authUserID={authUserID}
-                          requestMessages={requestMessages} sendMessage={sendMessage} deleteMessage={deleteMessage}
-                          onPageChanged={onPageChanged}
-                          reset={reset}/>
+            {state.dialogsData.length
+                ?
+                <>
+                    <DialogsList state={state}/>
+                    <MessagesList state={state} userID={userID} authUserPhoto={authUserPhoto} authUserID={authUserID}
+                                  requestMessages={requestMessages} sendMessage={sendMessage}
+                                  deleteMessage={deleteMessage}
+                                  onPageChanged={onPageChanged}
+                                  reset={reset}/>
+                </>
+                : <span className={styles.noMessages}>You have no messages yet</span>}
         </div>
     );
 };
