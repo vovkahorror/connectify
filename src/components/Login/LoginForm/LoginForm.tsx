@@ -4,6 +4,7 @@ import {createField, Input} from '../../common/FormsControls/FormsControls';
 import {required} from '../../../utils/validators/validators';
 import controlsStyles from '../../common/FormsControls/FormsControls.module.css';
 import styles from './LoginForm.module.scss';
+import {NavLink} from 'react-router-dom';
 
 const LoginForm: FC<InjectedFormProps<FormDataType>> = ({initialValues: {captcha}, handleSubmit, error}) => {
     return (
@@ -25,7 +26,12 @@ const LoginForm: FC<InjectedFormProps<FormDataType>> = ({initialValues: {captcha
                 {error}
             </div>}
 
-            <button>Login</button>
+            <button>Sign In</button>
+
+            <div className={styles.signUpBlock}>
+                <span>Don't have an account?</span>
+                <NavLink to={'/register'}>Sign Up</NavLink>
+            </div>
         </form>
     );
 };

@@ -1,0 +1,8 @@
+@import '../../styles/sass/mixins';
+
+.main {
+  @include pageWrapper();
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}

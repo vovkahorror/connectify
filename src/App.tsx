@@ -16,6 +16,7 @@ const UsersContainer = React.lazy(() => import('./components/Users/UsersContaine
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
 const Chat = React.lazy(() => import('./components/Chat/Chat'));
 const Login = React.lazy(() => import('./components/Login/Login'));
+const Register = React.lazy(() => import('./components/Register/Register'));
 const News = React.lazy(() => import('./components/News/News'));
 const Music = React.lazy(() => import('./components/Music/Music'));
 const Settings = React.lazy(() => import('./components/Settings/Settings'));
@@ -51,10 +52,11 @@ class App extends React.Component<AppPropsType, AppStateType> {
                         <Route path={'/dialogs/:userID?'} render={withSuspense(DialogsContainer)}/>
                         <Route path={'/chat'} render={withSuspense(Chat)}/>
                         <Route path={'/login'} render={withSuspense(Login)}/>
+                        <Route path={'/register'} render={withSuspense(Register)}/>
                         <Route path={'/news'} render={withSuspense(News)}/>
                         <Route path={'/music'} render={withSuspense(Music)}/>
                         <Route path={'/settings'} render={withSuspense(Settings)}/>
-                        <Route path={'*'} render={() => <div>404 NOT FOUND</div>}/>
+                        <Route path={'*'} render={() => <h1>404 NOT FOUND</h1>}/>
                     </Switch>
                 </div>
             </div>

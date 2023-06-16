@@ -34,9 +34,9 @@ export const Input = (props: WrappedFieldProps) => {
     );
 };
 
-export const createField = (placeholder: string, name: string, type: string, validators: Validator[], component: ReactNode, props = {}) => {
+export const createField = (placeholder: string, name: string, type: string, validators: Validator[], component: ReactNode, autocomplete?: string, props = {}) => {
     return (
         <Field placeholder={placeholder} name={name} type={type} validate={validators}
-               component={component} {...props}/>
+               component={component} autocomplete={autocomplete} {...props}/>
     );
 };
