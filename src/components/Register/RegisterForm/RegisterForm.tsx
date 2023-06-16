@@ -3,17 +3,29 @@ import {Field, FormErrors, InjectedFormProps, reduxForm} from 'redux-form';
 import {createField, Input} from '../../common/FormsControls/FormsControls';
 import {required} from '../../../utils/validators/validators';
 import styles from '../../Login/LoginForm/LoginForm.module.scss';
-import controlsStyles from '../../common/FormsControls/FormsControls.module.css';
+import controlsStyles from '../../common/FormsControls/FormsControls.module.scss';
 import {NavLink} from 'react-router-dom';
 
 const RegisterForm: FC<InjectedFormProps<FormDataType>> = ({handleSubmit, error}) => {
 
     return (
         <form className={styles.form} onSubmit={handleSubmit}>
-            {createField('Login', 'login', 'text', [required], Input, 'new-password')}
-            {createField('Email', 'email', 'text', [required], Input, 'new-password')}
-            {createField('Password', 'password', 'password', [required], Input, 'new-password')}
-            {createField('Confirm Password', 'confirmPassword', 'password', [required], Input, 'new-password')}
+            <div>
+                <span className={styles.fieldTitle}>Login</span>
+                {createField('Your Login', 'login', 'text', [required], Input, 'new-password')}
+            </div>
+            <div>
+                <span className={styles.fieldTitle}>Email</span>
+                {createField('Your Email', 'email', 'text', [required], Input, 'new-password')}
+            </div>
+            <div>
+                <span className={styles.fieldTitle}>Password</span>
+                {createField('Create Password', 'password', 'password', [required], Input, 'new-password')}
+            </div>
+            <div>
+                <span className={styles.fieldTitle}>Confirm Password</span>
+                {createField('Confirm Password', 'confirmPassword', 'password', [required], Input, 'new-password')}
+            </div>
 
             <label className={styles.acceptOffer}>
                 <Field component={Input} name={'acceptOffer'} type={'checkbox'}/>

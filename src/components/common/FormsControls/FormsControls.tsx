@@ -1,5 +1,5 @@
 import {Field, Validator, WrappedFieldProps} from 'redux-form';
-import styles from './FormsControls.module.css';
+import styles from './FormsControls.module.scss';
 import React, {FC, ReactNode} from 'react';
 import TextArea from 'antd/es/input/TextArea';
 
@@ -37,6 +37,6 @@ export const Input = (props: WrappedFieldProps) => {
 export const createField = (placeholder: string, name: string, type: string, validators: Validator[], component: ReactNode, autocomplete?: string, props = {}) => {
     return (
         <Field placeholder={placeholder} name={name} type={type} validate={validators}
-               component={component} autocomplete={autocomplete} {...props}/>
+               component={component} autoComplete={autocomplete} {...props}/>
     );
 };

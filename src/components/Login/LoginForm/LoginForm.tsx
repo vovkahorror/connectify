@@ -2,15 +2,21 @@ import React, {FC} from 'react';
 import {Field, InjectedFormProps, reduxForm} from 'redux-form';
 import {createField, Input} from '../../common/FormsControls/FormsControls';
 import {required} from '../../../utils/validators/validators';
-import controlsStyles from '../../common/FormsControls/FormsControls.module.css';
+import controlsStyles from '../../common/FormsControls/FormsControls.module.scss';
 import styles from './LoginForm.module.scss';
 import {NavLink} from 'react-router-dom';
 
 const LoginForm: FC<InjectedFormProps<FormDataType>> = ({initialValues: {captcha}, handleSubmit, error}) => {
     return (
         <form className={styles.form} onSubmit={handleSubmit}>
-            {createField('Email', 'email', 'text', [required], Input)}
-            {createField('Password', 'password', 'password', [required], Input)}
+            <div>
+                <span className={styles.fieldTitle}>Email</span>
+                {createField('Your Email', 'email', 'text', [required], Input)}
+            </div>
+            <div>
+                <span className={styles.fieldTitle}>Password</span>
+                {createField('Inter Password', 'password', 'password', [required], Input)}
+            </div>
 
             <label className={styles.rememberMe}>
                 <Field component={Input} name={'rememberMe'} type={'checkbox'}/>

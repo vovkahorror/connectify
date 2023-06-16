@@ -3,7 +3,7 @@ import {ContactsProfileAPIType, ProfileAPIType} from '../../../../redux/profile-
 import {InjectedFormProps, reduxForm} from 'redux-form';
 import {createField, Input, Textarea} from '../../../common/FormsControls/FormsControls';
 import {required} from '../../../../utils/validators/validators';
-import controlsStyles from '../../../common/FormsControls/FormsControls.module.css';
+import controlsStyles from '../../../common/FormsControls/FormsControls.module.scss';
 import styles from './ProfileDataForm.module.scss';
 
 const ProfileDataForm: FC<InjectedFormProps<ProfileDataFormPropsType>> = ({

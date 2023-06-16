@@ -19,7 +19,10 @@ const Register: FC<RegisterPropsType> = ({register}) => {
     return (
         <main className={styles.main}>
             {contextHolder}
-            <h1>Getting Started</h1>
+            <div className={styles.title}>
+                <h1>Create an account</h1>
+                <span>Create an account to continue and connect with the people</span>
+            </div>
             <div className={styles.register}>
                 <RegisterFormRedux onSubmit={onSubmit}/>
             </div>

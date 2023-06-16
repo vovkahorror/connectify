@@ -1,15 +1,58 @@
+@import '../../styles/sass/variables';
 @import '../../styles/sass/mixins';
 
 .main {
+  position: relative;
   @include pageWrapper();
   justify-content: center;
   align-items: center;
   height: 100%;
 
+  .title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    @include text();
+
+    h1 {
+      margin: 0;
+      font-weight: 900;
+      font-size: 30px;
+      line-height: 46px;
+    }
+  }
+
   .login, .register {
     @include contentBlock($padding: 40px, $gap: 20px);
     flex-direction: column;
     align-items: center;
-    min-width: 30%;
+    width: 30%;
+    min-width: 500px;
+  }
+
+  .info {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    @include contentBlock($gap: 20px);
+    flex-wrap: wrap;
+    max-width: 400px;
+    @include text();
+
+    .copiedTextTitle {
+      font-weight: 700;
+    }
+
+    .copiedText {
+      font-size: 18px;
+      font-weight: 700;
+      color: $textColor;
+    }
+
+    a {
+      text-decoration: none;
+      color: $mainSecondColor;
+    }
   }
 }
