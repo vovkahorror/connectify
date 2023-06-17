@@ -22,6 +22,7 @@ import {
     getTotalUsersCount,
     getUsers,
 } from '../../redux/users-selectors';
+import {withNewMessagesRequest} from '../../hoc/withNewMessagesRequest';
 
 class UsersContainer extends React.Component<UsersContainerPropsType> {
     getUsers(currentPage = this.props.currentPage) {
@@ -111,4 +112,4 @@ export default compose<ComponentType>(connect(mapStateToProps, {
     requestUsers,
     follow,
     unfollow,
-}), withAuthRedirect)(UsersContainer);
+}), withAuthRedirect, withNewMessagesRequest)(UsersContainer);

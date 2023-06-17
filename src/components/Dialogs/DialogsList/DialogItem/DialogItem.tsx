@@ -19,7 +19,7 @@ export const DialogItem: FC<DialogItemType> = ({userName, userPhoto, id, lastDia
                 <span>{date}</span>
                 <span>{time}</span>
             </span>
-            {!!newMessagesCount && <span className={styles.newMessagesCount}>{newMessagesCount}</span>}
+            {newMessagesCount > 0 && <span className={styles.newMessagesCount}>{newMessagesCount}</span>}
         </NavLink>
     );
 };

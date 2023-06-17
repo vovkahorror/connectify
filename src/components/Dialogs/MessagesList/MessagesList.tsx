@@ -11,10 +11,13 @@ const MessagesList: FC<MessagesListPropsType> = ({
                                                      userID,
                                                      authUserID,
                                                      authUserPhoto,
+                                                     requestDialogs,
                                                      requestMessages,
                                                      sendMessage,
                                                      deleteMessage,
                                                      onPageChanged,
+                                                     resetMessagesData,
+                                                     getNewMessagesCount,
                                                      reset,
                                                  }) => {
     const userName = state.dialogsData.find(dialog => dialog.id === userID)?.userName;
@@ -23,11 +26,14 @@ const MessagesList: FC<MessagesListPropsType> = ({
     const messagesAnchorRef = useRef<HTMLDivElement>(null);
     const [isSending, setIsSending] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const prevUserID = useRef<number | null>(null);
+    const prevPropCurrentPage = useRef<number | null>(null);
 
     const addNewMessage = (values: FormDataType) => {
         if (values.newMessageBody.trim()) {
             setIsSending(true);
             sendMessage(userID, values.newMessageBody)
+                .then(() => requestDialogs())
                 .then(() => requestMessages(userID, 1, state.messagesData.pageSize))
                 .then(() => messagesAnchorRef.current?.scrollIntoView({behavior: 'smooth'}))
                 .catch(error => alert(error.message))
@@ -50,14 +56,26 @@ const MessagesList: FC<MessagesListPropsType> = ({
     });
 
     useEffect(() => {
+        const currentPage = userID === prevUserID.current ? state.messagesData.currentPage : 1;
+
         if (userID) {
             setIsLoading(true);
-            requestMessages(userID, state.messagesData.currentPage, state.messagesData.pageSize)
+            requestMessages(userID, currentPage, state.messagesData.pageSize)
+                .then(() => requestDialogs())
+                .then(() => getNewMessagesCount())
                 .then(() => setTimeout(() => messagesAnchorRef.current?.scrollIntoView({behavior: 'smooth'})))
                 .catch(error => alert(error.message))
                 .finally(() => setIsLoading(false));
         }
+
+        return () => {
+            if (userID !== prevUserID.current && currentPage === prevPropCurrentPage.current) {
+                resetMessagesData();
+            }
+            prevUserID.current = userID;
+        };
     }, [userID, state.messagesData.currentPage, state.messagesData.pageSize]);
+
 
     return (
         <div className={styles.messagesList}>
@@ -92,10 +110,13 @@ type MessagesListPropsType = {
     userID: number;
     authUserID: number | null;
     authUserPhoto?: string | null;
+    requestDialogs: () => Promise<void>;
     requestMessages: (userID: number, page: number, pageSize: number) => Promise<void>;
     sendMessage: (userID: number, message: string) => Promise<void>;
     deleteMessage: (messageID: string) => Promise<void>;
     onPageChanged: (pageNumber: number) => void;
+    resetMessagesData: () => void;
+    getNewMessagesCount: () => void;
     reset: (formName: string) => void;
 }
 

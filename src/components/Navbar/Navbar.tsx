@@ -8,8 +8,12 @@ import {ReactComponent as UsersIcon} from '../../assets/icons/users.svg';
 import {ReactComponent as NewsIcon} from '../../assets/icons/newspaper.svg';
 import {ReactComponent as MusicIcon} from '../../assets/icons/music.svg';
 import {ReactComponent as SettingsIcon} from '../../assets/icons/settings.svg';
+import {useSelector} from 'react-redux';
+import {AppStateType} from '../../redux/redux-store';
 
 export const Navbar = () => {
+    const newMessagesCount = useSelector<AppStateType, number>(state => state.dialogsPage.unreadMessages);
+
     return (
         <nav className={styles.nav}>
             <ul className={styles.mainList}>
@@ -29,6 +33,7 @@ export const Navbar = () => {
                     <NavLink to="/dialogs" className={styles.link} activeClassName={styles.active}>
                         <MessageIcon className={styles.icon}/>
                         <span>Messages</span>
+                        {newMessagesCount > 0 && <span className={styles.newMessagesCount}>{newMessagesCount}</span>}
                     </NavLink>
                 </li>
                 <li className={styles.item}>

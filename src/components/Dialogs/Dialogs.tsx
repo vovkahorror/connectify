@@ -10,14 +10,21 @@ export const Dialogs: FC<DialogsPropsType> = ({
                                                   dialogsPage,
                                                   authUserID,
                                                   authUserPhoto,
+                                                  requestDialogs,
                                                   requestMessages,
                                                   sendMessage,
                                                   deleteMessage,
                                                   onPageChanged,
+                                                  resetMessagesData,
+                                                  getNewMessagesCount,
                                                   reset,
                                               }) => {
     const history = useHistory();
     const state = dialogsPage;
+
+    useEffect(() => {
+        requestDialogs();
+    }, [userID]);
 
     useEffect(() => {
         if (state.dialogsData.length && !userID) {
@@ -28,14 +35,13 @@ export const Dialogs: FC<DialogsPropsType> = ({
     return (
         <div className={styles.dialogs}>
             {state.dialogsData.length
-                ?
-                <>
+                ? <>
                     <DialogsList state={state}/>
                     <MessagesList state={state} userID={userID} authUserPhoto={authUserPhoto} authUserID={authUserID}
                                   requestMessages={requestMessages} sendMessage={sendMessage}
-                                  deleteMessage={deleteMessage}
-                                  onPageChanged={onPageChanged}
-                                  reset={reset}/>
+                                  deleteMessage={deleteMessage} onPageChanged={onPageChanged}
+                                  resetMessagesData={resetMessagesData} getNewMessagesCount={getNewMessagesCount}
+                                  requestDialogs={requestDialogs} reset={reset}/>
                 </>
                 : <span className={styles.noMessages}>You have no messages yet</span>}
         </div>
@@ -47,10 +53,13 @@ type DialogsPropsType = {
     dialogsPage: DialogsPageType;
     authUserID: number | null;
     authUserPhoto?: string | null;
+    requestDialogs: () => Promise<void>;
     requestMessages: (userID: number, page: number, pageSize: number) => Promise<void>;
     sendMessage: (userID: number, newMessageBody: string) => Promise<void>;
     deleteMessage: (messageID: string) => Promise<void>;
     onPageChanged: (pageNumber: number) => void;
+    resetMessagesData: () => void;
+    getNewMessagesCount: () => void;
     reset: (formName: string) => void;
 }
 

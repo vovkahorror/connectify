@@ -86,7 +86,7 @@ type MapStateType = {
 }
 
 type MapDispatchType = {
-    initializeApp: () => void
+    initializeApp: () => void;
 }
 
 type AppPropsType = MapStateType & MapDispatchType;

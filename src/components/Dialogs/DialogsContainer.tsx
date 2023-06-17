@@ -1,8 +1,10 @@
 import {
     deleteMessage,
     DialogsPageType,
+    getNewMessagesCount,
     requestDialogs,
     requestMessages,
+    resetMessagesData,
     sendMessage,
     setCurrentPage,
 } from '../../redux/dialogs-reducer';
@@ -14,14 +16,9 @@ import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 import React, {ComponentType} from 'react';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {PathParamsType} from '../Profile/ProfileContainer';
-import {Preloader} from '../common/Preloader/Preloader';
 import {reset} from 'redux-form';
 
 class DialogsContainer extends React.Component<DialogsContainerPropsType> {
-    componentDidMount() {
-        this.props.requestDialogs();
-    }
-
     onPageChanged = (pageNumber: number) => {
         this.props.setCurrentPage(pageNumber);
     };
@@ -31,7 +28,6 @@ class DialogsContainer extends React.Component<DialogsContainerPropsType> {
 
         return (
             <>
-                {this.props.isFetching ? <Preloader/> : null}
                 <Dialogs userID={userID} onPageChanged={this.onPageChanged} {...this.props} />
             </>
         );
@@ -43,7 +39,6 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
         dialogsPage: state.dialogsPage,
         authUserID: state.auth.id,
         authUserPhoto: state.auth.photo,
-        isFetching: state.app.isFetching,
     };
 };
 
@@ -51,7 +46,6 @@ type MapStateToPropsType = {
     dialogsPage: DialogsPageType;
     authUserID: number | null;
     authUserPhoto?: string | null;
-    isFetching: boolean;
 }
 
 type MapDispatchToPropsType = {
@@ -60,6 +54,8 @@ type MapDispatchToPropsType = {
     sendMessage: (userID: number, newMessageBody: string) => Promise<void>;
     deleteMessage: (messageID: string) => Promise<void>;
     setCurrentPage: (pageNumber: number) => void;
+    resetMessagesData: () => void;
+    getNewMessagesCount: () => void;
     reset: (formName: string) => void;
 }
 
@@ -71,5 +67,7 @@ export default compose<ComponentType>(connect(mapStateToProps, {
     sendMessage,
     deleteMessage,
     setCurrentPage,
+    resetMessagesData,
+    getNewMessagesCount,
     reset,
 }), withRouter, withAuthRedirect)(DialogsContainer);

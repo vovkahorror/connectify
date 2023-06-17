@@ -8,6 +8,7 @@ import {AddMessageForm} from './AddMessageForm/AddMessageForm';
 import styles from './Chat.module.scss';
 import {compose} from 'redux';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
+import {withNewMessagesRequest} from '../../hoc/withNewMessagesRequest';
 
 const Chat: FC = () => {
     const status = useSelector<AppStateType, StatusType>(state => state.chat.status);
@@ -30,4 +31,4 @@ const Chat: FC = () => {
     );
 };
 
-export default compose<ComponentType>(withAuthRedirect)(Chat);
+export default compose<ComponentType>(withAuthRedirect, withNewMessagesRequest)(Chat);

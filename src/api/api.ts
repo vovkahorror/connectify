@@ -71,6 +71,9 @@ export const dialogsAPI = {
     deleteMessage(messageID: string) {
         return instance.delete(`dialogs/messages/${messageID}`).then(response => response.data);
     },
+    getNewMessagesCount() {
+        return instance.get(`dialogs/messages/new/count`).then(response => response.data);
+    },
 };
 
 export const securityAPI = {

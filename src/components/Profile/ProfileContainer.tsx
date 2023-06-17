@@ -15,6 +15,7 @@ import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 import {compose} from 'redux';
 import {Preloader} from '../common/Preloader/Preloader';
 import {sendMessage} from '../../redux/dialogs-reducer';
+import {withNewMessagesRequest} from '../../hoc/withNewMessagesRequest';
 
 class ProfileContainer extends React.Component<ProfileContainerPropsType> {
     refreshProfile() {
@@ -89,4 +90,4 @@ export default compose<ComponentType>(connect(mapStateToProps, {
     savePhoto,
     saveProfile,
     sendMessage,
-}), withRouter, withAuthRedirect)(ProfileContainer);
+}), withRouter, withAuthRedirect, withNewMessagesRequest)(ProfileContainer);
