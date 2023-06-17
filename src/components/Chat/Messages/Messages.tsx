@@ -1,11 +1,11 @@
-import React, {FC, UIEvent, useEffect, useRef, useState} from 'react';
+import React, {FC, MutableRefObject, UIEvent, useEffect, useRef, useState} from 'react';
 import {useSelector} from 'react-redux';
 import {AppStateType} from '../../../redux/redux-store';
 import {ChatMessageType} from '../../../api/chat-api';
 import {Message} from './Message/Message';
 import styles from './Messages.module.scss';
 
-export const Messages: FC = () => {
+export const Messages: FC<MessagesPropsType> = ({noMessages}) => {
     const messages = useSelector<AppStateType, ChatMessageType[]>(state => state.chat.messages);
     const messagesAnchorRef = useRef<HTMLDivElement>(null);
     const [isAutoScroll, setIsAutoScroll] = useState(true);
@@ -33,8 +33,12 @@ export const Messages: FC = () => {
             {messages.map(m =>
                 <Message key={m.id} {...m}/>,
             )}
-            {!messages.length && <span className={styles.noMessages}>There are no messages in the chat yet</span>}
+            {!messages.length && <span className={styles.noMessages}>{noMessages.current}</span>}
             <div ref={messagesAnchorRef}></div>
         </div>
     );
 };
+
+type MessagesPropsType = {
+    noMessages: MutableRefObject<string>;
+}

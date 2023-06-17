@@ -56,10 +56,10 @@ const statusChangedHandlerCreator = (dispatch: Dispatch) => {
     return _statusChangedHandler;
 };
 
-export const startMessagesListening = () => (dispatch: Dispatch) => {
-    chatApi.start();
-    chatApi.subscribe('messages-received', newMessageHandlerCreator(dispatch));
-    chatApi.subscribe('status-changed', statusChangedHandlerCreator(dispatch));
+export const startMessagesListening = () => async (dispatch: Dispatch) => {
+    await chatApi.start();
+    await chatApi.subscribe('messages-received', newMessageHandlerCreator(dispatch));
+    await chatApi.subscribe('status-changed', statusChangedHandlerCreator(dispatch));
 };
 
 export const stopMessagesListening = () => (dispatch: Dispatch) => {

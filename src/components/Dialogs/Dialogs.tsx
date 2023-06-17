@@ -1,5 +1,5 @@
 import {DialogsPageType} from '../../redux/dialogs-reducer';
-import React, {FC, useEffect} from 'react';
+import React, {FC, useEffect, useRef} from 'react';
 import DialogsList from './DialogsList/DialogsList';
 import MessagesList from './MessagesList/MessagesList';
 import styles from './Dialogs.module.scss';
@@ -21,9 +21,11 @@ export const Dialogs: FC<DialogsPropsType> = ({
                                               }) => {
     const history = useHistory();
     const state = dialogsPage;
+    let noMessages = useRef('');
 
     useEffect(() => {
-        requestDialogs();
+        requestDialogs()
+            .then(() => noMessages.current = 'You have no messages yet');
     }, [userID, state.messagesData]);
 
     useEffect(() => {
@@ -43,7 +45,7 @@ export const Dialogs: FC<DialogsPropsType> = ({
                                   resetMessagesData={resetMessagesData} getNewMessagesCount={getNewMessagesCount}
                                   reset={reset}/>
                 </>
-                : <span className={styles.noMessages}>You have no messages yet</span>}
+                : <span className={styles.noMessages}>{noMessages.current}</span>}
         </div>
     );
 };
