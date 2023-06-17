@@ -24,7 +24,7 @@ export const Dialogs: FC<DialogsPropsType> = ({
 
     useEffect(() => {
         requestDialogs();
-    }, [userID]);
+    }, [userID, state.messagesData]);
 
     useEffect(() => {
         if (state.dialogsData.length && !userID) {
@@ -41,7 +41,7 @@ export const Dialogs: FC<DialogsPropsType> = ({
                                   requestMessages={requestMessages} sendMessage={sendMessage}
                                   deleteMessage={deleteMessage} onPageChanged={onPageChanged}
                                   resetMessagesData={resetMessagesData} getNewMessagesCount={getNewMessagesCount}
-                                  requestDialogs={requestDialogs} reset={reset}/>
+                                  reset={reset}/>
                 </>
                 : <span className={styles.noMessages}>You have no messages yet</span>}
         </div>

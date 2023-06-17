@@ -11,7 +11,6 @@ const MessagesList: FC<MessagesListPropsType> = ({
                                                      userID,
                                                      authUserID,
                                                      authUserPhoto,
-                                                     requestDialogs,
                                                      requestMessages,
                                                      sendMessage,
                                                      deleteMessage,
@@ -33,7 +32,6 @@ const MessagesList: FC<MessagesListPropsType> = ({
         if (values.newMessageBody.trim()) {
             setIsSending(true);
             sendMessage(userID, values.newMessageBody)
-                .then(() => requestDialogs())
                 .then(() => requestMessages(userID, 1, state.messagesData.pageSize))
                 .then(() => messagesAnchorRef.current?.scrollIntoView({behavior: 'smooth'}))
                 .catch(error => alert(error.message))
@@ -61,7 +59,6 @@ const MessagesList: FC<MessagesListPropsType> = ({
         if (userID) {
             setIsLoading(true);
             requestMessages(userID, currentPage, state.messagesData.pageSize)
-                .then(() => requestDialogs())
                 .then(() => getNewMessagesCount())
                 .then(() => setTimeout(() => messagesAnchorRef.current?.scrollIntoView({behavior: 'smooth'})))
                 .catch(error => alert(error.message))
@@ -110,7 +107,6 @@ type MessagesListPropsType = {
     userID: number;
     authUserID: number | null;
     authUserPhoto?: string | null;
-    requestDialogs: () => Promise<void>;
     requestMessages: (userID: number, page: number, pageSize: number) => Promise<void>;
     sendMessage: (userID: number, message: string) => Promise<void>;
     deleteMessage: (messageID: string) => Promise<void>;

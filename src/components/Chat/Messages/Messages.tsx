@@ -33,6 +33,7 @@ export const Messages: FC = () => {
             {messages.map(m =>
                 <Message key={m.id} {...m}/>,
             )}
+            {!messages.length && <span className={styles.noMessages}>There are no messages in the chat yet</span>}
             <div ref={messagesAnchorRef}></div>
         </div>
     );
