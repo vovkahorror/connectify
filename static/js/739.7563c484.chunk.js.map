@@ -1,1 +1,0 @@
-{"version":3,"file":"static/js/739.7563c484.chunk.js","mappings":"mIAQA,UANc,WACV,OACI","sources":["components/Music/Music.tsx"],"sourcesContent":["import styles from './Music.module.css';\r\n\r\nconst Music = () => {\r\n    return (\r\n        <div>Music</div>\r\n    );\r\n};\r\n\r\nexport default Music;"],"names":[],"sourceRoot":""}

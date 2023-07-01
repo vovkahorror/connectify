@@ -1,1 +1,0 @@
-{"version":3,"file":"static/js/610.9d32ceac.chunk.js","mappings":"kIAQA,UANa,WACT,OACI","sources":["components/News/News.tsx"],"sourcesContent":["import styles from './News.module.css';\r\n\r\nconst News = () => {\r\n    return (\r\n        <div>News</div>\r\n    );\r\n};\r\n\r\nexport default News;"],"names":[],"sourceRoot":""}
