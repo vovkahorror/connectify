@@ -1,10 +1,10 @@
 {
   "files": {
     "main.css": "/connectify/static/css/main.2bbe83ba.css",
-    "main.js": "/connectify/static/js/main.5edc7117.js",
+    "main.js": "/connectify/static/js/main.4257a6c2.js",
     "static/css/417.8089f7ac.chunk.css": "/connectify/static/css/417.8089f7ac.chunk.css",
     "static/js/417.07d3fb72.chunk.js": "/connectify/static/js/417.07d3fb72.chunk.js",
-    "static/css/827.2743c507.chunk.css": "/connectify/static/css/827.2743c507.chunk.css",
+    "static/css/827.233250d8.chunk.css": "/connectify/static/css/827.233250d8.chunk.css",
     "static/js/827.b1c7fbf6.chunk.js": "/connectify/static/js/827.b1c7fbf6.chunk.js",
     "static/css/259.06a619da.chunk.css": "/connectify/static/css/259.06a619da.chunk.css",
     "static/js/259.790d36ea.chunk.js": "/connectify/static/js/259.790d36ea.chunk.js",
@@ -63,10 +63,10 @@
     "static/media/arrowRight.svg": "/connectify/static/media/arrowRight.f22cda78b6e11abab5ec8cf947c36bfe.svg",
     "static/media/arrowLeft.svg": "/connectify/static/media/arrowLeft.a5756a50b41ed84f8dc5444e2f7e412c.svg",
     "main.2bbe83ba.css.map": "/connectify/static/css/main.2bbe83ba.css.map",
-    "main.5edc7117.js.map": "/connectify/static/js/main.5edc7117.js.map",
+    "main.4257a6c2.js.map": "/connectify/static/js/main.4257a6c2.js.map",
     "417.8089f7ac.chunk.css.map": "/connectify/static/css/417.8089f7ac.chunk.css.map",
     "417.07d3fb72.chunk.js.map": "/connectify/static/js/417.07d3fb72.chunk.js.map",
-    "827.2743c507.chunk.css.map": "/connectify/static/css/827.2743c507.chunk.css.map",
+    "827.233250d8.chunk.css.map": "/connectify/static/css/827.233250d8.chunk.css.map",
     "827.b1c7fbf6.chunk.js.map": "/connectify/static/js/827.b1c7fbf6.chunk.js.map",
     "259.06a619da.chunk.css.map": "/connectify/static/css/259.06a619da.chunk.css.map",
     "259.790d36ea.chunk.js.map": "/connectify/static/js/259.790d36ea.chunk.js.map",
@@ -88,6 +88,6 @@
   },
   "entrypoints": [
     "static/css/main.2bbe83ba.css",
-    "static/js/main.5edc7117.js"
+    "static/js/main.4257a6c2.js"
   ]
 }
