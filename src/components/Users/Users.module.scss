@@ -2,12 +2,14 @@
 
 .main {
   @include pageWrapper();
-  height: 100%;
+  height: calc(100vh - 78px);
 
   .usersList {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
+    overflow-y: scroll;
+    @include scrollbar();
   }
 
   .notFound {
