@@ -4,10 +4,17 @@ import {NavLink} from 'react-router-dom';
 import logo from '../../assets/icons/logo.svg';
 import userNoPhoto from '../../assets/images/user.svg';
 import {ReactComponent as LogOutIcon} from '../../assets/icons/logOut.svg';
+import {useTranslation} from 'react-i18next';
 
 export const Header: FC<HeaderPropsType> = ({isAuth, login, photo, logout}) => {
+    const {i18n} = useTranslation();
+
+    const toggleLanguage = () => i18n.changeLanguage(i18n.language === 'en' ? 'uk' : 'en');
+
     return (
         <header className={styles.header}>
+            <button onClick={toggleLanguage}>change</button>
+
             <NavLink className={styles.title} to="/">
                 <img className={styles.logo} src={logo} alt=""/>
                 <span>Connectify</span>

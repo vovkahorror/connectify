@@ -1,13 +1,14 @@
 import {MessageInstance} from 'antd/es/message/interface';
 import {AxiosError} from 'axios';
+import {TFunction} from 'i18next';
 
-export const sendAndSetNotification = async (messageApi: MessageInstance, sendMessage: (userId: number, messageText: string) => Promise<void>, userID: number, messageText: string) => {
+export const sendAndSetNotification = async (messageApi: MessageInstance, sendMessage: (userId: number, messageText: string) => Promise<void>, userID: number, messageText: string, t: TFunction) => {
     const key = 'updatable';
 
     messageApi.open({
         key,
         type: 'loading',
-        content: 'Sending your message...',
+        content: `${t('sendingYourMessage')}...`,
     });
 
     try {
@@ -16,7 +17,7 @@ export const sendAndSetNotification = async (messageApi: MessageInstance, sendMe
         messageApi.open({
             key,
             type: 'success',
-            content: 'Your message has been sent successfully',
+            content: t('sentSuccessfully'),
             duration: 2,
         });
     } catch (e) {

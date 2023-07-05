@@ -8,6 +8,7 @@ import {ProfileDataFormRedux} from './ProfileDataForm/ProfileDataForm';
 import {ReactComponent as UploadIcon} from '../../../assets/icons/upload.svg';
 import {message} from 'antd';
 import SendMessageModal from './SendMessageModal/SendMessageModal';
+import {useTranslation} from 'react-i18next';
 
 export const ProfileInfo = ({
                                 profile,
@@ -22,6 +23,7 @@ export const ProfileInfo = ({
                                 saveProfile,
                                 sendMessage,
                             }: ProfileInfoPropsType) => {
+    const {t} = useTranslation('profile');
     const [editMode, setEditMode] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [messageApi, contextHolder] = message.useMessage();
@@ -64,10 +66,10 @@ export const ProfileInfo = ({
                         <button className={isFollows ? styles.unfollowButton : styles.followButton}
                                 disabled={isFollowingInProgress}
                                 onClick={() => followUnfollowFlow(profile.userId, isFollows)}>
-                            {isFollows ? 'Unfollow' : 'Follow'}
+                            {isFollows ? t('unsubscribe') : t('subscribe')}
                         </button>
                         <button className={styles.writeMessageButton} onClick={showModal}>
-                            Write a message
+                            {t('writeMessage')}
                         </button>
 
                         <SendMessageModal isModalOpen={isModalOpen} userID={profile.userId} messageApi={messageApi}

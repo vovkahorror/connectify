@@ -5,6 +5,7 @@ import TextArea from 'antd/es/input/TextArea';
 import {Modal} from 'antd';
 import {sendAndSetNotification} from '../../../../utils/dialogs-helpers';
 import {MessageInstance} from 'antd/es/message/interface';
+import {useTranslation} from 'react-i18next';
 
 const SendMessageModal: FC<SendMessageModalPropsType> = ({
                                                              isModalOpen,
@@ -15,6 +16,7 @@ const SendMessageModal: FC<SendMessageModalPropsType> = ({
                                                              fullName,
                                                              sendMessage,
                                                          }) => {
+    const {t} = useTranslation('profile');
     const [messageText, setMessageText] = useState('');
 
     const handleMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -22,7 +24,7 @@ const SendMessageModal: FC<SendMessageModalPropsType> = ({
     };
 
     const handleSendMessage = () => {
-        sendAndSetNotification(messageApi, sendMessage, userID, messageText);
+        sendAndSetNotification(messageApi, sendMessage, userID, messageText, t);
         hideModal();
         setMessageText('');
     };
@@ -30,18 +32,20 @@ const SendMessageModal: FC<SendMessageModalPropsType> = ({
     const toFocusTextarea = (textarea: HTMLTextAreaElement) => setTimeout(() => textarea && textarea.focus());
 
     return (
-        <Modal title={`Write your message to ${fullName}`} width={600} open={isModalOpen} onOk={handleSendMessage}
-               okText={'Send'} onCancel={hideModal} centered>
+        <Modal title={`${t('writeYourMessageTo')} ${fullName}`} width={600} open={isModalOpen}
+               onOk={handleSendMessage} cancelText={t('cancel')} okText={t('send')} onCancel={hideModal} centered>
             <hr className={styles.divider}/>
             <div className={styles.modalContent}>
                 <img src={userPhoto || userNoPhoto} alt=""/>
                 <div className={styles.messageBlock}>
                     <TextArea ref={toFocusTextarea} value={messageText}
-                              placeholder={'Write your message here'} autoFocus={true}
+                              placeholder={t('writeYourMessageHere')} autoFocus={true}
                               onChange={handleMessageChange}/>
 
                     {messageText.length > 900 &&
-                        <span className={styles.notice}>You have {1000 - messageText.length} characters left</span>}
+                        <span className={styles.notice}>
+                            {t('youHave')} {1000 - messageText.length} {t('charactersLeft')}
+                        </span>}
                 </div>
             </div>
         </Modal>

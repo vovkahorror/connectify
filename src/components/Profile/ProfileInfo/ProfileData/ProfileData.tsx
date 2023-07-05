@@ -11,8 +11,11 @@ import {ReactComponent as MainLinkIcon} from '../../../../assets/icons/mainLink.
 import {Contact} from './Contact/Contact';
 import styles from './ProfileData.module.scss';
 import {ReactComponent as EditIcon} from '../../../../assets/icons/edit.svg';
+import {useTranslation} from 'react-i18next';
 
 export const ProfileData: FC<ProfileDataPropsType> = ({profile, isOwner, status, updateStatus, goToEditMode}) => {
+    const {t} = useTranslation('profile');
+
     const mappedContacts = Object.keys(profile.contacts).map(key => {
         const contactValue = profile.contacts[key as keyof ContactsProfileAPIType];
         let contactIcon: ReactNode;
@@ -58,13 +61,14 @@ export const ProfileData: FC<ProfileDataPropsType> = ({profile, isOwner, status,
             <h2 className={styles.fullName}>{profile.fullName}</h2>
             <ProfileStatusWithHooks status={status} isOwner={isOwner} updateStatus={updateStatus}/>
             <ul className={styles.infoList}>
-                <li><span className={styles.itemTitle}>About me:</span> {profile.aboutMe || noInfo}</li>
-                <li><span className={styles.itemTitle}>Looking for a job:</span> {profile.lookingForAJob ? 'yes' : 'no'}
+                <li><span className={styles.itemTitle}>{t('aboutMe')}:</span> {profile.aboutMe || noInfo}</li>
+                <li><span
+                    className={styles.itemTitle}>{t('lookingForAJob')}:</span> {profile.lookingForAJob ? t('yes') : t('no')}
                 </li>
                 {profile.lookingForAJob && <li><span
-                    className={styles.itemTitle}>My professional skills:</span> {profile.lookingForAJobDescription || noInfo}
+                    className={styles.itemTitle}>{t('lookingForAJobDescription')}:</span> {profile.lookingForAJobDescription || noInfo}
                 </li>}
-                <li><span className={styles.itemTitle}>Contacts: </span>
+                <li><span className={styles.itemTitle}>{t('contacts')}: </span>
                     {!!Object.values(profile.contacts).filter(value => value !== null).length
                         ? <ul className={styles.contactsList}>
                             {mappedContacts}

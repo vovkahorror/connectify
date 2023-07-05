@@ -5,6 +5,7 @@ import {createField, Input, Textarea} from '../../../common/FormsControls/FormsC
 import {required} from '../../../../utils/validators/validators';
 import controlsStyles from '../../../common/FormsControls/FormsControls.module.scss';
 import styles from './ProfileDataForm.module.scss';
+import {useTranslation} from 'react-i18next';
 
 const ProfileDataForm: FC<InjectedFormProps<ProfileDataFormPropsType>> = ({
                                                                               initialValues: {
@@ -14,6 +15,8 @@ const ProfileDataForm: FC<InjectedFormProps<ProfileDataFormPropsType>> = ({
                                                                               handleSubmit,
                                                                               error,
                                                                           }) => {
+    const {t} = useTranslation('profile');
+
     const mappedContacts = Object.keys(profile.contacts as ContactsProfileAPIType).map(key => {
         if (key !== 'vk') {
             return <li key={key} className={styles.contactItem}>
@@ -33,34 +36,34 @@ const ProfileDataForm: FC<InjectedFormProps<ProfileDataFormPropsType>> = ({
             <div className={styles.formContent}>
                 <ul className={styles.formList}>
                     <li>
-                        <span className={styles.itemTitle}>Full name:</span>
-                        {createField('Your full name', 'fullName', 'text', [required], Input)}
+                        <span className={styles.itemTitle}>{t('fullName')}:</span>
+                        {createField(t('yourFullName'), 'fullName', 'text', [required], Input)}
                     </li>
                     <li>
                         <label className={styles.lookingAJob}>
-                            <span className={styles.itemTitle}>Looking for a job:</span>
+                            <span className={styles.itemTitle}>{t('lookingForAJob')}:</span>
                             {createField('', 'lookingForAJob', 'checkbox', [], Input)}
                         </label>
                     </li>
                     <li>
-                        <span className={styles.itemTitle}>My professional skills:</span>
+                        <span className={styles.itemTitle}>{t('lookingForAJobDescription')}:</span>
                         {createField('Describe your professional skills', 'lookingForAJobDescription', 'text', [required], Textarea)}
                     </li>
                     <li>
-                        <span className={styles.itemTitle}>About me:</span>
+                        <span className={styles.itemTitle}>{t('aboutMe')}:</span>
                         {createField('Tell a bit about yourself', 'aboutMe', 'text', [required], Textarea)}
                     </li>
                 </ul>
                 <div className={styles.contactsBlock}>
-                    <span className={styles.itemTitle}>Contacts:</span>
+                    <span className={styles.itemTitle}>{t('contacts')}:</span>
                     <ul className={styles.contactsList}>
                         {mappedContacts}
                     </ul>
                 </div>
             </div>
             <div className={styles.buttonsBlock}>
-                <button className={styles.cancelButton} onClick={disableEditMode} type={'button'}>Cancel</button>
-                <button className={styles.submitButton} onClick={handleSubmit}>Save</button>
+                <button className={styles.cancelButton} onClick={disableEditMode} type={'button'}>{t('cancel')}</button>
+                <button className={styles.submitButton} onClick={handleSubmit}>{t('save')}</button>
             </div>
         </form>
     );
