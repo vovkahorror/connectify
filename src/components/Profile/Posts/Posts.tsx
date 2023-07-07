@@ -15,6 +15,7 @@ export const Posts: FC<PostsPropsType> = memo(({
                                                    reset,
                                                }) => {
     const onAddPost = (values: FormDataType) => {
+        console.log(values.newPostText);
         addPost(profile?.userId as number, values.newPostText);
         reset('profileAddPostForm');
     };

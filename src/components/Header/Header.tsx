@@ -9,7 +9,7 @@ import {useTranslation} from 'react-i18next';
 export const Header: FC<HeaderPropsType> = ({isAuth, login, photo, logout}) => {
     const {i18n} = useTranslation();
 
-    const toggleLanguage = () => i18n.changeLanguage(i18n.language === 'en' ? 'uk' : 'en');
+    const toggleLanguage = () => i18n.changeLanguage(i18n.language === 'en-GB' ? 'uk-UA' : 'en-GB');
 
     return (
         <header className={styles.header}>

@@ -8,6 +8,7 @@ import {ReactComponent as DeleteIcon} from '../../../../assets/icons/trash.svg';
 import {ReactComponent as DeletingIcon} from '../../../../assets/icons/requestGrey.svg';
 import {Popconfirm} from 'antd';
 import {DialogsPageType} from '../../../../redux/dialogs-reducer';
+import {useTranslation} from 'react-i18next';
 
 export const Message: FC<MessageType> = ({
                                              messageID,
@@ -23,13 +24,14 @@ export const Message: FC<MessageType> = ({
                                              deleteMessage,
                                              requestMessages,
                                          }) => {
+    const {t, i18n} = useTranslation('dialogs');
     const isMyMessage = senderID === authUserID;
     const photo = (isMyMessage ? authUserPhoto : userPhoto) || userNoPhoto;
     const [isDeleting, setIsDeleting] = useState(false);
 
     const customizedDate = setTimezoneOffsetDate(addedAt);
-    const date = toFormatDate(customizedDate);
-    const time = toFormatTime(customizedDate);
+    const date = toFormatDate(customizedDate, i18n.language);
+    const time = toFormatTime(customizedDate, i18n.language);
 
     const onDeleteMessage = (messageID: string) => {
         setIsDeleting(true);
@@ -43,7 +45,7 @@ export const Message: FC<MessageType> = ({
         <div className={isMyMessage ? styles.ownerMessageBlock : styles.messageBlock}>
             <img className={styles.photo} src={photo} alt=""/>
             <div className={styles.messageContent}>
-                <span className={styles.messageText}>{message}</span>
+                <span className={styles.messageText} dangerouslySetInnerHTML={{__html: message}}></span>
                 <div className={styles.messageDate}>
                     <span>{date}</span>
                     <span>{time}</span>
@@ -52,11 +54,11 @@ export const Message: FC<MessageType> = ({
                     ? <EyeIcon className={styles.eyeIcon}/>
                     : <EyeSlashIcon className={styles.eyeIcon}/>)}
                 <Popconfirm
-                    title="Delete this message"
-                    description="Are you sure to delete this message?"
+                    title={t('deleteMessage')}
+                    description={t('sureDeleteThisMessage')}
                     onConfirm={() => onDeleteMessage(messageID)}
-                    okText="Yes"
-                    cancelText="No"
+                    okText={t('yes')}
+                    cancelText={t('no')}
                     disabled={isDeleting}
                 >
                     {isDeleting

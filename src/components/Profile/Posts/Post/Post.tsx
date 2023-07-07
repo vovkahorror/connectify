@@ -15,15 +15,17 @@ import {AppStateType} from '../../../../redux/redux-store';
 import {AnyAction} from 'redux';
 import {toFormatDate, toFormatTime} from '../../../../utils/date-helpers';
 import {Popconfirm} from 'antd';
+import {useTranslation} from 'react-i18next';
 
 export const Post: FC<PostPropsType> = memo(({userID, post, profile, onPutReaction, onDeletePost}) => {
+    const {t, i18n} = useTranslation('profile');
     const dispatch = useDispatch<ThunkDispatch<AppStateType, any, AnyAction>>();
     const [senderPhoto, setSenderPhoto] = useState<string | null>(null);
     const [senderName, setSenderName] = useState<string | null>(null);
     const [isDeleting, setIsDeleting] = useState(false);
 
-    const date = toFormatDate(post.date);
-    const time = toFormatTime(post.date);
+    const date = toFormatDate(post.date, i18n.language);
+    const time = toFormatTime(post.date, i18n.language);
 
     const putLikeHandler = () => onPutReaction(post.id, 'likes');
 
@@ -84,11 +86,11 @@ export const Post: FC<PostPropsType> = memo(({userID, post, profile, onPutReacti
 
             {userID === post.senderUserID &&
                 <Popconfirm
-                    title="Delete this post"
-                    description="Are you sure to delete this post?"
+                    title={t('deleteThisPost')}
+                    description={t('sureDeleteThisPost')}
                     onConfirm={() => deletePostHandler()}
-                    okText="Yes"
-                    cancelText="No"
+                    okText={t('yes')}
+                    cancelText={t('no')}
                     disabled={isDeleting}
                 >
                     {isDeleting

@@ -5,8 +5,10 @@ import {StatusType} from '../../../api/chat-api';
 import {sendMessage} from '../../../redux/chat-reducer';
 import {ReactComponent as SendIcon} from '../../../assets/icons/send.svg';
 import styles from './AddMessageForm.module.scss';
+import {useTranslation} from 'react-i18next';
 
 export const AddMessageForm: FC = () => {
+    const {t} = useTranslation('dialogs');
     const [message, setMessage] = useState('');
     const status = useSelector<AppStateType, StatusType>(state => state.chat.status);
     const dispatch = useDispatch();
@@ -33,9 +35,9 @@ export const AddMessageForm: FC = () => {
     return (
         <div className={styles.addMessageForm}>
             <div className={styles.inputWrapper}>
-                <input value={message} onKeyDown={onKeyDownHandler} placeholder={'Write a message'}
+                <input value={message} onKeyDown={onKeyDownHandler} placeholder={t('enterYourMessage')}
                        onChange={writeMessageHandler} autoFocus/>
-                <span className={styles.notice}>You have {100 - message.length} characters left</span>
+                <span className={styles.notice}>{t('youHave')} {100 - message.length} {t('charactersLeft')}</span>
             </div>
             <button className={styles.sendButton} disabled={status !== 'ready' || !message.length}
                     onClick={sendMessageHandler}>

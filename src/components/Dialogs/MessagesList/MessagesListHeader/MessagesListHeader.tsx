@@ -4,6 +4,7 @@ import {NavLink} from 'react-router-dom';
 import userNoPhoto from '../../../../assets/images/user.svg';
 import {setTimezoneOffsetDate, toFormatDate, toFormatTime} from '../../../../utils/date-helpers';
 import {Paginator} from '../../../common/Paginator/Paginator';
+import {useTranslation} from 'react-i18next';
 
 const MessagesListHeader: FC<MessagesListHeaderPropsType> = ({
                                                                  userID,
@@ -15,9 +16,10 @@ const MessagesListHeader: FC<MessagesListHeaderPropsType> = ({
                                                                  pageSize,
                                                                  onPageChanged,
                                                              }) => {
+    const {t, i18n} = useTranslation('dialogs');
     const customizedDate = lastUserActivityDate && setTimezoneOffsetDate(lastUserActivityDate);
-    const date = customizedDate && toFormatDate(customizedDate);
-    const time = customizedDate && toFormatTime(customizedDate);
+    const date = customizedDate && toFormatDate(customizedDate, i18n.language);
+    const time = customizedDate && toFormatTime(customizedDate, i18n.language);
 
     return (
         <div className={styles.messagesListHeader}>
@@ -28,7 +30,7 @@ const MessagesListHeader: FC<MessagesListHeaderPropsType> = ({
                 <NavLink className={styles.userName} to={`/profile/${userID}`}>
                     <h2 className={styles.userName}>{userName}</h2>
                 </NavLink>
-                <span className={styles.userActivity}>Was online on {date} at {time}</span>
+                <span className={styles.userActivity}>{t('wasOnlineOn')} {date} {t('at')} {time}</span>
             </div>
             <div>
                 <Paginator currentPage={currentPage} totalItemsCount={totalCount} pageSize={pageSize} portionSize={5}

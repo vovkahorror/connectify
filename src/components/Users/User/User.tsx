@@ -3,8 +3,11 @@ import userPhoto from '../../../assets/images/user.svg';
 import styles from './User.module.scss';
 import React from 'react';
 import {UserDataType} from '../../../redux/users-reducer';
+import {useTranslation} from 'react-i18next';
 
 export const User = ({user, followingInProgress, follow, unfollow}: UserPropsType) => {
+    const {t} = useTranslation('users');
+
     return (
         <div className={styles.user}>
             <NavLink to={`/profile/${user.id}`}>
@@ -20,9 +23,9 @@ export const User = ({user, followingInProgress, follow, unfollow}: UserPropsTyp
                 {user.followed
                     ?
                     <button className={styles.unfollowButton} disabled={followingInProgress.some(id => id === user.id)}
-                            onClick={() => unfollow(user.id)}>Unfollow</button>
+                            onClick={() => unfollow(user.id)}>{t('unsubscribe')}</button>
                     : <button className={styles.followButton} disabled={followingInProgress.some(id => id === user.id)}
-                              onClick={() => follow(user.id)}>Follow</button>}
+                              onClick={() => follow(user.id)}>{t('subscribe')}</button>}
             </div>
         </div>
     );

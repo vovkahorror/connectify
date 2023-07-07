@@ -3,8 +3,8 @@
   "lookingForAJob": "Looking for a job",
   "lookingForAJobDescription": "My professional skills",
   "contacts": "Contacts",
-  "yes": "yes",
-  "no": "no",
+  "yes": "Yes",
+  "no": "No",
   "fullName": "Full name",
   "yourFullName": "Your full name",
   "cancel": "Cancel",
@@ -18,5 +18,9 @@
   "youHave": "You have",
   "charactersLeft": "characters left",
   "sendingYourMessage": "Sending your message",
-  "sentSuccessfully": "Your message has been sent successfully"
+  "sentSuccessfully": "Your message has been sent successfully",
+  "addPostPlaceholder": "Write a post",
+  "post": "Post",
+  "deleteThisPost": "Delete this post",
+  "sureDeleteThisPost": "Are you sure to delete this post?"
 }

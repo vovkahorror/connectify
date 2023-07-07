@@ -4,8 +4,10 @@ import {Textarea} from '../../../common/FormsControls/FormsControls';
 import {ReactComponent as SendIcon} from '../../../../assets/icons/send.svg';
 import {ReactComponent as RequestIcon} from '../../../../assets/icons/request.svg';
 import styles from './AddMessageForm.module.scss';
+import {useTranslation} from 'react-i18next';
 
 const AddMessageForm: FC<InjectedFormProps<FormDataType>> = ({handleSubmit, initialValues: {isRequesting}}) => {
+    const {t} = useTranslation('dialogs');
     const [message, setMessage] = useState('');
 
     const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -16,7 +18,7 @@ const AddMessageForm: FC<InjectedFormProps<FormDataType>> = ({handleSubmit, init
         <form className={styles.form} onSubmit={handleSubmit}>
             <div className={styles.textareaWrapper}>
                 <Field component={Textarea} name={'newMessageBody'}
-                       placeholder={'Enter your message'} maxLength={1000}
+                       placeholder={t('enterYourMessage')} maxLength={1000}
                        onInput={handleInputChange} autoFocus/>
                 {message.length > 900 && <span className={styles.counter}>{message.length} / 1000</span>}
             </div>

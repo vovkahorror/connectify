@@ -3,8 +3,8 @@
   "lookingForAJob": "Шукаю роботу",
   "lookingForAJobDescription": "Мої професійні навички",
   "contacts": "Контакти",
-  "yes": "так",
-  "no": "ні",
+  "yes": "Так",
+  "no": "Ні",
   "fullName": "Повне ім'я",
   "yourFullName": "Ваше повне ім'я",
   "cancel": "Скасувати",
@@ -18,5 +18,9 @@
   "youHave": "У Вас лишилось",
   "charactersLeft": "символів",
   "sendingYourMessage": "Відправляємо Ваше повідомлення",
-  "sentSuccessfully": "Ваше повідомлення успішно відправлено"
+  "sentSuccessfully": "Ваше повідомлення успішно відправлено",
+  "addPostPlaceholder": "Напишіть текст публікації",
+  "post": "Опублікувати",
+  "deleteThisPost": "Видалити цей пост",
+  "sureDeleteThisPost": "Ви упевнені, що хочете видалити цей пост?"
 }
