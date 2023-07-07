@@ -6,6 +6,7 @@ import {AppStateType} from '../../redux/redux-store';
 import {NavLink, Redirect} from 'react-router-dom';
 import styles from './Login.module.scss';
 import Paragraph from 'antd/es/typography/Paragraph';
+import {useTranslation} from 'react-i18next';
 
 type MapStateToPropsType = {
     captcha?: string | null;
@@ -19,6 +20,7 @@ type MapDispatchToPropsType = {
 type LoginPropsType = MapStateToPropsType & MapDispatchToPropsType;
 
 const Login: FC<LoginPropsType> = ({login, isAuth, captcha}) => {
+    const {t} = useTranslation('auth');
     const onSubmit = (formData: FormDataType) => {
         login(formData.email, formData.password, formData.rememberMe, formData.captcha);
     };
@@ -30,8 +32,8 @@ const Login: FC<LoginPropsType> = ({login, isAuth, captcha}) => {
     return (
         <main className={styles.main}>
             <div className={styles.title}>
-                <h1>Sign In</h1>
-                <span>Welcome back, you’ve been missed!</span>
+                <h1>{t('signIn')}</h1>
+                <span>{t('welcomeBack')}</span>
             </div>
 
             <div className={styles.login}>
@@ -39,13 +41,15 @@ const Login: FC<LoginPropsType> = ({login, isAuth, captcha}) => {
             </div>
 
             <div className={styles.info}>
-                <span>You can <NavLink to={'/register'}>create your personal account</NavLink>, or if you just want to test the possibilities of our social network, use your demo account details to login:</span>
+                <span>{t('youCan')}
+                    <NavLink to={'/register'}> {t('createPersonalAccount')}</NavLink>,
+                    {t('useDemoAccount')}:</span>
                 <div>
-                    <span className={styles.copiedTextTitle}>Login:</span>
+                    <span className={styles.copiedTextTitle}>Email:</span>
                     <Paragraph className={styles.copiedText} copyable>free@samuraijs.com</Paragraph>
                 </div>
                 <div>
-                    <span className={styles.copiedTextTitle}>Password:</span>
+                    <span className={styles.copiedTextTitle}>{t('password')}:</span>
                     <Paragraph className={styles.copiedText} copyable>free</Paragraph>
                 </div>
             </div>

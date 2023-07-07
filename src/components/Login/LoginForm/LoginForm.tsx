@@ -5,38 +5,41 @@ import {required} from '../../../utils/validators/validators';
 import controlsStyles from '../../common/FormsControls/FormsControls.module.scss';
 import styles from './LoginForm.module.scss';
 import {NavLink} from 'react-router-dom';
+import {useTranslation} from 'react-i18next';
 
 const LoginForm: FC<InjectedFormProps<FormDataType>> = ({initialValues: {captcha}, handleSubmit, error}) => {
+    const {t} = useTranslation('auth');
+
     return (
         <form className={styles.form} onSubmit={handleSubmit}>
             <div>
                 <span className={styles.fieldTitle}>Email</span>
-                {createField('Your Email', 'email', 'text', [required], Input)}
+                {createField(t('yourEmail'), 'email', 'text', [required], Input)}
             </div>
             <div>
-                <span className={styles.fieldTitle}>Password</span>
-                {createField('Inter Password', 'password', 'password', [required], Input)}
+                <span className={styles.fieldTitle}>{t('password')}</span>
+                {createField(t('interPassword'), 'password', 'password', [required], Input)}
             </div>
 
             <label className={styles.rememberMe}>
                 <Field component={Input} name={'rememberMe'} type={'checkbox'}/>
-                <span>Remember me</span>
+                <span>{t('rememberMe')}</span>
             </label>
 
             {captcha && <div>
                 <img src={captcha} alt={'captcha'}/>
-                {createField('Symbols from image', 'captcha', 'text', [required], Input)}
+                {createField(t('symbolsFromImage'), 'captcha', 'text', [required], Input)}
             </div>}
 
             {error && <div className={controlsStyles.formSummaryError}>
                 {error}
             </div>}
 
-            <button>Sign In</button>
+            <button>{t('logIn')}</button>
 
             <div className={styles.signUpBlock}>
-                <span>Don't have an account?</span>
-                <NavLink to={'/register'}>Sign Up</NavLink>
+                <span>{t('dontHaveAccount')}</span>
+                <NavLink to={'/register'}>{t('register')}</NavLink>
             </div>
         </form>
     );

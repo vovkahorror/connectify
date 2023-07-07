@@ -5,8 +5,10 @@ import {register} from '../../redux/auth-reducer';
 import {useHistory} from 'react-router-dom';
 import {message} from 'antd';
 import styles from '../Login/Login.module.scss';
+import {useTranslation} from 'react-i18next';
 
 const Register: FC<RegisterPropsType> = ({register}) => {
+    const {t} = useTranslation('auth');
     const [messageApi, contextHolder] = message.useMessage();
     const history = useHistory();
     const onSubmit = (formData: FormDataType) => {
@@ -20,8 +22,8 @@ const Register: FC<RegisterPropsType> = ({register}) => {
         <main className={styles.main}>
             {contextHolder}
             <div className={styles.title}>
-                <h1>Create an account</h1>
-                <span>Create an account to continue and connect with the people</span>
+                <h1>{t('createAccount')}</h1>
+                <span>{t('createAccountToContinue')}</span>
             </div>
             <div className={styles.register}>
                 <RegisterFormRedux onSubmit={onSubmit}/>
