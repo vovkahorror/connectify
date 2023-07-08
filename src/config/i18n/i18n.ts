@@ -11,7 +11,6 @@ i18n
     .init({
         fallbackLng: 'en-GB',
         debug: false,
-        lng: 'en-GB',
 
         interpolation: {
             escapeValue: false,
@@ -21,6 +20,12 @@ i18n
             loadPath: '/connectify/locales/{{lng}}/{{ns}}.json',
         },
     });
+
+i18n.on('languageChanged', (lng) => {
+    if (lng === 'en-US') {
+        i18n.changeLanguage('en-GB');
+    }
+});
 
 
 export default i18n;
