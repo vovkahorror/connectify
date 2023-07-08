@@ -22,10 +22,9 @@ i18n
     });
 
 i18n.on('languageChanged', (lng) => {
-    if (lng === 'en-US') {
+    if (lng !== 'uk-UA' && lng !== 'en-GB') {
         i18n.changeLanguage('en-GB');
     }
 });
-
 
 export default i18n;
