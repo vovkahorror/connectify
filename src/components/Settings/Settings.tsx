@@ -1,8 +1,11 @@
-import styles from './Settings.module.css';
+import styles from './Settings.module.scss';
+import {Language} from './Language/Language';
 
 const Settings = () => {
     return (
-        <div>Settings</div>
+        <main className={styles.settings}>
+            <Language/>
+        </main>
     );
 };
 

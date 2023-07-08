@@ -13,7 +13,7 @@ const RegisterForm: FC<InjectedFormProps<FormDataType>> = ({handleSubmit, error}
     return (
         <form className={styles.form} onSubmit={handleSubmit}>
             <div>
-                <span className={styles.fieldTitle}>Login</span>
+                <span className={styles.fieldTitle}>{t('login')}</span>
                 {createField(t('yourLogin'), 'login', 'text', [required], Input, 'new-password')}
             </div>
             <div>

@@ -1,0 +1,5 @@
+@import '../../styles/sass/mixins';
+
+.settings {
+  @include pageWrapper();
+}

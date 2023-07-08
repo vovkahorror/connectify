@@ -40,7 +40,7 @@
   gap: 10px;
 
   .login {
-    @include text();
+    @include text($fontSize: 18px);
     text-decoration: none;
 
     &:hover {
@@ -49,8 +49,8 @@
   }
 
   .photo {
-    width: 42px;
-    height: 42px;
+    width: 50px;
+    height: 50px;
     border-radius: 10px;
 
     &:hover {
@@ -59,6 +59,8 @@
   }
 
   .logOut {
+    width: 20px;
+    height: 20px;
     cursor: pointer;
 
     &:hover * {

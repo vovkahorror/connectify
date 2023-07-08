@@ -7,14 +7,10 @@ import {ReactComponent as LogOutIcon} from '../../assets/icons/logOut.svg';
 import {useTranslation} from 'react-i18next';
 
 export const Header: FC<HeaderPropsType> = ({isAuth, login, photo, logout}) => {
-    const {i18n} = useTranslation();
-
-    const toggleLanguage = () => i18n.changeLanguage(i18n.language === 'en-GB' ? 'uk-UA' : 'en-GB');
+    const {t} = useTranslation('auth');
 
     return (
         <header className={styles.header}>
-            <button onClick={toggleLanguage}>change</button>
-
             <NavLink className={styles.title} to="/">
                 <img className={styles.logo} src={logo} alt=""/>
                 <span>Connectify</span>
@@ -27,7 +23,7 @@ export const Header: FC<HeaderPropsType> = ({isAuth, login, photo, logout}) => {
                                                   alt=""/></NavLink>
                     <LogOutIcon className={styles.logOut} onClick={logout}/>
                 </div>
-                : <NavLink className={styles.loginLink} to={'/login'}>Sign In</NavLink>}
+                : <NavLink className={styles.loginLink} to={'/login'}>{t('logIn')}</NavLink>}
         </header>
     );
 };

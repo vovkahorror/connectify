@@ -16,6 +16,7 @@ $background: (linear-gradient(0deg, rgba(78, 93, 120, 0.03), rgba(78, 93, 120, 0
   padding: $padding;
   background: $background;
   border-radius: $borderRadius;
+  min-height: calc(100vh - 78px);
 }
 
 @mixin contentBlock($display: flex, $gap: 40px, $padding: 18px, $background: #ffffff, $borderRadius: 16px,
