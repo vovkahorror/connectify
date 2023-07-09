@@ -12,6 +12,7 @@ i18n
         fallbackLng: 'en-GB',
         debug: false,
         supportedLngs: ['en-GB', 'uk-UA'],
+        ns: ['auth', 'dialogs', 'navbar', 'profile', 'settings', 'users'],
 
         interpolation: {
             escapeValue: false,
