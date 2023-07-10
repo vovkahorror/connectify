@@ -1,3 +1,4 @@
+@import '../../../styles/sass/variables';
 @import '../../../styles/sass/mixins';
 
 .addMessageForm {
@@ -12,7 +13,7 @@
     input {
       padding: 15px;
       @include text();
-      background: linear-gradient(0deg, rgba(78, 93, 120, 0.05), rgba(78, 93, 120, 0.05)), #ffffff;
+      background: $inputBackground;
       border: none;
       outline: none;
       border-radius: 10px;

@@ -2,13 +2,15 @@ import React, {ChangeEvent, useState} from 'react';
 import styles from './ProfileInfo.module.scss';
 import {ProfileAPIType} from '../../../redux/profile-reducer';
 import {Preloader} from '../../common/Preloader/Preloader';
-import userNoPhoto from '../../../assets/images/user.svg';
+import userLight from '../../../assets/images/userLight.svg';
+import userDark from '../../../assets/images/userDark.svg';
 import {ProfileData} from './ProfileData/ProfileData';
 import {ProfileDataFormRedux} from './ProfileDataForm/ProfileDataForm';
 import {ReactComponent as UploadIcon} from '../../../assets/icons/upload.svg';
 import {message} from 'antd';
 import SendMessageModal from './SendMessageModal/SendMessageModal';
 import {useTranslation} from 'react-i18next';
+import {useTheme} from '../../../theme/useTheme';
 
 export const ProfileInfo = ({
                                 profile,
@@ -27,6 +29,9 @@ export const ProfileInfo = ({
     const [editMode, setEditMode] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [messageApi, contextHolder] = message.useMessage();
+    const {theme} = useTheme();
+    const themeClassName = theme === 'light' ? styles.light : styles.dark;
+    const userNoPhoto = theme === 'light' ? userLight : userDark;
 
     if (!profile) {
         return <Preloader/>;
@@ -47,7 +52,7 @@ export const ProfileInfo = ({
     const hideModal = () => setIsModalOpen(false);
 
     return (
-        <div className={styles.profileInfo}>
+        <div className={`${styles.profileInfo} ${themeClassName}`}>
             {contextHolder}
 
             <div className={styles.photoButtonsWrapper}>
@@ -57,15 +62,18 @@ export const ProfileInfo = ({
                         <label className={styles.uploadWrapper}>
                             <input className={styles.input} type="file" onChange={onMainPhotoSelected}
                                    accept=".jpg, .jpeg, .png"/>
-                            <div className={styles.uploadIconBlock}><UploadIcon className={styles.icon}/></div>
+                            <div className={`${styles.uploadIconBlock} ${themeClassName}`}>
+                                <UploadIcon className={`${styles.icon} ${themeClassName}`}/>
+                            </div>
                         </label>}
                 </div>
 
                 {!isOwner &&
                     <>
-                        <button className={isFollows ? styles.unfollowButton : styles.followButton}
-                                disabled={isFollowingInProgress}
-                                onClick={() => followUnfollowFlow(profile.userId, isFollows)}>
+                        <button
+                            className={`${isFollows ? styles.unfollowButton : styles.followButton} ${themeClassName}`}
+                            disabled={isFollowingInProgress}
+                            onClick={() => followUnfollowFlow(profile.userId, isFollows)}>
                             {isFollows ? t('unsubscribe') : t('subscribe')}
                         </button>
                         <button className={styles.writeMessageButton} onClick={showModal}>

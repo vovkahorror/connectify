@@ -6,7 +6,18 @@
   gap: 10px;
   width: max-content;
   text-decoration: none;
-  color: $textColor;
+
+  &.light {
+    color: $textColor;
+  }
+
+  &.dark {
+    color: $textColorDarkTheme;
+
+    & * {
+      fill: $textColorDarkTheme;
+    }
+  }
 
   &:hover, &:hover * {
     color: $mainSecondColor;

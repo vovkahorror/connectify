@@ -11,16 +11,27 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    color: $textColor;
     font-family: Garde, sans-serif;
     font-weight: 700;
     font-size: 32px;
     line-height: 28px;
     text-decoration: none;
 
+    &.light {
+      color: $textColor;
+    }
+
+    &.dark {
+      color: $textColorDarkTheme;
+    }
+
     .logo {
       width: 46px;
       height: 46px;
+
+      &.dark * {
+        fill: $textColorDarkTheme;
+      }
     }
   }
 
@@ -62,6 +73,10 @@
     width: 20px;
     height: 20px;
     cursor: pointer;
+
+    &.dark * {
+      fill: $textColorDarkTheme;
+    }
 
     &:hover * {
       fill: $mainSecondColor;

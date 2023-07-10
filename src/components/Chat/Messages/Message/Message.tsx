@@ -1,7 +1,7 @@
 import React, {FC, memo} from 'react';
 import {ChatMessageType} from '../../../../api/chat-api';
 import {NavLink} from 'react-router-dom';
-import noPhoto from '../../../../assets/images/user.svg';
+import noPhoto from '../../../../assets/images/userLight.svg';
 import styles from './Message.module.scss';
 
 export const Message: FC<ChatMessageType> = memo(({userId, photo, userName, message}) => {

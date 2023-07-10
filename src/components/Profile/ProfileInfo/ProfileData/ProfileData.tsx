@@ -12,9 +12,12 @@ import {Contact} from './Contact/Contact';
 import styles from './ProfileData.module.scss';
 import {ReactComponent as EditIcon} from '../../../../assets/icons/edit.svg';
 import {useTranslation} from 'react-i18next';
+import {useTheme} from '../../../../theme/useTheme';
 
 export const ProfileData: FC<ProfileDataPropsType> = ({profile, isOwner, status, updateStatus, goToEditMode}) => {
     const {t} = useTranslation('profile');
+    const {theme} = useTheme();
+    const themeClassName = theme === 'light' ? styles.light : styles.dark;
 
     const mappedContacts = Object.keys(profile.contacts).map(key => {
         const contactValue = profile.contacts[key as keyof ContactsProfileAPIType];
@@ -56,7 +59,7 @@ export const ProfileData: FC<ProfileDataPropsType> = ({profile, isOwner, status,
     const noInfo = <span className={styles.noInfo}>no information</span>;
 
     return (
-        <div className={styles.profileData}>
+        <div className={`${styles.profileData} ${themeClassName}`}>
             {isOwner && <EditIcon className={styles.editButton} onClick={goToEditMode}>Edit</EditIcon>}
             <h2 className={styles.fullName}>{profile.fullName}</h2>
             <ProfileStatusWithHooks status={status} isOwner={isOwner} updateStatus={updateStatus}/>
@@ -70,7 +73,7 @@ export const ProfileData: FC<ProfileDataPropsType> = ({profile, isOwner, status,
                 </li>}
                 <li><span className={styles.itemTitle}>{t('contacts')}: </span>
                     {!!Object.values(profile.contacts).filter(value => value !== null).length
-                        ? <ul className={styles.contactsList}>
+                        ? <ul className={`${styles.contactsList} ${themeClassName}`}>
                             {mappedContacts}
                         </ul>
                         : noInfo

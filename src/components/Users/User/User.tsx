@@ -1,5 +1,5 @@
 import {NavLink} from 'react-router-dom';
-import userPhoto from '../../../assets/images/user.svg';
+import userPhoto from '../../../assets/images/userLight.svg';
 import styles from './User.module.scss';
 import React from 'react';
 import {UserDataType} from '../../../redux/users-reducer';

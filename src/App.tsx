@@ -10,6 +10,9 @@ import {AppStateType, store} from './redux/redux-store';
 import {Preloader} from './components/common/Preloader/Preloader';
 import {withSuspense} from './hoc/withSuspense';
 import {Alert} from 'antd';
+import ThemeProvider from './theme/ThemeProvider';
+import {UseThemeResult} from './theme/useTheme';
+import {withContext} from './hoc/withContext';
 
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
 const UsersContainer = React.lazy(() => import('./components/Users/UsersContainer'));
@@ -35,12 +38,15 @@ class App extends React.Component<AppPropsType, AppStateType> {
     }
 
     render() {
+        const {theme, toggleTheme} = this.props;
+
         if (!this.props.isInitialized) {
             return <Preloader/>;
         }
 
         return (
-            <div className={'app-wrapper'}>
+            <div className={`app-wrapper ${theme}`}>
+                <button onClick={toggleTheme}>Toggle theme</button>
                 <HeaderContainer/>
                 <Navbar/>
                 <div className={'app-wrapper__content'}>
@@ -66,14 +72,16 @@ const mapStateToProps = (state: AppStateType) => ({
     isInitialized: state.app.isInitialized,
 });
 
-const AppContainer = compose<ComponentType>(withRouter, connect(mapStateToProps, {initializeApp}))(App);
+const AppContainer = compose<ComponentType>(withContext, withRouter, connect(mapStateToProps, {initializeApp}))(App);
 
 const SocialNetworkApp = () => {
     return (
         <Suspense fallback={<Preloader/>}>
             <HashRouter>
                 <Provider store={store}>
-                    <AppContainer/>
+                    <ThemeProvider>
+                        <AppContainer/>
+                    </ThemeProvider>
                 </Provider>
             </HashRouter>
         </Suspense>
@@ -89,6 +97,6 @@ type MapDispatchType = {
     initializeApp: () => void;
 }
 
-type AppPropsType = MapStateType & MapDispatchType;
+type AppPropsType = MapStateType & MapDispatchType & UseThemeResult;
 
 export default SocialNetworkApp;

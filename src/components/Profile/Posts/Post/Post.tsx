@@ -1,7 +1,7 @@
 import React, {FC, memo, SVGProps, useEffect, useState} from 'react';
 import styles from './Post.module.scss';
 import {getProfileForInitialize, PostDataType, ProfileAPIType} from '../../../../redux/profile-reducer';
-import userNoPhoto from '../../../../assets/images/user.svg';
+import userNoPhoto from '../../../../assets/images/userLight.svg';
 import {ReactComponent as DeleteIcon} from '../../../../assets/icons/trash.svg';
 import {ReactComponent as ThumbsUpRegularIcon} from '../../../../assets/icons/thumbsUpRegular.svg';
 import {ReactComponent as ThumbsDownRegularIcon} from '../../../../assets/icons/thumbsDownRegular.svg';

@@ -2,7 +2,7 @@ import {Field, InjectedFormProps, reduxForm} from 'redux-form';
 import React, {FC} from 'react';
 import {Textarea} from '../../../common/FormsControls/FormsControls';
 import styles from './AddNewPostForm.module.scss';
-import userNoPhoto from '../../../../assets/images/user.svg';
+import userNoPhoto from '../../../../assets/images/userLight.svg';
 import {useTranslation} from 'react-i18next';
 
 const AddNewPostForm: FC<InjectedFormProps<FormDataType>> = ({initialValues: {userPhoto}, handleSubmit, form}) => {

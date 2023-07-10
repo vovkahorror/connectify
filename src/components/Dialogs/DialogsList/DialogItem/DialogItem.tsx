@@ -1,6 +1,6 @@
 import styles from './DialogItem.module.scss';
 import {NavLink} from 'react-router-dom';
-import UserNoPhoto from '../../../../assets/images/user.svg';
+import UserNoPhoto from '../../../../assets/images/userLight.svg';
 import {FC} from 'react';
 import {setTimezoneOffsetDate, toFormatDate, toFormatTime} from '../../../../utils/date-helpers';
 import {useTranslation} from 'react-i18next';

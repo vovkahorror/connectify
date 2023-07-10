@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import styles from './MessagesListHeader.module.scss';
 import {NavLink} from 'react-router-dom';
-import userNoPhoto from '../../../../assets/images/user.svg';
+import userNoPhoto from '../../../../assets/images/userLight.svg';
 import {setTimezoneOffsetDate, toFormatDate, toFormatTime} from '../../../../utils/date-helpers';
 import {Paginator} from '../../../common/Paginator/Paginator';
 import {useTranslation} from 'react-i18next';

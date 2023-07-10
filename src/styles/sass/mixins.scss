@@ -5,29 +5,50 @@
   font-size: $fontSize;
   font-weight: $fontWeight;
   line-height: $lineHeight;
-  color: $color;
+
+  &.light {
+    color: $color;
+  }
+
+  &.dark {
+    color: $textColorDarkTheme;
+  }
 }
 
 @mixin pageWrapper($display: flex, $flexDirection: column, $gap: 30px, $padding: 30px,
-$background: (linear-gradient(0deg, rgba(78, 93, 120, 0.03), rgba(78, 93, 120, 0.03)), #ffffff), $borderRadius: 16px) {
+$background: $backgroundSecondColor, $borderRadius: 16px) {
   display: $display;
   flex-direction: $flexDirection;
   gap: $gap;
   padding: $padding;
-  background: $background;
   border-radius: $borderRadius;
   min-height: calc(100vh - 78px);
+
+  &.light {
+    background: $background;
+  }
+
+  &.dark {
+    background: $backgroundSecondColorDarkTheme;
+  }
 }
 
-@mixin contentBlock($display: flex, $gap: 40px, $padding: 18px, $background: #ffffff, $borderRadius: 16px,
+@mixin contentBlock($display: flex, $gap: 40px, $padding: 18px, $background: $backgroundColor, $borderRadius: 16px,
 $boxShadow: 0 6px 20px rgba(0, 0, 0, 0.04), $backdropFilter: blur(25px)) {
   display: $display;
   gap: $gap;
   padding: $padding;
-  background: $background;
   border-radius: $borderRadius;
   box-shadow: $boxShadow;
   backdrop-filter: $backdropFilter;
+
+  &.light {
+    background: $background;
+  }
+
+  &.dark {
+    background: $backgroundColorDarkTheme;
+  }
 }
 
 @mixin button($padding: 10px 40px, $width: min-content, $color: #ffffff, $background: $mainSecondColor, $border: none, $borderRadius: 8px, $cursor: pointer) {
@@ -39,6 +60,10 @@ $boxShadow: 0 6px 20px rgba(0, 0, 0, 0.04), $backdropFilter: blur(25px)) {
   border: $border;
   border-radius: $borderRadius;
   cursor: $cursor;
+
+  &.light {
+    color: $color;
+  }
 
   &:hover {
     background: #4096ff;

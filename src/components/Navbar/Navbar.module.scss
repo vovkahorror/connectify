@@ -25,6 +25,10 @@
 
         .icon {
           width: 16px;
+
+          &.dark * {
+            fill: $textColorDarkTheme;
+          }
         }
 
         &.active {

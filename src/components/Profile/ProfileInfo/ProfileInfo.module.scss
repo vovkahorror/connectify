@@ -31,13 +31,24 @@
 
         .uploadIconBlock {
           padding: 7px;
-          background: #ffffff;
           border-radius: 50%;
           cursor: pointer;
+
+          &.light {
+            background: $backgroundColor;
+          }
+
+          &.dark {
+            background: $backgroundColorDarkTheme;
+          }
 
           .icon {
             width: 30px;
             height: 30px;
+
+            &.dark * {
+              fill: $textColorDarkTheme;
+            }
 
             &:hover * {
               fill: $mainSecondColor;
@@ -58,9 +69,17 @@
     }
 
     .unfollowButton {
-      color: $textColor;
       background: none;
-      border: 1px solid rgba(78, 93, 120, 0.4);
+
+      &.light {
+        color: $textColor;
+        border: 1px solid rgba(78, 93, 120, 0.4);
+      }
+
+      &.dark {
+        color: $textColorDarkTheme;
+        border: 1px solid $textColorDarkTheme;
+      }
 
       &:hover {
         color: #4096ff;

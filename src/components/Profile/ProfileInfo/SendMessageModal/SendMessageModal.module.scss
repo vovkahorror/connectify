@@ -1,5 +1,15 @@
+@import "../../../../styles/sass/variables";
 @import "../../../../styles/sass/mixins";
 
+.modal {
+  &.light {
+    background: $backgroundColor;
+  }
+
+  &.dark {
+    background: $backgroundColorDarkTheme;
+  }
+}
 
 .divider {
   margin-bottom: 18px;
@@ -25,19 +35,26 @@
     display: flex;
     flex-direction: column;
 
-    textarea {
+    .messageTextarea {
       padding: 15px;
       width: 100%;
       min-height: 200px;
       resize: none;
       @include text();
-      background: linear-gradient(0deg, rgba(78, 93, 120, 0.05), rgba(78, 93, 120, 0.05)), #ffffff;
       border: none;
       outline: none;
       border-radius: 10px;
       box-shadow: none;
       @include scrollbar();
       cursor: auto;
+
+      &.light {
+        background: $inputBackground;
+      }
+
+      &.dark {
+        background: $backgroundSecondColorDarkTheme;
+      }
 
       &::placeholder {
         font-weight: 400;

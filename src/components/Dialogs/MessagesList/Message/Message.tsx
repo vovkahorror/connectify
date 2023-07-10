@@ -1,6 +1,6 @@
 import styles from './Message.module.scss';
 import {FC, useState} from 'react';
-import userNoPhoto from '../../../../assets/images/user.svg';
+import userNoPhoto from '../../../../assets/images/userLight.svg';
 import {setTimezoneOffsetDate, toFormatDate, toFormatTime} from '../../../../utils/date-helpers';
 import {ReactComponent as EyeIcon} from '../../../../assets/icons/eye.svg';
 import {ReactComponent as EyeSlashIcon} from '../../../../assets/icons/eyeSlash.svg';

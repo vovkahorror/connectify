@@ -8,6 +8,14 @@
   gap: 10px;
   width: 100%;
 
+  &.light {
+    color: $textColor;
+  }
+
+  &.dark {
+    color: $textColorDarkTheme;
+  }
+
   .editButton {
     position: absolute;
     top: 0;
