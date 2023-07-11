@@ -6,6 +6,7 @@ import {ReactComponent as ArrowLeft} from '../../../assets/icons/arrowLeft.svg';
 import {ReactComponent as ArrowRight} from '../../../assets/icons/arrowRight.svg';
 import {ReactComponent as ArrowLeftDouble} from '../../../assets/icons/arrowLeftDouble.svg';
 import {ReactComponent as ArrowRightDouble} from '../../../assets/icons/arrowRightDouble.svg';
+import {useTheme} from '../../../theme/useTheme';
 
 export const Paginator = ({
                               currentPage,
@@ -14,6 +15,8 @@ export const Paginator = ({
                               onPageChanged,
                               portionSize = 20,
                           }: PaginatorPropsType) => {
+    const {theme} = useTheme();
+    const themeClassName = theme === 'light' ? styles.light : styles.dark;
     const pagesCount = Math.ceil(totalItemsCount / pageSize);
     const initialPortionNumber = Math.ceil(currentPage / portionSize);
     const pages = [];
@@ -34,9 +37,11 @@ export const Paginator = ({
     return (
         <div className={styles.paginator}>
             <div className={styles.buttonsBlock}>
-                <button className={styles.navigationButton} disabled={portionNumber === 1 || !totalItemsCount}
+                <button className={`${styles.navigationButton} ${themeClassName}`}
+                        disabled={portionNumber === 1 || !totalItemsCount}
                         onClick={() => setPortionNumber(1)}><ArrowLeftDouble/></button>
-                <button className={styles.navigationButton} disabled={portionNumber === 1 || !totalItemsCount}
+                <button className={`${styles.navigationButton} ${themeClassName}`}
+                        disabled={portionNumber === 1 || !totalItemsCount}
                         onClick={() => setPortionNumber(portionNumber - 1)}><ArrowLeft/>
                 </button>
             </div>
@@ -46,7 +51,7 @@ export const Paginator = ({
                     .map(page => {
                         return (
                             <span key={v1()}
-                                  className={classNames(styles.pageNumber, {[styles.selectedPageNumber]: currentPage === page})}
+                                  className={classNames(styles.pageNumber, themeClassName, {[styles.selectedPageNumber]: currentPage === page})}
                                   onClick={() => onPageChanged(page)}
                             >{page}</span>
                         );
@@ -54,10 +59,10 @@ export const Paginator = ({
             </div>
 
             <div className={styles.buttonsBlock}>
-                <button className={styles.navigationButton}
+                <button className={`${styles.navigationButton} ${themeClassName}`}
                         disabled={portionNumber === portionCount || !totalItemsCount}
                         onClick={() => setPortionNumber(portionNumber + 1)}><ArrowRight/></button>
-                <button className={styles.navigationButton}
+                <button className={`${styles.navigationButton} ${themeClassName}`}
                         disabled={portionNumber === portionCount || !totalItemsCount}
                         onClick={() => setPortionNumber(portionCount)}><ArrowRightDouble/></button>
             </div>

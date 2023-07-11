@@ -25,8 +25,9 @@ export const Textarea = (props: WrappedFieldProps) => {
     const themeClassName = theme === 'light' ? styles.light : styles.dark;
 
     return (
-        <FormControl {...props}><TextArea
-            className={`${styles.input} ${themeClassName}`}  {...input} {...restProps}/></FormControl>
+        <FormControl {...props}>
+            <TextArea className={`${styles.input} ${themeClassName}`}  {...input} {...restProps}/>
+        </FormControl>
     );
 };
 
@@ -36,8 +37,9 @@ export const Input = (props: WrappedFieldProps) => {
     const themeClassName = theme === 'light' ? styles.light : styles.dark;
 
     return (
-        <FormControl {...props}><input
-            className={`${styles.input} ${themeClassName}`} {...input} {...restProps}/></FormControl>
+        <FormControl {...props}>
+            <input className={`${styles.input} ${themeClassName}`} {...input} {...restProps}/>
+        </FormControl>
     );
 };
 

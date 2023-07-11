@@ -17,9 +17,24 @@
     width: max-content;
     max-width: 600px;
     @include text($fontWeight: 400);
-    background: rgba(78, 93, 120, 0.1);
     backdrop-filter: blur(25px);
     border-radius: 10px 10px 10px 0;
+
+    &.light {
+      background: rgba(78, 93, 120, 0.1);
+
+      &::after {
+        background: radial-gradient(60px at top left, transparent 49%, rgba(78, 93, 120, 0.1) 51%) no-repeat right bottom;
+      }
+    }
+
+    &.dark {
+      background: $backgroundSecondColorDarkTheme;
+
+      &::after {
+        background: radial-gradient(60px at top left, transparent 49%, #212833 51%) no-repeat right bottom;
+      }
+    }
 
     &::after {
       content: "";
@@ -29,7 +44,6 @@
       display: block;
       width: 30px;
       height: 30px;
-      background: radial-gradient(60px at top left, transparent 49%, rgba(78, 93, 120, 0.1) 51%) no-repeat right bottom;
     }
 
     .messageText {
@@ -42,8 +56,9 @@
       top: calc(100% + 6px);
       display: flex;
       gap: 10px;
-      @include text($fontSize: 12px, $lineHeight: 18px, $color: rgba(78, 93, 120, 0.6));
+      @include text($fontSize: 12px, $lineHeight: 18px);
       white-space: nowrap;
+      opacity: 0.6;
     }
 
     .deleteMessage {
@@ -54,6 +69,10 @@
       height: 12px;
       opacity: 0.5;
       cursor: pointer;
+
+      &.dark * {
+        fill: $textColorDarkTheme;
+      }
 
       &:hover {
         opacity: 1;
@@ -66,6 +85,10 @@
       width: 60px;
       height: 60px;
       cursor: auto;
+
+      &.dark * {
+        fill: $textColorDarkTheme;
+      }
 
       &:hover {
         opacity: 0.5;
@@ -84,6 +107,14 @@
     background: $mainSecondColor;
     border-radius: 10px 10px 0 10px;
 
+    &.light, &.dark {
+      background: $mainSecondColor;
+
+      &::after {
+        background: radial-gradient(60px at top right, transparent 49%, $mainSecondColor 51%) no-repeat left bottom;
+      }
+    }
+
     &::after {
       content: "";
       position: absolute;
@@ -92,11 +123,11 @@
       display: block;
       width: 30px;
       height: 30px;
-      background: radial-gradient(60px at top right, transparent 49%, $mainSecondColor 51%) no-repeat left bottom;
     }
 
     .messageText {
       @extend .messageText;
+      color: $textColorDarkTheme;
     }
 
     .messageDate {

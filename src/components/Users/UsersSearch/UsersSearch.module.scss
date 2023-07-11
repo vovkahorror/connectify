@@ -14,10 +14,18 @@
       padding: 10px 46px;
       width: 100%;
       @include text();
+      background: transparent;
       border-radius: 10px;
-      border: 1px solid rgba(78, 93, 120, 0.4);
       outline: none;
       transition: all 0.3s, height 0s;
+
+      &.light {
+        border: 1px solid rgba(78, 93, 120, 0.4);
+      }
+
+      &.dark {
+        border: 1px solid $textColorDarkTheme;
+      }
 
       &::placeholder {
         font-weight: 400;
@@ -46,6 +54,12 @@
         fill: $mainSecondColor;
       }
     }
+
+    .searchIcon, .xmarkIcon {
+      &.dark * {
+        fill: $textColorDarkTheme;
+      }
+    }
   }
 
   .onlyFollowed {
@@ -54,17 +68,24 @@
     gap: 10px;
     width: max-content;
 
-    input {
+    .checkbox {
       appearance: none;
       padding: 0;
       width: 22px;
       height: 22px;
-      border: 1px solid rgba(78, 93, 120, 0.4);
       border-radius: 4px;
       background-position: center;
       background-size: 90%;
       background-repeat: no-repeat;
       cursor: pointer;
+
+      &.light {
+        border: 1px solid rgba(78, 93, 120, 0.4);
+      }
+
+      &.dark {
+        border: 1px solid $textColorDarkTheme;
+      }
 
       &:checked {
         background-color: $mainSecondColor;
@@ -72,7 +93,7 @@
       }
     }
 
-    span {
+    .text {
       @include text();
     }
   }

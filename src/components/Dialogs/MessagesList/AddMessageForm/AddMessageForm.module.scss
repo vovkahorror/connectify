@@ -16,7 +16,6 @@
       height: unset;
       resize: none;
       @include text();
-      background: $inputBackground;
       border-radius: 10px;
       border: none;
       @include scrollbar();
@@ -29,6 +28,13 @@
 
       &:focus {
         box-shadow: 0 0 0 2px rgba(55, 125, 255, 0.4);
+      }
+    }
+
+    &.light {
+
+      textarea {
+        background: $inputBackground;
       }
     }
 

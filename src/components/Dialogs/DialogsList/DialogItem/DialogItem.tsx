@@ -1,12 +1,17 @@
 import styles from './DialogItem.module.scss';
 import {NavLink} from 'react-router-dom';
-import UserNoPhoto from '../../../../assets/images/userLight.svg';
 import {FC} from 'react';
 import {setTimezoneOffsetDate, toFormatDate, toFormatTime} from '../../../../utils/date-helpers';
 import {useTranslation} from 'react-i18next';
+import {useTheme} from '../../../../theme/useTheme';
+import userLight from '../../../../assets/images/userLight.svg';
+import userDark from '../../../../assets/images/userDark.svg';
 
 export const DialogItem: FC<DialogItemType> = ({userName, userPhoto, id, lastDialogActivityDate, newMessagesCount}) => {
     const {i18n} = useTranslation();
+    const {theme} = useTheme();
+    const themeClassName = theme === 'light' ? styles.light : styles.dark;
+    const userNoPhoto = theme === 'light' ? userLight : userDark;
     const path = `/dialogs/${id}`;
 
     const customizedDate = setTimezoneOffsetDate(lastDialogActivityDate);
@@ -14,8 +19,8 @@ export const DialogItem: FC<DialogItemType> = ({userName, userPhoto, id, lastDia
     const time = toFormatTime(customizedDate, i18n.language);
 
     return (
-        <NavLink className={styles.dialogItem} activeClassName={styles.active} to={path}>
-            <img className={styles.photo} src={userPhoto || UserNoPhoto} alt="userPhoto"/>
+        <NavLink className={`${styles.dialogItem} ${themeClassName}`} activeClassName={styles.active} to={path}>
+            <img className={styles.photo} src={userPhoto || userNoPhoto} alt="userPhoto"/>
             <span>{userName}</span>
             <span className={styles.lastActivityDate}>
                 <span>{date}</span>

@@ -5,6 +5,7 @@ import {DialogsPageType} from '../../../redux/dialogs-reducer';
 import {ReactComponent as PreloaderIcon} from '../../../assets/images/preloader.svg';
 import styles from './MessagesList.module.scss';
 import MessagesListHeader from './MessagesListHeader/MessagesListHeader';
+import {useTheme} from '../../../theme/useTheme';
 
 const MessagesList: FC<MessagesListPropsType> = ({
                                                      state,
@@ -27,6 +28,8 @@ const MessagesList: FC<MessagesListPropsType> = ({
     const [isLoading, setIsLoading] = useState(false);
     const prevUserID = useRef<number | null>(null);
     const prevPropCurrentPage = useRef<number | null>(null);
+    const {theme} = useTheme();
+    const themeClassName = theme === 'light' ? styles.light : styles.dark;
 
     const addNewMessage = (values: FormDataType) => {
         if (values.newMessageBody.trim()) {
@@ -75,9 +78,9 @@ const MessagesList: FC<MessagesListPropsType> = ({
 
 
     return (
-        <div className={styles.messagesList}>
+        <div className={`${styles.messagesList} ${themeClassName}`}>
             {isLoading
-                ? <PreloaderIcon className={styles.preloaderIcon}/>
+                ? <PreloaderIcon className={`${styles.preloaderIcon} ${themeClassName}`}/>
                 : <>
                     <MessagesListHeader userID={userID}
                                         userPhoto={userPhoto}

@@ -4,6 +4,7 @@ import DialogsList from './DialogsList/DialogsList';
 import MessagesList from './MessagesList/MessagesList';
 import styles from './Dialogs.module.scss';
 import {useHistory} from 'react-router-dom';
+import {useTheme} from '../../theme/useTheme';
 
 export const Dialogs: FC<DialogsPropsType> = ({
                                                   userID,
@@ -22,6 +23,8 @@ export const Dialogs: FC<DialogsPropsType> = ({
     const history = useHistory();
     const state = dialogsPage;
     let noMessages = useRef('');
+    const {theme} = useTheme();
+    const themeClassName = theme === 'light' ? styles.light : styles.dark;
 
     useEffect(() => {
         requestDialogs()
@@ -35,7 +38,7 @@ export const Dialogs: FC<DialogsPropsType> = ({
     }, [state.dialogsData]);
 
     return (
-        <div className={styles.dialogs}>
+        <div className={`${styles.dialogs} ${themeClassName}`}>
             {state.dialogsData.length
                 ? <>
                     <DialogsList state={state}/>

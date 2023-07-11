@@ -1,3 +1,4 @@
+@import '../../../styles/sass/variables';
 @import '../../../styles/sass/mixins';
 
 .messagesList {
@@ -17,6 +18,12 @@
       justify-content: flex-end;
       gap: 48px;
       min-height: 100%;
+    }
+  }
+
+  .preloaderIcon {
+    &.dark * {
+      stroke: $textColorDarkTheme;
     }
   }
 }

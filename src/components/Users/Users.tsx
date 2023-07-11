@@ -4,6 +4,7 @@ import {Paginator} from '../common/Paginator/Paginator';
 import {User} from './User/User';
 import styles from './Users.module.scss';
 import {UsersSearch} from './UsersSearch/UsersSearch';
+import {useTheme} from '../../theme/useTheme';
 
 export const Users = ({
                           currentPage,
@@ -19,8 +20,11 @@ export const Users = ({
                           follow,
                           unfollow,
                       }: UsersPropsType) => {
+    const {theme} = useTheme();
+    const themeClassName = theme === 'light' ? styles.light : styles.dark;
+
     return (
-        <main className={styles.main}>
+        <main className={`${styles.main} ${themeClassName}`}>
             <UsersSearch nameSearch={nameSearch} onlyFollowed={onlyFollowed} setNameSearch={setNameSearch}
                          setOnlyFollowed={setOnlyFollowed}/>
 

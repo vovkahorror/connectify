@@ -5,10 +5,13 @@ import {ReactComponent as SendIcon} from '../../../../assets/icons/send.svg';
 import {ReactComponent as RequestIcon} from '../../../../assets/icons/request.svg';
 import styles from './AddMessageForm.module.scss';
 import {useTranslation} from 'react-i18next';
+import {useTheme} from '../../../../theme/useTheme';
 
 const AddMessageForm: FC<InjectedFormProps<FormDataType>> = ({handleSubmit, initialValues: {isRequesting}}) => {
     const {t} = useTranslation('dialogs');
     const [message, setMessage] = useState('');
+    const {theme} = useTheme();
+    const themeClassName = theme === 'light' ? styles.light : styles.dark;
 
     const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         setMessage(e.currentTarget.value.slice(0, 1000));
@@ -16,7 +19,7 @@ const AddMessageForm: FC<InjectedFormProps<FormDataType>> = ({handleSubmit, init
 
     return (
         <form className={styles.form} onSubmit={handleSubmit}>
-            <div className={styles.textareaWrapper}>
+            <div className={`${styles.textareaWrapper} ${themeClassName}`}>
                 <Field component={Textarea} name={'newMessageBody'}
                        placeholder={t('enterYourMessage')} maxLength={1000}
                        onInput={handleInputChange} autoFocus/>
