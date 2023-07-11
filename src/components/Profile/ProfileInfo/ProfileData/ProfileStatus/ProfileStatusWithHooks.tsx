@@ -1,10 +1,13 @@
 import React, {ChangeEvent, FC, KeyboardEvent, useEffect, useState} from 'react';
 import {ReactComponent as EditIcon} from '../../../../../assets/icons/edit.svg';
 import styles from './ProfileStatus.module.scss';
+import {useTheme} from '../../../../../theme/useTheme';
 
 export const ProfileStatusWithHooks: FC<ProfileStatusPropsType> = ({status, isOwner, updateStatus}) => {
     const [editMode, setEditMode] = useState(false);
     const [localStatus, setLocalStatus] = useState(status);
+    const {theme} = useTheme();
+    const themeClassName = theme === 'light' ? styles.light : styles.dark;
 
     useEffect(() => {
         setLocalStatus(status);
@@ -30,10 +33,11 @@ export const ProfileStatusWithHooks: FC<ProfileStatusPropsType> = ({status, isOw
             {!editMode
                 ? <div className={styles.currentStatus}>
                     <span>{status || <span className={styles.noStatus}>no status</span>}</span>
-                    {isOwner && <EditIcon className={styles.icon} onClick={activateEditMode}/>}
+                    {isOwner && <EditIcon className={`${styles.icon} ${themeClassName}`} onClick={activateEditMode}/>}
                 </div>
                 : <div>
-                    <input className={styles.statusInput} onChange={onStatusChange} onKeyDown={onKeyDownHandler}
+                    <input className={`${styles.statusInput} ${themeClassName}`} onChange={onStatusChange}
+                           onKeyDown={onKeyDownHandler}
                            autoFocus={true}
                            onBlur={deactivateEditMode}
                            value={localStatus}/>

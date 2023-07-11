@@ -2,6 +2,7 @@ import {Field, Validator, WrappedFieldProps} from 'redux-form';
 import styles from './FormsControls.module.scss';
 import React, {FC, ReactNode} from 'react';
 import TextArea from 'antd/es/input/TextArea';
+import {useTheme} from '../../../theme/useTheme';
 
 type FormControlType = WrappedFieldProps & {
     children: ReactNode;
@@ -20,17 +21,23 @@ const FormControl: FC<FormControlType> = ({input, meta: {touched, error}, childr
 
 export const Textarea = (props: WrappedFieldProps) => {
     const {input, meta, ...restProps} = props;
+    const {theme} = useTheme();
+    const themeClassName = theme === 'light' ? styles.light : styles.dark;
 
     return (
-        <FormControl {...props}><TextArea  {...input} {...restProps}/></FormControl>
+        <FormControl {...props}><TextArea
+            className={`${styles.input} ${themeClassName}`}  {...input} {...restProps}/></FormControl>
     );
 };
 
 export const Input = (props: WrappedFieldProps) => {
     const {input, meta, ...restProps} = props;
+    const {theme} = useTheme();
+    const themeClassName = theme === 'light' ? styles.light : styles.dark;
 
     return (
-        <FormControl {...props}><input {...input} {...restProps}/></FormControl>
+        <FormControl {...props}><input
+            className={`${styles.input} ${themeClassName}`} {...input} {...restProps}/></FormControl>
     );
 };
 

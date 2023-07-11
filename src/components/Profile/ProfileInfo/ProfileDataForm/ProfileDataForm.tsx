@@ -6,6 +6,7 @@ import {required} from '../../../../utils/validators/validators';
 import controlsStyles from '../../../common/FormsControls/FormsControls.module.scss';
 import styles from './ProfileDataForm.module.scss';
 import {useTranslation} from 'react-i18next';
+import {useTheme} from '../../../../theme/useTheme';
 
 const ProfileDataForm: FC<InjectedFormProps<ProfileDataFormPropsType>> = ({
                                                                               initialValues: {
@@ -16,6 +17,8 @@ const ProfileDataForm: FC<InjectedFormProps<ProfileDataFormPropsType>> = ({
                                                                               error,
                                                                           }) => {
     const {t} = useTranslation('profile');
+    const {theme} = useTheme();
+    const themeClassName = theme === 'light' ? styles.light : styles.dark;
 
     const mappedContacts = Object.keys(profile.contacts as ContactsProfileAPIType).map(key => {
         if (key !== 'vk') {
@@ -29,7 +32,7 @@ const ProfileDataForm: FC<InjectedFormProps<ProfileDataFormPropsType>> = ({
     });
 
     return (
-        <form className={styles.form}>
+        <form className={`${styles.form} ${themeClassName}`}>
             {error && <div className={controlsStyles.formSummaryError}>
                 {error}
             </div>}
@@ -62,7 +65,8 @@ const ProfileDataForm: FC<InjectedFormProps<ProfileDataFormPropsType>> = ({
                 </div>
             </div>
             <div className={styles.buttonsBlock}>
-                <button className={styles.cancelButton} onClick={disableEditMode} type={'button'}>{t('cancel')}</button>
+                <button className={`${styles.cancelButton} ${themeClassName}`} onClick={disableEditMode}
+                        type={'button'}>{t('cancel')}</button>
                 <button className={styles.submitButton} onClick={handleSubmit}>{t('save')}</button>
             </div>
         </form>

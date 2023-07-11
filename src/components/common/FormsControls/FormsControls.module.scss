@@ -1,17 +1,37 @@
+@import '../../../styles/sass/variables';
+
 .formControl.error input,
 .formControl.error textarea {
-    border: 1px solid transparent;
-    box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.6);
+  border: 1px solid transparent;
+  box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.6);
 }
 
 .formControl.error span {
-    display: block;
-    margin-top: 6px;
-    color: darkred;
+  display: block;
+  margin-top: 6px;
+  color: darkred;
 }
 
 .formSummaryError {
-    padding: 10px;
-    font-weight: 700;
-    color: darkred;
+  padding: 10px;
+  font-weight: 700;
+  color: darkred;
+}
+
+.input {
+  &.light {
+    color: $textColor;
+    background: $backgroundColor;
+    border: 1px solid rgba(78, 93, 120, 0.2);
+  }
+
+  &.dark {
+    color: $textColorDarkTheme;
+    background: $backgroundSecondColorDarkTheme;
+    border: 1px solid $textColorDarkTheme;
+
+    &::placeholder {
+      color: $textColor;
+    }
+  }
 }

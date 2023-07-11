@@ -7,6 +7,14 @@
   gap: 40px;
   width: 100%;
 
+  &.light {
+    color: $textColor;
+  }
+
+  &.dark {
+    color: $textColorDarkTheme;
+  }
+
   .formContent {
     display: flex;
     gap: 40px;
@@ -39,9 +47,14 @@
         width: 100%;
         resize: none;
         @include text($fontWeight: 400);
-        border: 1px solid rgba(78, 93, 120, 0.2);
         border-radius: 8px;
         outline: none;
+        transition: 0.3s;
+
+        &:focus {
+          border: 1px solid transparent;
+          box-shadow: 0 0 0 2px rgba(55, 125, 255, 0.4);
+        }
       }
 
       textarea {
@@ -91,8 +104,15 @@
     }
 
     .cancelButton {
-      color: $textColor;
       background: none;
+
+      &.light {
+        color: $textColor;
+      }
+
+      &.dark {
+        color: $textColorDarkTheme;
+      }
 
       &:hover {
         color: #4096ff;
