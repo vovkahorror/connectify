@@ -3,12 +3,15 @@ import {FormDataType, RegisterFormRedux} from './RegisterForm/RegisterForm';
 import {connect} from 'react-redux';
 import {register} from '../../redux/auth-reducer';
 import {useHistory} from 'react-router-dom';
-import {message} from 'antd';
+import {ConfigProvider, message, theme} from 'antd';
 import styles from '../Login/Login.module.scss';
 import {useTranslation} from 'react-i18next';
+import {useTheme} from '../../theme/useTheme';
 
 const Register: FC<RegisterPropsType> = ({register}) => {
     const {t} = useTranslation('auth');
+    const myTheme = useTheme().theme;
+    const themeClassName = myTheme === 'light' ? styles.light : styles.dark;
     const [messageApi, contextHolder] = message.useMessage();
     const history = useHistory();
     const onSubmit = (formData: FormDataType) => {
@@ -19,13 +22,15 @@ const Register: FC<RegisterPropsType> = ({register}) => {
     };
 
     return (
-        <main className={styles.main}>
-            {contextHolder}
-            <div className={styles.title}>
+        <main className={`${styles.main} ${themeClassName}`}>
+            <ConfigProvider theme={{algorithm: myTheme === 'light' ? theme.defaultAlgorithm : theme.darkAlgorithm}}>
+                {contextHolder}
+            </ConfigProvider>
+            <div className={`${styles.title} ${themeClassName}`}>
                 <h1>{t('createAccount')}</h1>
                 <span>{t('createAccountToContinue')}</span>
             </div>
-            <div className={styles.register}>
+            <div className={`${styles.register} ${themeClassName}`}>
                 <RegisterFormRedux onSubmit={onSubmit}/>
             </div>
         </main>

@@ -34,26 +34,27 @@ const Login: FC<LoginPropsType> = ({login, isAuth, captcha}) => {
 
     return (
         <main className={`${styles.main} ${themeClassName}`}>
-            <div className={styles.title}>
+            <div className={`${styles.title} ${themeClassName}`}>
                 <h1>{t('signIn')}</h1>
                 <span>{t('welcomeBack')}</span>
             </div>
 
-            <div className={styles.login}>
+            <div className={`${styles.login} ${themeClassName}`}>
                 <LoginFormRedux onSubmit={onSubmit} initialValues={{captcha}}/>
             </div>
 
-            <div className={styles.info}>
+            <div className={`${styles.info} ${themeClassName}`}>
                 <span>{t('youCan')}
                     <NavLink to={'/register'}> {t('createPersonalAccount')}</NavLink>,
                     {t('useDemoAccount')}:</span>
                 <div>
                     <span className={styles.copiedTextTitle}>Email:</span>
-                    <Paragraph className={styles.copiedText} copyable>free@samuraijs.com</Paragraph>
+                    <Paragraph className={`${styles.copiedText} ${themeClassName}`}
+                               copyable>free@samuraijs.com</Paragraph>
                 </div>
                 <div>
                     <span className={styles.copiedTextTitle}>{t('password')}:</span>
-                    <Paragraph className={styles.copiedText} copyable>free</Paragraph>
+                    <Paragraph className={`${styles.copiedText} ${themeClassName}`} copyable>free</Paragraph>
                 </div>
             </div>
         </main>

@@ -12,13 +12,20 @@
     margin-bottom: 8px;
     font-size: 18px;
     font-weight: 700;
+
+    &.light {
+      color: $textColor;
+    }
+
+    &.dark {
+      color: $textColorDarkTheme;
+    }
   }
 
   input {
     width: 100%;
     padding: 15px;
     @include text();
-    background: $inputBackground;
     border: 1px solid rgba(78, 93, 120, 0.2);
     outline: none;
     border-radius: 10px;
@@ -40,17 +47,25 @@
     width: max-content;
     @include text();
 
-    input {
+    .checkbox {
       appearance: none;
       padding: 0;
       width: 22px;
       height: 22px;
-      border: 1px solid rgba(78, 93, 120, 0.2);
       border-radius: 4px;
+      background-color: transparent;
       background-position: center;
       background-size: 90%;
       background-repeat: no-repeat;
       cursor: pointer;
+
+      &.light {
+        border: 1px solid rgba(78, 93, 120, 0.2);
+      }
+
+      &.dark {
+        border: 1px solid #ffffff;
+      }
 
       &:checked {
         background-color: $mainSecondColor;

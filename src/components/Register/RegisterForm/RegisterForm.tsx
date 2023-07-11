@@ -6,31 +6,35 @@ import styles from '../../Login/LoginForm/LoginForm.module.scss';
 import controlsStyles from '../../common/FormsControls/FormsControls.module.scss';
 import {NavLink} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
+import {useTheme} from '../../../theme/useTheme';
 
 const RegisterForm: FC<InjectedFormProps<FormDataType>> = ({handleSubmit, error}) => {
     const {t} = useTranslation('auth');
+    const {theme} = useTheme();
+    const themeClassName = theme === 'light' ? styles.light : styles.dark;
 
     return (
         <form className={styles.form} onSubmit={handleSubmit}>
             <div>
-                <span className={styles.fieldTitle}>{t('login')}</span>
+                <span className={`${styles.fieldTitle} ${themeClassName}`}>{t('login')}</span>
                 {createField(t('yourLogin'), 'login', 'text', [required], Input, 'new-password')}
             </div>
             <div>
-                <span className={styles.fieldTitle}>Email</span>
+                <span className={`${styles.fieldTitle} ${themeClassName}`}>Email</span>
                 {createField(t('yourEmail'), 'email', 'text', [required], Input, 'new-password')}
             </div>
             <div>
-                <span className={styles.fieldTitle}>{t('password')}</span>
+                <span className={`${styles.fieldTitle} ${themeClassName}`}>{t('password')}</span>
                 {createField(t('createPassword'), 'password', 'password', [required], Input, 'new-password')}
             </div>
             <div>
-                <span className={styles.fieldTitle}>{t('confirmPassword')}</span>
+                <span className={`${styles.fieldTitle} ${themeClassName}`}>{t('confirmPassword')}</span>
                 {createField(t('confirmYourPassword'), 'confirmPassword', 'password', [required], Input, 'new-password')}
             </div>
 
-            <label className={styles.acceptOffer}>
-                <Field component={Input} name={'acceptOffer'} type={'checkbox'}/>
+            <label className={`${styles.acceptOffer} ${themeClassName}`}>
+                <Field className={`${styles.checkbox} ${themeClassName}`} component={Input} name={'acceptOffer'}
+                       type={'checkbox'}/>
                 <span>{t('consentToProcessing')}</span>
             </label>
 
@@ -40,7 +44,7 @@ const RegisterForm: FC<InjectedFormProps<FormDataType>> = ({handleSubmit, error}
 
             <button>{t('signUp')}</button>
 
-            <div className={styles.signInBlock}>
+            <div className={`${styles.signInBlock} ${themeClassName}`}>
                 <span>{t('alreadyHaveAccount')}</span>
                 <NavLink to={'/login'}>{t('getSignIn')}</NavLink>
             </div>
