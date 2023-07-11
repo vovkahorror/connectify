@@ -22,5 +22,8 @@
   "addPostPlaceholder": "Write a post",
   "post": "Post",
   "deleteThisPost": "Delete this post",
-  "sureDeleteThisPost": "Are you sure to delete this post?"
+  "sureDeleteThisPost": "Are you sure to delete this post?",
+  "reset": "Reset",
+  "uploadPhoto": "Upload a photo",
+  "upload": "Upload"
 }
