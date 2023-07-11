@@ -25,12 +25,23 @@
       min-height: 120px;
       resize: none;
       @include text();
-      background: $inputBackground;
       border: none;
       outline: none;
       border-radius: 10px;
       @include scrollbar();
       cursor: auto;
+
+      &.light {
+        background: $inputBackground;
+      }
+
+      &.dark {
+        background: $backgroundSecondColorDarkTheme;
+
+        &::placeholder {
+          color: $textColor;
+        }
+      }
 
       &::placeholder {
         font-weight: 400;

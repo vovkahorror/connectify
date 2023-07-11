@@ -7,7 +7,7 @@ import userDark from '../../../assets/images/userDark.svg';
 import {ProfileData} from './ProfileData/ProfileData';
 import {ProfileDataFormRedux} from './ProfileDataForm/ProfileDataForm';
 import {ReactComponent as UploadIcon} from '../../../assets/icons/upload.svg';
-import {message} from 'antd';
+import {ConfigProvider, message, theme} from 'antd';
 import SendMessageModal from './SendMessageModal/SendMessageModal';
 import {useTranslation} from 'react-i18next';
 import {useTheme} from '../../../theme/useTheme';
@@ -29,9 +29,9 @@ export const ProfileInfo = ({
     const [editMode, setEditMode] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [messageApi, contextHolder] = message.useMessage();
-    const {theme} = useTheme();
-    const themeClassName = theme === 'light' ? styles.light : styles.dark;
-    const userNoPhoto = theme === 'light' ? userLight : userDark;
+    const myTheme = useTheme().theme;
+    const themeClassName = myTheme === 'light' ? styles.light : styles.dark;
+    const userNoPhoto = myTheme === 'light' ? userLight : userDark;
 
     if (!profile) {
         return <Preloader/>;
@@ -53,7 +53,9 @@ export const ProfileInfo = ({
 
     return (
         <div className={`${styles.profileInfo} ${themeClassName}`}>
-            {contextHolder}
+            <ConfigProvider theme={{algorithm: myTheme === 'light' ? theme.defaultAlgorithm : theme.darkAlgorithm}}>
+                {contextHolder}
+            </ConfigProvider>
 
             <div className={styles.photoButtonsWrapper}>
                 <div className={styles.imageBlock}>

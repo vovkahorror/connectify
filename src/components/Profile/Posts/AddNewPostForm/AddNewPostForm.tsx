@@ -4,15 +4,18 @@ import {Textarea} from '../../../common/FormsControls/FormsControls';
 import styles from './AddNewPostForm.module.scss';
 import userNoPhoto from '../../../../assets/images/userLight.svg';
 import {useTranslation} from 'react-i18next';
+import {useTheme} from '../../../../theme/useTheme';
 
 const AddNewPostForm: FC<InjectedFormProps<FormDataType>> = ({initialValues: {userPhoto}, handleSubmit, form}) => {
     const {t} = useTranslation('profile');
+    const {theme} = useTheme();
+    const themeClassName = theme === 'light' ? styles.light : styles.dark;
 
     return (
-        <form onSubmit={handleSubmit} className={styles.form}>
+        <form onSubmit={handleSubmit} className={`${styles.form} ${themeClassName}`}>
             <div className={styles.messageBlock}>
                 <img className={styles.userPhoto} src={userPhoto || userNoPhoto} alt=""/>
-                <Field className={styles.message} component={Textarea} name={'newPostText'}
+                <Field className={`${styles.message} ${themeClassName}`} component={Textarea} name={'newPostText'}
                        placeholder={t('addPostPlaceholder')}/>
             </div>
             <button className={styles.button} disabled={!form.length}>{t('post')}</button>
