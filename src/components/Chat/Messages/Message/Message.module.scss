@@ -15,13 +15,13 @@
     gap: 10px;
 
     .userName {
-      @include text();
+      @include text($fontWeight: 700);
       text-decoration: none;
     }
 
     .messageText {
       @include text($fontSize: 16px, $fontWeight: 400);
-
+      font-style: italic;
     }
   }
 }

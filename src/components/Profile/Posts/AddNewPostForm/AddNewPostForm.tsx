@@ -2,14 +2,16 @@ import {Field, InjectedFormProps, reduxForm} from 'redux-form';
 import React, {FC} from 'react';
 import {Textarea} from '../../../common/FormsControls/FormsControls';
 import styles from './AddNewPostForm.module.scss';
-import userNoPhoto from '../../../../assets/images/userLight.svg';
 import {useTranslation} from 'react-i18next';
 import {useTheme} from '../../../../theme/useTheme';
+import userLight from '../../../../assets/images/userLight.svg';
+import userDark from '../../../../assets/images/userDark.svg';
 
 const AddNewPostForm: FC<InjectedFormProps<FormDataType>> = ({initialValues: {userPhoto}, handleSubmit, form}) => {
     const {t} = useTranslation('profile');
     const {theme} = useTheme();
     const themeClassName = theme === 'light' ? styles.light : styles.dark;
+    const userNoPhoto = theme === 'light' ? userLight : userDark;
 
     return (
         <form onSubmit={handleSubmit} className={`${styles.form} ${themeClassName}`}>

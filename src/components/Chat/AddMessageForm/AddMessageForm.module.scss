@@ -10,14 +10,21 @@
     flex-direction: column;
     gap: 10px;
 
-    input {
+    .input {
       padding: 15px;
       @include text();
-      background: $inputBackground;
       border: none;
       outline: none;
       border-radius: 10px;
       transition: all 0.3s, height 0s;
+
+      &.light {
+        background: $inputBackground;
+      }
+
+      &.dark {
+        background: $backgroundSecondColorDarkTheme;
+      }
 
       &::placeholder {
         font-weight: 400;
@@ -31,6 +38,14 @@
     .notice {
       font-size: 14px;
       font-style: italic;
+
+      &.light {
+        color: $textColor;
+      }
+
+      &.dark {
+        color: $textColorDarkTheme;
+      }
     }
   }
 

@@ -38,7 +38,7 @@ class App extends React.Component<AppPropsType, AppStateType> {
     }
 
     render() {
-        const {theme, toggleTheme} = this.props;
+        const {theme} = this.props;
 
         if (!this.props.isInitialized) {
             return <Preloader/>;
@@ -46,7 +46,6 @@ class App extends React.Component<AppPropsType, AppStateType> {
 
         return (
             <div className={`app-wrapper ${theme}`}>
-                <button onClick={toggleTheme}>Toggle theme</button>
                 <HeaderContainer/>
                 <Navbar/>
                 <div className={'app-wrapper__content'}>

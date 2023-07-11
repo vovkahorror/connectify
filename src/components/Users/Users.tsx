@@ -40,7 +40,7 @@ export const Users = ({
                 }
             </div>
 
-            {!users.length && <span className={styles.notFound}>Users not found</span>}
+            {!users.length && <span className={`${styles.notFound} ${themeClassName}`}>Users not found</span>}
         </main>
     );
 };

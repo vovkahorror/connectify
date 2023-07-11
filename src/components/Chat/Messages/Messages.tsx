@@ -4,8 +4,11 @@ import {AppStateType} from '../../../redux/redux-store';
 import {ChatMessageType} from '../../../api/chat-api';
 import {Message} from './Message/Message';
 import styles from './Messages.module.scss';
+import {useTheme} from '../../../theme/useTheme';
 
 export const Messages: FC<MessagesPropsType> = ({noMessages}) => {
+    const {theme} = useTheme();
+    const themeClassName = theme === 'light' ? styles.light : styles.dark;
     const messages = useSelector<AppStateType, ChatMessageType[]>(state => state.chat.messages);
     const messagesAnchorRef = useRef<HTMLDivElement>(null);
     const [isAutoScroll, setIsAutoScroll] = useState(true);
@@ -33,7 +36,7 @@ export const Messages: FC<MessagesPropsType> = ({noMessages}) => {
             {messages.map(m =>
                 <Message key={m.id} {...m}/>,
             )}
-            {!messages.length && <span className={styles.noMessages}>{noMessages.current}</span>}
+            {!messages.length && <span className={`${styles.noMessages} ${themeClassName}`}>{noMessages.current}</span>}
             <div ref={messagesAnchorRef}></div>
         </div>
     );

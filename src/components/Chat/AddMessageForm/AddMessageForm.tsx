@@ -6,9 +6,12 @@ import {sendMessage} from '../../../redux/chat-reducer';
 import {ReactComponent as SendIcon} from '../../../assets/icons/send.svg';
 import styles from './AddMessageForm.module.scss';
 import {useTranslation} from 'react-i18next';
+import {useTheme} from '../../../theme/useTheme';
 
 export const AddMessageForm: FC = () => {
     const {t} = useTranslation('dialogs');
+    const {theme} = useTheme();
+    const themeClassName = theme === 'light' ? styles.light : styles.dark;
     const [message, setMessage] = useState('');
     const status = useSelector<AppStateType, StatusType>(state => state.chat.status);
     const dispatch = useDispatch();
@@ -33,11 +36,13 @@ export const AddMessageForm: FC = () => {
     };
 
     return (
-        <div className={styles.addMessageForm}>
+        <div className={`${styles.addMessageForm} ${themeClassName}`}>
             <div className={styles.inputWrapper}>
-                <input value={message} onKeyDown={onKeyDownHandler} placeholder={t('enterYourMessage')}
+                <input className={`${styles.input} ${themeClassName}`} value={message} onKeyDown={onKeyDownHandler}
+                       placeholder={t('enterYourMessage')}
                        onChange={writeMessageHandler} autoFocus/>
-                <span className={styles.notice}>{t('youHave')} {100 - message.length} {t('charactersLeft')}</span>
+                <span
+                    className={`${styles.notice} ${themeClassName}`}>{t('youHave')} {100 - message.length} {t('charactersLeft')}</span>
             </div>
             <button className={styles.sendButton} disabled={status !== 'ready' || !message.length}
                     onClick={sendMessageHandler}>

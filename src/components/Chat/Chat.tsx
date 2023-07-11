@@ -10,8 +10,11 @@ import {AnyAction, compose} from 'redux';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 import {withNewMessagesRequest} from '../../hoc/withNewMessagesRequest';
 import {ThunkDispatch} from 'redux-thunk';
+import {useTheme} from '../../theme/useTheme';
 
 const Chat: FC = () => {
+    const {theme} = useTheme();
+    const themeClassName = theme === 'light' ? styles.light : styles.dark;
     const status = useSelector<AppStateType, StatusType>(state => state.chat.status);
     const dispatch = useDispatch<ThunkDispatch<AppStateType, any, AnyAction>>();
     let noMessages = useRef('');
@@ -26,7 +29,7 @@ const Chat: FC = () => {
     }, [dispatch]);
 
     return (
-        <main className={styles.chat}>
+        <main className={`${styles.chat} ${themeClassName}`}>
             {status === 'error' && <div>Some error occurred. Please refresh the page</div>}
             <Messages noMessages={noMessages}/>
             <AddMessageForm/>
