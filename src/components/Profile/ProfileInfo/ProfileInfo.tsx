@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {useState} from 'react';
 import styles from './ProfileInfo.module.scss';
 import {ProfileAPIType} from '../../../redux/profile-reducer';
 import {Preloader} from '../../common/Preloader/Preloader';
@@ -7,10 +7,11 @@ import userDark from '../../../assets/images/userDark.svg';
 import {ProfileData} from './ProfileData/ProfileData';
 import {ProfileDataFormRedux} from './ProfileDataForm/ProfileDataForm';
 import {ReactComponent as UploadIcon} from '../../../assets/icons/upload.svg';
-import {ConfigProvider, message, theme} from 'antd';
+import {ConfigProvider, message, theme, Upload} from 'antd';
 import SendMessageModal from './SendMessageModal/SendMessageModal';
 import {useTranslation} from 'react-i18next';
 import {useTheme} from '../../../theme/useTheme';
+import ImgCrop from 'antd-img-crop';
 
 export const ProfileInfo = ({
                                 profile,
@@ -37,10 +38,8 @@ export const ProfileInfo = ({
         return <Preloader/>;
     }
 
-    const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files && e.target.files.length) {
-            savePhoto(e.target.files[0]);
-        }
+    const onMainPhotoSelected = (value: any) => {
+        savePhoto(value);
     };
 
     const onSubmit = (formData: ProfileAPIType) => {
@@ -61,13 +60,18 @@ export const ProfileInfo = ({
                 <div className={styles.imageBlock}>
                     <img className={styles.mainPhoto} src={profile.photos.large || userNoPhoto} alt=""/>
                     {isOwner &&
-                        <label className={styles.uploadWrapper}>
-                            <input className={styles.input} type="file" onChange={onMainPhotoSelected}
-                                   accept=".jpg, .jpeg, .png"/>
-                            <div className={`${styles.uploadIconBlock} ${themeClassName}`}>
-                                <UploadIcon className={`${styles.icon} ${themeClassName}`}/>
-                            </div>
-                        </label>}
+                        <ConfigProvider
+                            theme={{algorithm: myTheme === 'light' ? theme.defaultAlgorithm : theme.darkAlgorithm}}>
+                            <ImgCrop resetText={t('reset')} modalTitle={t('uploadPhoto')} modalCancel={t('cancel')}
+                                     modalOk={t('upload')} showGrid showReset onModalOk={onMainPhotoSelected}>
+                                <Upload accept=".jpg, .jpeg, .png" className={styles.uploadWrapper}
+                                        showUploadList={false}>
+                                    <div className={`${styles.uploadIconBlock} ${themeClassName}`}>
+                                        <UploadIcon className={`${styles.icon} ${themeClassName}`}/>
+                                    </div>
+                                </Upload>
+                            </ImgCrop>
+                        </ConfigProvider>}
                 </div>
 
                 {!isOwner &&
