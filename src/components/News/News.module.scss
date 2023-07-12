@@ -1,0 +1,11 @@
+@import '../../styles/sass/mixins';
+
+.news {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  @include pageWrapper();
+  height: calc(100vh - 78px);
+  gap: 20px;
+  overflow-y: scroll;
+  @include scrollbar();
+}
