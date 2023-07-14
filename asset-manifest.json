@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/connectify/static/css/main.fab62e9f.css",
-    "main.js": "/connectify/static/js/main.61376832.js",
+    "main.js": "/connectify/static/js/main.4a4db0d1.js",
     "static/css/417.9dea9f33.chunk.css": "/connectify/static/css/417.9dea9f33.chunk.css",
     "static/js/417.40ba6033.chunk.js": "/connectify/static/js/417.40ba6033.chunk.js",
     "static/css/827.1cd03ddd.chunk.css": "/connectify/static/css/827.1cd03ddd.chunk.css",
@@ -18,6 +18,8 @@
     "static/js/853.9b2a07b3.chunk.js": "/connectify/static/js/853.9b2a07b3.chunk.js",
     "static/css/654.c3ebbc45.chunk.css": "/connectify/static/css/654.c3ebbc45.chunk.css",
     "static/js/654.adef7d92.chunk.js": "/connectify/static/js/654.adef7d92.chunk.js",
+    "static/css/878.6ba4bf99.chunk.css": "/connectify/static/css/878.6ba4bf99.chunk.css",
+    "static/js/878.86575304.chunk.js": "/connectify/static/js/878.86575304.chunk.js",
     "static/js/113.27bc457e.chunk.js": "/connectify/static/js/113.27bc457e.chunk.js",
     "static/js/103.d60db5bf.chunk.js": "/connectify/static/js/103.d60db5bf.chunk.js",
     "static/js/817.b733a509.chunk.js": "/connectify/static/js/817.b733a509.chunk.js",
@@ -28,6 +30,7 @@
     "static/media/garde-webfont.woff2": "/connectify/static/media/garde-webfont.3a6d38199f45b0ce83cf.woff2",
     "static/media/settings.svg": "/connectify/static/media/settings.316038bbd852071de14c810747629d0e.svg",
     "static/media/users.svg": "/connectify/static/media/users.781fc1440f7066695935a42b3707c321.svg",
+    "static/media/404.svg": "/connectify/static/media/404.619fb2fdb2626f478802e22ff220aecb.svg",
     "static/media/upload.svg": "/connectify/static/media/upload.c432348a7ecc8c73c2361cda162e2aa9.svg",
     "static/media/logOut.svg": "/connectify/static/media/logOut.2563f074bb85e1ccc84fc9ab83481ec2.svg",
     "static/media/message.svg": "/connectify/static/media/message.2bafe5d19fdbfa25cd3748e7bf4221cd.svg",
@@ -70,7 +73,7 @@
     "static/media/arrowRight.svg": "/connectify/static/media/arrowRight.f22cda78b6e11abab5ec8cf947c36bfe.svg",
     "static/media/arrowLeft.svg": "/connectify/static/media/arrowLeft.a5756a50b41ed84f8dc5444e2f7e412c.svg",
     "main.fab62e9f.css.map": "/connectify/static/css/main.fab62e9f.css.map",
-    "main.61376832.js.map": "/connectify/static/js/main.61376832.js.map",
+    "main.4a4db0d1.js.map": "/connectify/static/js/main.4a4db0d1.js.map",
     "417.9dea9f33.chunk.css.map": "/connectify/static/css/417.9dea9f33.chunk.css.map",
     "417.40ba6033.chunk.js.map": "/connectify/static/js/417.40ba6033.chunk.js.map",
     "827.1cd03ddd.chunk.css.map": "/connectify/static/css/827.1cd03ddd.chunk.css.map",
@@ -87,6 +90,8 @@
     "853.9b2a07b3.chunk.js.map": "/connectify/static/js/853.9b2a07b3.chunk.js.map",
     "654.c3ebbc45.chunk.css.map": "/connectify/static/css/654.c3ebbc45.chunk.css.map",
     "654.adef7d92.chunk.js.map": "/connectify/static/js/654.adef7d92.chunk.js.map",
+    "878.6ba4bf99.chunk.css.map": "/connectify/static/css/878.6ba4bf99.chunk.css.map",
+    "878.86575304.chunk.js.map": "/connectify/static/js/878.86575304.chunk.js.map",
     "113.27bc457e.chunk.js.map": "/connectify/static/js/113.27bc457e.chunk.js.map",
     "103.d60db5bf.chunk.js.map": "/connectify/static/js/103.d60db5bf.chunk.js.map",
     "817.b733a509.chunk.js.map": "/connectify/static/js/817.b733a509.chunk.js.map",
@@ -97,6 +102,6 @@
   },
   "entrypoints": [
     "static/css/main.fab62e9f.css",
-    "static/js/main.61376832.js"
+    "static/js/main.4a4db0d1.js"
   ]
 }
