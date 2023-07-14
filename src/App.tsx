@@ -22,6 +22,7 @@ const Login = React.lazy(() => import('./components/Login/Login'));
 const Register = React.lazy(() => import('./components/Register/Register'));
 const News = React.lazy(() => import('./components/News/News'));
 const Settings = React.lazy(() => import('./components/Settings/Settings'));
+const NotFound = React.lazy(() => import('./components/NotFound/NotFound'));
 
 class App extends React.Component<AppPropsType, AppStateType> {
     caughtAllUnhandledRejection = (event: PromiseRejectionEvent) => {
@@ -59,7 +60,7 @@ class App extends React.Component<AppPropsType, AppStateType> {
                         <Route path={'/register'} render={withSuspense(Register)}/>
                         <Route path={'/news'} render={withSuspense(News)}/>
                         <Route path={'/settings'} render={withSuspense(Settings)}/>
-                        <Route path={'*'} render={() => <h1>404 NOT FOUND</h1>}/>
+                        <Route path={'*'} render={withSuspense(NotFound)}/>
                     </Switch>
                 </div>
             </div>

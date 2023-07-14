@@ -1,0 +1,11 @@
+@import '../../styles/sass/mixins';
+
+.notFound {
+  @include pageWrapper();
+  height: calc(100vh - 78px);
+  align-items: center;
+
+  .title {
+    @include text($fontSize: 32px, $lineHeight: 40px);
+  }
+}
