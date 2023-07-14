@@ -2,6 +2,7 @@ import styles from './Settings.module.scss';
 import {Language} from './Language/Language';
 import {useTheme} from '../../theme/useTheme';
 import {Theme} from './Theme/Theme';
+import {withNewMessagesRequest} from '../../hoc/withNewMessagesRequest';
 
 const Settings = () => {
     const {theme} = useTheme();
@@ -15,4 +16,4 @@ const Settings = () => {
     );
 };
 
-export default Settings;
+export default withNewMessagesRequest(Settings);

@@ -8,6 +8,7 @@ import {v1} from 'uuid';
 import {useTranslation} from 'react-i18next';
 import React, {useEffect} from 'react';
 import {Preloader} from '../common/Preloader/Preloader';
+import {withNewMessagesRequest} from '../../hoc/withNewMessagesRequest';
 
 const News = () => {
     const dispatch = useDispatch();
@@ -36,4 +37,4 @@ const News = () => {
     );
 };
 
-export default News;
+export default withNewMessagesRequest(News);

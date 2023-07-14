@@ -13,9 +13,7 @@ export const NewsItem: FC<NewsItemPropsType> = ({newsItem}) => {
     const date = toFormatDate(newsItem.publishedAt, i18n.language);
     const time = toFormatTime(newsItem.publishedAt, i18n.language);
 
-    const formatContent = () => {
-        return newsItem.content.slice(0, newsItem.content.indexOf('['));
-    };
+    const formattedContentText = newsItem.content.slice(0, newsItem.content.indexOf('['));
 
     return (
         <div className={`${styles.newsItem} ${themeClassName}`}>
@@ -24,7 +22,7 @@ export const NewsItem: FC<NewsItemPropsType> = ({newsItem}) => {
                 <div className={styles.content}>
                     <h2 className={`${styles.title} ${themeClassName}`}>{newsItem.title}</h2>
                     <h3 className={`${styles.description} ${themeClassName}`}>{newsItem.description}</h3>
-                    <p className={`${styles.contentText} ${themeClassName}`}>{formatContent()}</p>
+                    <p className={`${styles.contentText} ${themeClassName}`}>{formattedContentText}</p>
                 </div>
                 <div className={styles.footer}>
                     <span
