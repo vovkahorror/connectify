@@ -9,6 +9,6 @@ const instance = axios.create({
 
 export const newsAPI = {
     getNews(lang: string) {
-        return instance.get(`top-headlines?lang=${lang}`);
+        return instance.get(`top-headlines?lang=${lang}`).then(res => res.data);
     },
 };

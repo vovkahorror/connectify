@@ -1,0 +1,65 @@
+@import '../../../styles/sass/mixins';
+
+.newsItem {
+  @include contentBlock($gap: 20px);
+  word-break: break-word;
+
+  .image {
+    flex-grow: 1;
+    width: 100%;
+    max-width: 520px;
+    height: 290px;
+    background: center/cover no-repeat;
+    border-radius: 16px;
+  }
+
+  .contextWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      .title {
+        @include text($fontSize: 24px, $lineHeight: 32px);
+      }
+
+      .description {
+        @include text($fontSize: 18px, $lineHeight: 26px);
+        font-style: italic;
+      }
+
+      .contentText {
+        @include text();
+      }
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+
+      .date,
+      .date a {
+        @include text($fontSize: 14px, $lineHeight: 22px);
+        text-decoration: none;
+        opacity: 0.6;
+
+        a {
+          font-weight: 900;
+          opacity: 1;
+        }
+      }
+
+      .link {
+        @include button();
+        white-space: nowrap;
+        text-decoration: none;
+      }
+    }
+  }
+}

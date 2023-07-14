@@ -8,6 +8,7 @@ import thunkMiddleware from 'redux-thunk';
 import {reducer as formReducer} from 'redux-form';
 import appReducer from './app-reducer';
 import chatReducer from './chat-reducer';
+import newsReducer from './news-reducer';
 
 export type AppStateType = ReturnType<typeof rootReducer>
 
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
     auth: authReducer,
     form: formReducer,
     chat: chatReducer,
+    news: newsReducer,
     app: appReducer,
 });
 
