@@ -19,6 +19,11 @@
     display: flex;
     gap: 40px;
 
+    @media (max-width: 576px) {
+      flex-direction: column;
+      gap: 18px;
+    }
+
     .formList, .contactsBlock, .contactsList {
       display: flex;
       flex-direction: column;

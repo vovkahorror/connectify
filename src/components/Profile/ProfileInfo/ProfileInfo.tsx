@@ -6,12 +6,11 @@ import userLight from '../../../assets/images/userLight.svg';
 import userDark from '../../../assets/images/userDark.svg';
 import {ProfileData} from './ProfileData/ProfileData';
 import {ProfileDataFormRedux} from './ProfileDataForm/ProfileDataForm';
-import {ReactComponent as UploadIcon} from '../../../assets/icons/upload.svg';
-import {ConfigProvider, message, theme, Upload} from 'antd';
+import {ConfigProvider, message, theme} from 'antd';
 import SendMessageModal from './SendMessageModal/SendMessageModal';
 import {useTranslation} from 'react-i18next';
 import {useTheme} from '../../../theme/useTheme';
-import ImgCrop from 'antd-img-crop';
+import {UploadPhotoModal} from './UploadPhotoModal/UploadPhotoModal';
 
 export const ProfileInfo = ({
                                 profile,
@@ -60,18 +59,7 @@ export const ProfileInfo = ({
                 <div className={styles.imageBlock}>
                     <img className={styles.mainPhoto} src={profile.photos.large || userNoPhoto} alt=""/>
                     {isOwner &&
-                        <ConfigProvider
-                            theme={{algorithm: myTheme === 'light' ? theme.defaultAlgorithm : theme.darkAlgorithm}}>
-                            <ImgCrop resetText={t('reset')} modalTitle={t('uploadPhoto')} modalCancel={t('cancel')}
-                                     modalOk={t('upload')} showGrid showReset onModalOk={onMainPhotoSelected}>
-                                <Upload accept=".jpg, .jpeg, .png" className={styles.uploadWrapper}
-                                        showUploadList={false}>
-                                    <div className={`${styles.uploadIconBlock} ${themeClassName}`}>
-                                        <UploadIcon className={`${styles.icon} ${themeClassName}`}/>
-                                    </div>
-                                </Upload>
-                            </ImgCrop>
-                        </ConfigProvider>}
+                        <UploadPhotoModal onMainPhotoSelected={onMainPhotoSelected}/>}
                 </div>
 
                 {!isOwner &&

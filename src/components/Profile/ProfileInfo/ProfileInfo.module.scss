@@ -4,6 +4,10 @@
 .profileInfo {
   @include contentBlock($padding: 18px 38px 18px 18px);
 
+  @media (max-width: 768px) {
+    padding: 18px;
+  }
+
   .photoButtonsWrapper {
     display: flex;
     flex-direction: column;
@@ -15,45 +19,16 @@
       flex-direction: column;
       align-self: flex-start;
 
+      @media (max-width: 992px) {
+        margin: 0 auto;
+      }
+
       .mainPhoto {
         width: 280px;
         border-radius: 50%;
-      }
 
-      .uploadWrapper {
-        position: absolute;
-        right: 16px;
-        bottom: 16px;
-
-        .input {
-          display: none;
-        }
-
-        .uploadIconBlock {
-          padding: 7px;
-          border-radius: 50%;
-          cursor: pointer;
-
-          &.light {
-            background: $backgroundColor;
-          }
-
-          &.dark {
-            background: $backgroundColorDarkTheme;
-          }
-
-          .icon {
-            width: 30px;
-            height: 30px;
-
-            &.dark * {
-              fill: $textColorDarkTheme;
-            }
-
-            &:hover * {
-              fill: $mainSecondColor;
-            }
-          }
+        @media (max-width: 576px) {
+          width: 240px;
         }
       }
     }

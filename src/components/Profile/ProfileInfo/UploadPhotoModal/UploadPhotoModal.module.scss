@@ -1,0 +1,43 @@
+@import "../../../../styles/sass/variables";
+
+.uploadWrapper {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+
+  @media (max-width: 576px) {
+    right: 10px;
+    bottom: 10px;
+  }
+
+  .input {
+    display: none;
+  }
+
+  .uploadIconBlock {
+    padding: 7px;
+    border-radius: 50%;
+    cursor: pointer;
+
+    &.light {
+      background: $backgroundColor;
+    }
+
+    &.dark {
+      background: $backgroundColorDarkTheme;
+    }
+
+    .icon {
+      width: 30px;
+      height: 30px;
+
+      &.dark * {
+        fill: $textColorDarkTheme;
+      }
+
+      &:hover * {
+        fill: $mainSecondColor;
+      }
+    }
+  }
+}

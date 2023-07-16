@@ -9,6 +9,15 @@
   max-width: 100vw;
   min-height: 100vh;
 
+  @media (max-width: 768px) {
+    grid-template-areas: 'h h' 'c c';
+    padding-bottom: 100px;
+  }
+
+  @media (max-width: 576px) {
+    padding-bottom: 60px;
+  }
+
   &.light {
     background: $backgroundColor;
   }
@@ -19,5 +28,14 @@
 
   &__content {
     grid-area: c;
+  }
+}
+
+.ant-modal-footer {
+  @media (max-width: 576px) {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
   }
 }

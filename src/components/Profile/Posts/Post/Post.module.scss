@@ -11,16 +11,30 @@
     grid-template-areas: 'a n' 'a d';
     width: max-content;
 
+    @media (max-width: 576px) {
+      gap: 20px;
+    }
+
     .photo {
       grid-area: a;
       margin-right: 20px;
       width: 80px;
       height: 80px;
       border-radius: 50%;
+
+      @media (max-width: 576px) {
+        margin-right: 0;
+        width: 40px;
+        height: 40px;
+      }
     }
 
     .name {
       @include text($fontSize: 18px);
+
+      @media (max-width: 576px) {
+        font-size: 14px;
+      }
     }
 
     .date {

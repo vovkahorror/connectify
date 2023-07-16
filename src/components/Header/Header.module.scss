@@ -17,6 +17,12 @@
     line-height: 28px;
     text-decoration: none;
 
+    span {
+      @media (max-width: 576px) {
+        display: none;
+      }
+    }
+
     &.light {
       color: $textColor;
     }
@@ -53,6 +59,10 @@
   .login {
     @include text($fontSize: 18px);
     text-decoration: none;
+
+    @media (max-width: 576px) {
+      font-size: 14px;
+    }
 
     &:hover {
       color: $mainSecondColor;

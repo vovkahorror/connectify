@@ -1,11 +1,10 @@
-.postsSection {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-}
-
+.postsSection,
 .posts {
   display: flex;
   flex-direction: column;
   gap: 30px;
+
+  @media (max-width: 768px) {
+    gap: 10px;
+  }
 }

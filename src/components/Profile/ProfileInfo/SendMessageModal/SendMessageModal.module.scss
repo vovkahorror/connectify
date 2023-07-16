@@ -28,6 +28,10 @@
     width: 60px;
     border-radius: 50%;
     align-self: flex-start;
+
+    @media (max-width: 576px) {
+      display: none;
+    }
   }
 
   .messageBlock {

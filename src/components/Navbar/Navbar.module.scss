@@ -4,10 +4,26 @@
   grid-area: n;
   padding: 10px 20px;
 
+  @media (max-width: 768px) {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    z-index: 2;
+    backdrop-filter: blur(20px);
+  }
+
   .mainList {
     display: flex;
     flex-direction: column;
     gap: 10px;
+
+    @media (max-width: 768px) {
+      flex-direction: row;
+      justify-content: space-between;
+      gap: 0;
+    }
 
     .item {
       display: flex;
@@ -23,8 +39,26 @@
         text-decoration: none;
         border-radius: 10px;
 
+        @media (max-width: 768px) {
+          flex-direction: column;
+          padding: 10px;
+          font-size: 14px;
+        }
+
+        span {
+          @media (max-width: 576px) {
+            display: none;
+          }
+        }
+
         .icon {
           width: 16px;
+          height: 16px;
+
+          @media (max-width: 576px) {
+            width: 20px;
+            height: 20px;
+          }
 
           &.dark * {
             fill: $textColorDarkTheme;

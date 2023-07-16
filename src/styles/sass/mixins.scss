@@ -24,6 +24,11 @@ $background: $backgroundSecondColor, $borderRadius: 16px) {
   border-radius: $borderRadius;
   min-height: calc(100vh - 78px);
 
+  @media (max-width: 768px) {
+    padding: 10px;
+    gap: 10px;
+  }
+
   &.light {
     background: $background;
   }
@@ -41,6 +46,10 @@ $boxShadow: 0 6px 20px rgba(0, 0, 0, 0.04), $backdropFilter: blur(25px)) {
   border-radius: $borderRadius;
   box-shadow: $boxShadow;
   backdrop-filter: $backdropFilter;
+
+  @media (max-width: 992px) {
+    flex-direction: column;
+  }
 
   &.light {
     background: $background;
@@ -60,6 +69,10 @@ $boxShadow: 0 6px 20px rgba(0, 0, 0, 0.04), $backdropFilter: blur(25px)) {
   border: $border;
   border-radius: $borderRadius;
   cursor: $cursor;
+
+  @media (max-width: 768px) {
+    padding: 10px 20px;
+  }
 
   &.light {
     color: $color;
