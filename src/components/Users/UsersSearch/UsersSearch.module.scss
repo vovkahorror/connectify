@@ -50,8 +50,10 @@
       width: 16px;
       cursor: pointer;
 
-      &:hover * {
-        fill: $mainSecondColor;
+      @include hover-supported() {
+        &:hover * {
+          fill: $mainSecondColor;
+        }
       }
     }
 

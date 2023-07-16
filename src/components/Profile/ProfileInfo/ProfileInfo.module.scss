@@ -56,7 +56,7 @@
         border: 1px solid $textColorDarkTheme;
       }
 
-      &:hover {
+      @include hover-supported() {
         color: #4096ff;
         border: 1px solid #4096ff;
         background: none;

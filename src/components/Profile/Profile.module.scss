@@ -5,4 +5,9 @@
   height: calc(100vh - 78px);
   overflow-y: scroll;
   @include scrollbar();
+
+  @media (max-width: 768px) {
+    height: unset;
+    overflow-y: auto;
+  }
 }

@@ -23,8 +23,10 @@
         fill: $textColorDarkTheme;
       }
 
-      &:hover * {
-        fill: $mainSecondColor;
+      @include hover-supported() {
+        &:hover * {
+          fill: $mainSecondColor;
+        }
       }
 
       &:disabled {
@@ -48,7 +50,7 @@
     border-radius: 6px;
     cursor: pointer;
 
-    &:hover {
+    @include hover-supported() {
       color: $mainSecondColor;
     }
   }

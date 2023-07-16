@@ -75,8 +75,10 @@
           fill: $textColorDarkTheme;
         }
 
-        &:hover * {
-          fill: $mainSecondColor;
+        @include hover-supported() {
+          &:hover * {
+            fill: $mainSecondColor;
+          }
         }
       }
     }
@@ -94,7 +96,7 @@
       fill: $textColorDarkTheme;
     }
 
-    &:hover {
+    @include hover-supported() {
       opacity: 1;
     }
   }
@@ -105,7 +107,7 @@
     height: 60px;
     cursor: auto;
 
-    &:hover {
+    @include hover-supported() {
       opacity: 0.5;
     }
   }

@@ -45,7 +45,7 @@
     @include text($fontSize: 18px);
     text-decoration: none;
 
-    &:hover {
+    @include hover-supported() {
       color: $mainSecondColor;
     }
   }
@@ -64,7 +64,7 @@
       font-size: 14px;
     }
 
-    &:hover {
+    @include hover-supported() {
       color: $mainSecondColor;
     }
   }
@@ -74,7 +74,7 @@
     height: 50px;
     border-radius: 10px;
 
-    &:hover {
+    @include hover-supported() {
       box-shadow: 0 0 0 2px rgba(55, 125, 255, 1);
     }
   }
@@ -88,8 +88,10 @@
       fill: $textColorDarkTheme;
     }
 
-    &:hover * {
-      fill: $mainSecondColor;
+    @include hover-supported() {
+      &:hover * {
+        fill: $mainSecondColor;
+      }
     }
   }
 

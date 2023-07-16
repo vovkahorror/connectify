@@ -34,7 +34,7 @@
       fill: $textColorDarkTheme;
     }
 
-    &:hover {
+    @include hover-supported() {
       opacity: 1;
     }
   }

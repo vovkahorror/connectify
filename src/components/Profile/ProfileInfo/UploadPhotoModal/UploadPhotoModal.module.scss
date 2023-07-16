@@ -1,4 +1,5 @@
 @import "../../../../styles/sass/variables";
+@import "../../../../styles/sass/mixins";
 
 .uploadWrapper {
   position: absolute;
@@ -35,8 +36,10 @@
         fill: $textColorDarkTheme;
       }
 
-      &:hover * {
-        fill: $mainSecondColor;
+      @include hover-supported() {
+        &:hover * {
+          fill: $mainSecondColor;
+        }
       }
     }
   }

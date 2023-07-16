@@ -74,7 +74,7 @@
         fill: $textColorDarkTheme;
       }
 
-      &:hover {
+      @include hover-supported() {
         opacity: 1;
       }
     }
@@ -90,7 +90,7 @@
         fill: $textColorDarkTheme;
       }
 
-      &:hover {
+      @include hover-supported() {
         opacity: 0.5;
       }
     }

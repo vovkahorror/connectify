@@ -119,7 +119,7 @@
         color: $textColorDarkTheme;
       }
 
-      &:hover {
+      @include hover-supported() {
         color: #4096ff;
         background: none;
       }

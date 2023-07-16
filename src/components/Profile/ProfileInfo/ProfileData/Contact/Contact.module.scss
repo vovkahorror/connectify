@@ -1,4 +1,5 @@
 @import '../../../../../styles/sass/variables';
+@import '../../../../../styles/sass/mixins';
 
 .contact {
   display: flex;
@@ -19,8 +20,10 @@
     }
   }
 
-  &:hover, &:hover * {
-    color: $mainSecondColor;
-    fill: $mainSecondColor;
+  @include hover-supported() {
+    &:hover, &:hover * {
+      color: $mainSecondColor;
+      fill: $mainSecondColor;
+    }
   }
 }

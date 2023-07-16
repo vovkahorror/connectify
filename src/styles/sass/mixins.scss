@@ -78,7 +78,7 @@ $boxShadow: 0 6px 20px rgba(0, 0, 0, 0.04), $backdropFilter: blur(25px)) {
     color: $color;
   }
 
-  &:hover {
+  @include hover-supported() {
     background: #4096ff;
   }
 }
@@ -98,8 +98,16 @@ $boxShadow: 0 6px 20px rgba(0, 0, 0, 0.04), $backdropFilter: blur(25px)) {
     background-color: rgba(78, 93, 120, 0.3);
     opacity: 0.1;
 
-    &:hover {
+    @include hover-supported() {
       background-color: rgba(78, 93, 120, 0.7);
+    }
+  }
+}
+
+@mixin hover-supported {
+  @media not all and (pointer: coarse) {
+    &:hover {
+      @content;
     }
   }
 }
