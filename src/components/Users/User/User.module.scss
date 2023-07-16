@@ -5,9 +5,17 @@
   @include contentBlock($gap: 20px);
   word-break: break-word;
 
+  @media (max-width: 992px) {
+    flex-direction: row;
+  }
+
   .userPhoto {
     width: 120px;
     border-radius: 50%;
+
+    @media (max-width: 576px) {
+      width: 100px;
+    }
   }
 
   .userInfo {
@@ -29,9 +37,12 @@
     .followButton, .unfollowButton {
       @include button($padding: 6px 20px);
       align-self: flex-end;
-      width: 70%;
       max-width: 150px;
       border: 1px solid transparent;
+
+      @media (max-width: 576px) {
+        padding: 6px 10px;
+      }
     }
 
     .unfollowButton {

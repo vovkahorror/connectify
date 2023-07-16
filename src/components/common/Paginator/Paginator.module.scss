@@ -11,6 +11,10 @@
     display: flex;
     margin: 0 10px;
 
+    @media (max-width: 768px) {
+      margin: 0;
+    }
+
     .navigationButton {
       display: flex;
       align-items: center;
@@ -41,6 +45,10 @@
     justify-content: center;
     flex-wrap: wrap;
     gap: 4px;
+
+    @media (max-width: 768px) {
+      gap: 0;
+    }
   }
 
   .pageNumber {

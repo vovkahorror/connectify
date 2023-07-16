@@ -69,6 +69,8 @@ $boxShadow: 0 6px 20px rgba(0, 0, 0, 0.04), $backdropFilter: blur(25px)) {
   border: $border;
   border-radius: $borderRadius;
   cursor: $cursor;
+  flex-shrink: 0;
+  white-space: nowrap;
 
   @media (max-width: 768px) {
     padding: 10px 20px;
