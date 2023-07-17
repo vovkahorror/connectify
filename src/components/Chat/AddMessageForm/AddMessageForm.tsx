@@ -40,7 +40,7 @@ export const AddMessageForm: FC = () => {
             <div className={styles.inputWrapper}>
                 <input className={`${styles.input} ${themeClassName}`} value={message} onKeyDown={onKeyDownHandler}
                        placeholder={t('enterYourMessage')}
-                       onChange={writeMessageHandler} autoFocus/>
+                       onChange={writeMessageHandler} autoFocus={document.documentElement.clientWidth > 768}/>
                 <span
                     className={`${styles.notice} ${themeClassName}`}>{t('youHave')} {100 - message.length} {t('charactersLeft')}</span>
             </div>

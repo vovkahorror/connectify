@@ -8,5 +8,7 @@
   "enterYourMessage": "Enter your message",
   "youHave": "You have",
   "charactersLeft": "characters left",
-  "noMessages": "You have no messages yet"
+  "noMessages": "You have no messages yet",
+  "noMessagesInChat": "There are no messages in the chat yet",
+  "error": "Some error occurred. Please refresh the page"
 }

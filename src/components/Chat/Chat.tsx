@@ -11,8 +11,10 @@ import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 import {withNewMessagesRequest} from '../../hoc/withNewMessagesRequest';
 import {ThunkDispatch} from 'redux-thunk';
 import {useTheme} from '../../theme/useTheme';
+import {useTranslation} from 'react-i18next';
 
 const Chat: FC = () => {
+    const {t} = useTranslation('dialogs');
     const {theme} = useTheme();
     const themeClassName = theme === 'light' ? styles.light : styles.dark;
     const status = useSelector<AppStateType, StatusType>(state => state.chat.status);
@@ -21,16 +23,16 @@ const Chat: FC = () => {
 
     useEffect(() => {
         dispatch(startMessagesListening())
-            .then(() => noMessages.current = 'There are no messages in the chat yet');
+            .then(() => noMessages.current = t('noMessagesInChat'));
 
         return () => {
             dispatch(stopMessagesListening());
         };
-    }, [dispatch]);
+    }, [dispatch, t]);
 
     return (
         <main className={`${styles.chat} ${themeClassName}`}>
-            {status === 'error' && <div>Some error occurred. Please refresh the page</div>}
+            {status === 'error' && <div>{t('error')}</div>}
             <Messages noMessages={noMessages}/>
             <AddMessageForm/>
         </main>
