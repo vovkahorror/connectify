@@ -25,5 +25,7 @@
   "sureDeleteThisPost": "Are you sure to delete this post?",
   "reset": "Reset",
   "uploadPhoto": "Upload a photo",
-  "upload": "Upload"
+  "upload": "Upload",
+  "noStatus": "no status",
+  "noInfo": "no information"
 }
