@@ -63,7 +63,11 @@ const MessagesList: FC<MessagesListPropsType> = ({
             setIsLoading(true);
             requestMessages(userID, currentPage, state.messagesData.pageSize)
                 .then(() => getNewMessagesCount())
-                .then(() => setTimeout(() => messagesAnchorRef.current?.scrollIntoView({behavior: 'smooth'})))
+                .then(() => {
+                    if (window.innerWidth > 768) {
+                        setTimeout(() => messagesAnchorRef.current?.scrollIntoView({behavior: 'smooth'}));
+                    }
+                })
                 .catch(error => alert(error.message))
                 .finally(() => setIsLoading(false));
         }
@@ -75,7 +79,6 @@ const MessagesList: FC<MessagesListPropsType> = ({
             prevUserID.current = userID;
         };
     }, [userID, state.messagesData.currentPage, state.messagesData.pageSize]);
-
 
     return (
         <div className={`${styles.messagesList} ${themeClassName}`}>

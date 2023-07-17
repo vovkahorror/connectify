@@ -38,7 +38,7 @@ const MessagesListHeader: FC<MessagesListHeaderPropsType> = ({
                 <span
                     className={`${styles.userActivity} ${themeClassName}`}>{t('wasOnlineOn')} {date} {t('at')} {time}</span>
             </div>
-            <div>
+            <div className={styles.paginatorWrapper}>
                 <Paginator currentPage={currentPage} totalItemsCount={totalCount} pageSize={pageSize} portionSize={5}
                            onPageChanged={onPageChanged}/>
             </div>

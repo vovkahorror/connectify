@@ -5,6 +5,17 @@
   flex-direction: row;
   height: calc(100vh - 78px);
 
+  @media (max-width: 1100px) {
+    flex-direction: column-reverse;
+    height: unset;
+  }
+
+  @media (max-width: 768px) {
+    position: relative;
+    flex-direction: row;
+    overflow: hidden;
+  }
+
   .noMessages {
     display: flex;
     justify-content: center;

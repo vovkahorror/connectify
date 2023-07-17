@@ -1,11 +1,27 @@
 @import '../../../styles/sass/mixins';
 
 .dialogsList {
+  flex-shrink: 0;
   @include contentBlock();
   flex-direction: column;
   gap: 0;
   padding: 20px;
-  width: 35%;
+  width: 25%;
+  min-width: 320px;
   overflow: auto;
   @include scrollbar();
+
+  @media (max-width: 1100px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+    min-width: unset;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    flex-wrap: unset;
+    justify-content: unset;
+  }
 }

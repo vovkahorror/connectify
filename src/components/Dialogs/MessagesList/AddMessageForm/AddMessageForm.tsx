@@ -22,7 +22,7 @@ const AddMessageForm: FC<InjectedFormProps<FormDataType>> = ({handleSubmit, init
             <div className={`${styles.textareaWrapper} ${themeClassName}`}>
                 <Field component={Textarea} name={'newMessageBody'}
                        placeholder={t('enterYourMessage')} maxLength={1000}
-                       onInput={handleInputChange} autoFocus/>
+                       onInput={handleInputChange} autoFocus={window.innerWidth > 768}/>
                 {message.length > 900 && <span className={styles.counter}>{message.length} / 1000</span>}
             </div>
             <button className={styles.sendButton} disabled={!message.length}>

@@ -13,14 +13,21 @@ export const User = ({user, followingInProgress, follow, unfollow}: UserPropsTyp
     const themeClassName = theme === 'light' ? styles.light : styles.dark;
     const userNoPhoto = theme === 'light' ? userLight : userDark;
 
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+        });
+    };
+
     return (
         <div className={`${styles.user} ${themeClassName}`}>
-            <NavLink to={`/profile/${user.id}`}>
+            <NavLink to={`/profile/${user.id}`} onClick={scrollToTop}>
                 <img src={user.photos.large || userNoPhoto} className={styles.userPhoto} alt={''}/>
             </NavLink>
             <div className={styles.userInfo}>
                 <div>
-                    <NavLink className={`${styles.userName} ${themeClassName}`} to={`/profile/${user.id}`}>
+                    <NavLink className={`${styles.userName} ${themeClassName}`} to={`/profile/${user.id}`}
+                             onClick={scrollToTop}>
                         {user.name}
                     </NavLink>
                     <div className={`${styles.userStatus} ${themeClassName}`}>{user.status}</div>

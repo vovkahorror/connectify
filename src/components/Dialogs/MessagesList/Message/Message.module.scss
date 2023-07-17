@@ -20,6 +20,18 @@
     backdrop-filter: blur(25px);
     border-radius: 10px 10px 10px 0;
 
+    @media (max-width: 1400px) {
+      max-width: 480px;
+    }
+
+    @media (max-width: 1300px) {
+      max-width: 380px;
+    }
+
+    @media (max-width: 1200px) {
+      max-width: 260px;
+    }
+
     &.light {
       background: rgba(78, 93, 120, 0.1);
 
