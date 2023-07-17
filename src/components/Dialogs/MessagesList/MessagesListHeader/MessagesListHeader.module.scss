@@ -64,6 +64,10 @@
 
     .backIcon {
       width: 40px;
+
+      &.dark * {
+        fill: $textColorDarkTheme;
+      }
     }
   }
 }

@@ -43,7 +43,7 @@ const MessagesListHeader: FC<MessagesListHeaderPropsType> = ({
                     className={`${styles.userActivity} ${themeClassName}`}>{t('wasOnlineOn')} {date} {t('at')} {time}</span>
             </div>
             <div className={styles.buttons}>
-                <BackIcon className={styles.backIcon} onClick={onBack}/>
+                <BackIcon className={`${styles.backIcon} ${themeClassName}`} onClick={onBack}/>
                 <div>
                     <Paginator currentPage={currentPage} totalItemsCount={totalCount} pageSize={pageSize}
                                portionSize={5}
