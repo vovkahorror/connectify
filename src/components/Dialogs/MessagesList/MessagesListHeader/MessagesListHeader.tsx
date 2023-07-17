@@ -7,6 +7,7 @@ import {useTranslation} from 'react-i18next';
 import {useTheme} from '../../../../theme/useTheme';
 import userLight from '../../../../assets/images/userLight.svg';
 import userDark from '../../../../assets/images/userDark.svg';
+import {ReactComponent as BackIcon} from '../../../../assets/icons/backArrow.svg';
 
 const MessagesListHeader: FC<MessagesListHeaderPropsType> = ({
                                                                  userID,
@@ -17,6 +18,7 @@ const MessagesListHeader: FC<MessagesListHeaderPropsType> = ({
                                                                  totalCount,
                                                                  pageSize,
                                                                  onPageChanged,
+                                                                 setIsTransformed,
                                                              }) => {
     const {t, i18n} = useTranslation('dialogs');
     const {theme} = useTheme();
@@ -25,6 +27,8 @@ const MessagesListHeader: FC<MessagesListHeaderPropsType> = ({
     const customizedDate = lastUserActivityDate && setTimezoneOffsetDate(lastUserActivityDate);
     const date = customizedDate && toFormatDate(customizedDate, i18n.language);
     const time = customizedDate && toFormatTime(customizedDate, i18n.language);
+
+    const onBack = () => setIsTransformed(false);
 
     return (
         <div className={`${styles.messagesListHeader} ${themeClassName}`}>
@@ -38,9 +42,13 @@ const MessagesListHeader: FC<MessagesListHeaderPropsType> = ({
                 <span
                     className={`${styles.userActivity} ${themeClassName}`}>{t('wasOnlineOn')} {date} {t('at')} {time}</span>
             </div>
-            <div className={styles.paginatorWrapper}>
-                <Paginator currentPage={currentPage} totalItemsCount={totalCount} pageSize={pageSize} portionSize={5}
-                           onPageChanged={onPageChanged}/>
+            <div className={styles.buttons}>
+                <BackIcon className={styles.backIcon} onClick={onBack}/>
+                <div>
+                    <Paginator currentPage={currentPage} totalItemsCount={totalCount} pageSize={pageSize}
+                               portionSize={5}
+                               onPageChanged={onPageChanged}/>
+                </div>
             </div>
         </div>
     );
@@ -55,6 +63,7 @@ type MessagesListHeaderPropsType = {
     totalCount: number;
     pageSize: number;
     onPageChanged: (pageNumber: number) => void;
+    setIsTransformed: (isTransformed: boolean) => void;
 }
 
 export default MessagesListHeader;

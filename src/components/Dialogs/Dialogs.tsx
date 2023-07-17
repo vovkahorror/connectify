@@ -1,5 +1,5 @@
 import {DialogsPageType} from '../../redux/dialogs-reducer';
-import React, {FC, useEffect, useRef} from 'react';
+import React, {FC, useEffect, useRef, useState} from 'react';
 import DialogsList from './DialogsList/DialogsList';
 import MessagesList from './MessagesList/MessagesList';
 import styles from './Dialogs.module.scss';
@@ -25,6 +25,7 @@ export const Dialogs: FC<DialogsPropsType> = ({
     let noMessages = useRef('');
     const {theme} = useTheme();
     const themeClassName = theme === 'light' ? styles.light : styles.dark;
+    const [isTransformed, setIsTransformed] = useState(false);
 
     useEffect(() => {
         requestDialogs()
@@ -38,16 +39,16 @@ export const Dialogs: FC<DialogsPropsType> = ({
     }, [userID, state.dialogsData]);
 
     return (
-        <div className={`${styles.dialogs} ${themeClassName}`}>
+        <div className={`${styles.dialogsWrapper} ${themeClassName}`}>
             {state.dialogsData.length
-                ? <>
-                    <DialogsList state={state}/>
+                ? <div className={`${styles.dialogs} ${isTransformed && styles.transformed}`}>
+                    <DialogsList state={state} setIsTransformed={setIsTransformed}/>
                     <MessagesList state={state} userID={userID} authUserPhoto={authUserPhoto} authUserID={authUserID}
                                   requestMessages={requestMessages} sendMessage={sendMessage}
                                   deleteMessage={deleteMessage} onPageChanged={onPageChanged}
                                   resetMessagesData={resetMessagesData} getNewMessagesCount={getNewMessagesCount}
-                                  reset={reset}/>
-                </>
+                                  reset={reset} isTransformed={isTransformed} setIsTransformed={setIsTransformed}/>
+                </div>
                 : <span className={styles.noMessages}>{noMessages.current}</span>}
         </div>
     );

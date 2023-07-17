@@ -5,15 +5,23 @@
   display: flex;
   gap: 20px;
 
+  @media (max-width: 1200px) {
+    max-width: 90%;
+  }
+
   .photo {
     align-self: flex-end;
     width: 60px;
     border-radius: 50%;
+
+    @media (max-width: 768px) {
+      width: 40px;
+    }
   }
 
   .messageContent {
     position: relative;
-    padding: 10px 18px;
+    padding: 10px 18px 18px 18px;
     width: max-content;
     max-width: 600px;
     @include text($fontWeight: 400);
@@ -30,6 +38,10 @@
 
     @media (max-width: 1200px) {
       max-width: 260px;
+    }
+
+    @media (max-width: 768px) {
+      max-width: 75%;
     }
 
     &.light {
@@ -71,6 +83,10 @@
       @include text($fontSize: 12px, $lineHeight: 18px);
       white-space: nowrap;
       opacity: 0.6;
+
+      @media (max-width: 768px) {
+        left: -60px;
+      }
     }
 
     .deleteMessage {
@@ -112,6 +128,7 @@
 .ownerMessageBlock {
   @extend .messageBlock;
   flex-direction: row-reverse;
+  align-self: flex-end;
 
   .messageContent {
     @extend .messageContent;
@@ -146,6 +163,10 @@
       @extend .messageDate;
       left: unset;
       right: 0;
+
+      @media (max-width: 768px) {
+        right: -60px;
+      }
     }
 
     .deleteMessage {

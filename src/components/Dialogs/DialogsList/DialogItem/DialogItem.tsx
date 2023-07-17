@@ -7,7 +7,14 @@ import {useTheme} from '../../../../theme/useTheme';
 import userLight from '../../../../assets/images/userLight.svg';
 import userDark from '../../../../assets/images/userDark.svg';
 
-export const DialogItem: FC<DialogItemType> = ({userName, userPhoto, id, lastDialogActivityDate, newMessagesCount}) => {
+export const DialogItem: FC<DialogItemType> = ({
+                                                   userName,
+                                                   userPhoto,
+                                                   id,
+                                                   lastDialogActivityDate,
+                                                   newMessagesCount,
+                                                   setIsTransformed,
+                                               }) => {
     const {i18n} = useTranslation();
     const {theme} = useTheme();
     const themeClassName = theme === 'light' ? styles.light : styles.dark;
@@ -18,8 +25,11 @@ export const DialogItem: FC<DialogItemType> = ({userName, userPhoto, id, lastDia
     const date = toFormatDate(customizedDate, i18n.language);
     const time = toFormatTime(customizedDate, i18n.language);
 
+    const onClickHandler = () => setIsTransformed(true);
+
     return (
-        <NavLink className={`${styles.dialogItem} ${themeClassName}`} activeClassName={styles.active} to={path}>
+        <NavLink className={`${styles.dialogItem} ${themeClassName}`} activeClassName={styles.active} to={path}
+                 onClick={onClickHandler}>
             <img className={styles.photo} src={userPhoto || userNoPhoto} alt="userPhoto"/>
             <span>{userName}</span>
             <span className={styles.lastActivityDate}>
@@ -37,4 +47,5 @@ type DialogItemType = {
     id: number;
     lastDialogActivityDate: string;
     newMessagesCount: number;
+    setIsTransformed: (isTransformed: boolean) => void;
 }

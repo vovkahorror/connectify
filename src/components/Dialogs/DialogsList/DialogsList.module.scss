@@ -23,5 +23,11 @@
     flex-direction: column;
     flex-wrap: unset;
     justify-content: unset;
+    width: calc(100vw - 20px);
+    padding: 10px;
+
+    &::-webkit-scrollbar {
+      width: 0;
+    }
   }
 }

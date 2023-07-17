@@ -6,11 +6,25 @@
   flex-direction: column;
   width: 100%;
 
+  @media (max-width: 768px) {
+    gap: 10px;
+    width: calc(100vw - 20px);
+    padding: 10px;
+  }
+
   .messagesListBodyWrapper {
     flex-grow: 1;
     padding-right: 20px;
     overflow-y: scroll;
     @include scrollbar();
+
+    @media (max-width: 768px) {
+      padding-right: 0;
+
+      &::-webkit-scrollbar {
+        width: 0;
+      }
+    }
 
     .messagesListBody {
       display: flex;

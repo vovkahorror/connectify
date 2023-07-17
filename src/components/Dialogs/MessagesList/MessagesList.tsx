@@ -19,6 +19,8 @@ const MessagesList: FC<MessagesListPropsType> = ({
                                                      resetMessagesData,
                                                      getNewMessagesCount,
                                                      reset,
+                                                     isTransformed,
+                                                     setIsTransformed,
                                                  }) => {
     const userName = state.dialogsData.find(dialog => dialog.id === userID)?.userName;
     const userPhoto = state.dialogsData.find(dialog => dialog.id === userID)?.photos.large;
@@ -58,14 +60,15 @@ const MessagesList: FC<MessagesListPropsType> = ({
 
     useEffect(() => {
         const currentPage = userID === prevUserID.current ? state.messagesData.currentPage : 1;
+        let timerID: NodeJS.Timeout;
 
         if (userID) {
             setIsLoading(true);
             requestMessages(userID, currentPage, state.messagesData.pageSize)
                 .then(() => getNewMessagesCount())
                 .then(() => {
-                    if (window.innerWidth > 768) {
-                        setTimeout(() => messagesAnchorRef.current?.scrollIntoView({behavior: 'smooth'}));
+                    if (document.documentElement.clientWidth > 768 || isTransformed) {
+                        timerID = setTimeout(() => messagesAnchorRef.current?.scrollIntoView({behavior: 'smooth'}));
                     }
                 })
                 .catch(error => alert(error.message))
@@ -77,8 +80,9 @@ const MessagesList: FC<MessagesListPropsType> = ({
                 resetMessagesData();
             }
             prevUserID.current = userID;
+            clearTimeout(timerID);
         };
-    }, [userID, state.messagesData.currentPage, state.messagesData.pageSize]);
+    }, [userID, state.messagesData.currentPage, state.messagesData.pageSize, isTransformed]);
 
     return (
         <div className={`${styles.messagesList} ${themeClassName}`}>
@@ -93,6 +97,7 @@ const MessagesList: FC<MessagesListPropsType> = ({
                                         totalCount={state.messagesData.totalCount}
                                         pageSize={state.messagesData.pageSize}
                                         onPageChanged={onPageChanged}
+                                        setIsTransformed={setIsTransformed}
                     />
 
                     <div className={styles.messagesListBodyWrapper}>
@@ -120,6 +125,8 @@ type MessagesListPropsType = {
     resetMessagesData: () => void;
     getNewMessagesCount: () => void;
     reset: (formName: string) => void;
+    isTransformed: boolean;
+    setIsTransformed: (isTransformed: boolean) => void;
 }
 
 export default MessagesList;
