@@ -7,5 +7,6 @@
   "at": "в",
   "enterYourMessage": "Введіть своє повідомлення",
   "youHave": "У Вас лишилось",
-  "charactersLeft": "символів"
+  "charactersLeft": "символів",
+  "noMessages": "У вас ще немає повідомлень"
 }

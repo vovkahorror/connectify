@@ -7,5 +7,6 @@
   "at": "at",
   "enterYourMessage": "Enter your message",
   "youHave": "You have",
-  "charactersLeft": "characters left"
+  "charactersLeft": "characters left",
+  "noMessages": "You have no messages yet"
 }

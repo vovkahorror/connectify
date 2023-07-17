@@ -56,12 +56,11 @@ export const ProfileData: FC<ProfileDataPropsType> = ({profile, isOwner, status,
         }
     });
 
-    const noInfo = <span className={styles.noInfo}>no information</span>;
+    const noInfo = <span className={styles.noInfo}>{t('noInfo')}</span>;
 
     return (
         <div className={`${styles.profileData} ${themeClassName}`}>
-            {isOwner &&
-                <EditIcon className={`${styles.editButton} ${themeClassName}`} onClick={goToEditMode}>Edit</EditIcon>}
+            {isOwner && <EditIcon className={`${styles.editButton} ${themeClassName}`} onClick={goToEditMode}/>}
             <h2 className={styles.fullName}>{profile.fullName}</h2>
             <ProfileStatusWithHooks status={status} isOwner={isOwner} updateStatus={updateStatus}/>
             <ul className={styles.infoList}>

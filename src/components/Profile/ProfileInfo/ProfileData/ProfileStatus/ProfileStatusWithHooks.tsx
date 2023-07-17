@@ -2,10 +2,12 @@ import React, {ChangeEvent, FC, KeyboardEvent, useEffect, useState} from 'react'
 import {ReactComponent as EditIcon} from '../../../../../assets/icons/edit.svg';
 import styles from './ProfileStatus.module.scss';
 import {useTheme} from '../../../../../theme/useTheme';
+import {useTranslation} from 'react-i18next';
 
 export const ProfileStatusWithHooks: FC<ProfileStatusPropsType> = ({status, isOwner, updateStatus}) => {
     const [editMode, setEditMode] = useState(false);
     const [localStatus, setLocalStatus] = useState(status);
+    const {t} = useTranslation('profile');
     const {theme} = useTheme();
     const themeClassName = theme === 'light' ? styles.light : styles.dark;
 
@@ -32,7 +34,9 @@ export const ProfileStatusWithHooks: FC<ProfileStatusPropsType> = ({status, isOw
         <>
             {!editMode
                 ? <div className={styles.currentStatus}>
-                    <span>{status || <span className={styles.noStatus}>no status</span>}</span>
+                    <span>
+                        {status || (isOwner && <span className={styles.noStatus}>{t('noStatus')}</span>)}
+                    </span>
                     {isOwner && <EditIcon className={`${styles.icon} ${themeClassName}`} onClick={activateEditMode}/>}
                 </div>
                 : <div>
