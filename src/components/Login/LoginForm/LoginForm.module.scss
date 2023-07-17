@@ -25,25 +25,6 @@
         color: $textColorDarkTheme;
       }
     }
-
-    input {
-      width: 100%;
-      padding: 15px;
-      @include text();
-      border: 1px solid rgba(78, 93, 120, 0.2);
-      outline: none;
-      border-radius: 10px;
-      transition: all 0.3s, height 0s;
-
-      &::placeholder {
-        font-weight: 400;
-      }
-
-      &:focus {
-        border: 1px solid transparent;
-        box-shadow: 0 0 0 2px rgba(55, 125, 255, 0.4);
-      }
-    }
   }
 
   .rememberMe, .acceptOffer {
@@ -55,6 +36,8 @@
     @include text();
 
     .checkbox {
+      display: flex;
+      align-items: center;
       appearance: none;
       padding: 0;
       width: 22px;
@@ -85,6 +68,31 @@
     }
   }
 
+  input {
+    width: 100%;
+    padding: 15px;
+    @include text();
+    border: 1px solid rgba(78, 93, 120, 0.2);
+    outline: none;
+    border-radius: 10px;
+    transition: all 0.3s, height 0s;
+
+    &::placeholder {
+      font-weight: 400;
+    }
+
+    &:focus {
+      border: 1px solid transparent;
+      box-shadow: 0 0 0 2px rgba(55, 125, 255, 0.4);
+    }
+  }
+
+  .captcha {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
 
   button {
     @include button();

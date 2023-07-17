@@ -30,7 +30,7 @@ const LoginForm: FC<InjectedFormProps<FormDataType>> = ({initialValues: {captcha
                 <span>{t('rememberMe')}</span>
             </label>
 
-            {captcha && <div>
+            {captcha && <div className={styles.captcha}>
                 <img src={captcha} alt={'captcha'}/>
                 {createField(t('symbolsFromImage'), 'captcha', 'text', [required], Input)}
             </div>}
