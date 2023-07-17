@@ -33,10 +33,9 @@ export const Messages: FC<MessagesPropsType> = ({noMessages}) => {
 
     return (
         <div className={styles.messages} onScroll={scrollHandler}>
-            {messages.map(m =>
-                <Message key={m.id} {...m}/>,
-            )}
-            {!messages.length && <span className={`${styles.noMessages} ${themeClassName}`}>{noMessages.current}</span>}
+            {messages.length
+                ? messages.map(m => <Message key={m.id} {...m}/>)
+                : <span className={`${styles.noMessages} ${themeClassName}`}>{noMessages.current}</span>}
             <div ref={messagesAnchorRef}></div>
         </div>
     );

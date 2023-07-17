@@ -15,11 +15,11 @@ const LoginForm: FC<InjectedFormProps<FormDataType>> = ({initialValues: {captcha
 
     return (
         <form className={styles.form} onSubmit={handleSubmit}>
-            <div>
+            <div className={styles.fieldWrapper}>
                 <span className={`${styles.fieldTitle} ${themeClassName}`}>Email</span>
                 {createField(t('yourEmail'), 'email', 'text', [required], Input)}
             </div>
-            <div>
+            <div className={styles.fieldWrapper}>
                 <span className={`${styles.fieldTitle} ${themeClassName}`}>{t('password')}</span>
                 {createField(t('interPassword'), 'password', 'password', [required], Input)}
             </div>

@@ -5,46 +5,53 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  min-width: 100%;
+  width: 100%;
 
-  .fieldTitle {
-    display: block;
-    margin-bottom: 8px;
-    font-size: 18px;
-    font-weight: 700;
+  .fieldWrapper {
+    display: flex;
+    flex-direction: column;
 
-    &.light {
-      color: $textColor;
+    .fieldTitle {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 18px;
+      font-weight: 700;
+
+      &.light {
+        color: $textColor;
+      }
+
+      &.dark {
+        color: $textColorDarkTheme;
+      }
     }
 
-    &.dark {
-      color: $textColorDarkTheme;
-    }
-  }
+    input {
+      width: 100%;
+      padding: 15px;
+      @include text();
+      border: 1px solid rgba(78, 93, 120, 0.2);
+      outline: none;
+      border-radius: 10px;
+      transition: all 0.3s, height 0s;
 
-  input {
-    width: 100%;
-    padding: 15px;
-    @include text();
-    border: 1px solid rgba(78, 93, 120, 0.2);
-    outline: none;
-    border-radius: 10px;
-    transition: all 0.3s, height 0s;
+      &::placeholder {
+        font-weight: 400;
+      }
 
-    &::placeholder {
-      font-weight: 400;
-    }
-
-    &:focus {
-      border: 1px solid transparent;
-      box-shadow: 0 0 0 2px rgba(55, 125, 255, 0.4);
+      &:focus {
+        border: 1px solid transparent;
+        box-shadow: 0 0 0 2px rgba(55, 125, 255, 0.4);
+      }
     }
   }
 
   .rememberMe, .acceptOffer {
     display: flex;
+    align-items: center;
     gap: 10px;
     width: max-content;
+    max-width: 100%;
     @include text();
 
     .checkbox {
@@ -90,6 +97,11 @@
     gap: 16px;
     @include text();
     white-space: nowrap;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: center;
+    }
 
     a {
       text-decoration: none;

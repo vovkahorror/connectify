@@ -1,14 +1,18 @@
 import {ComponentType, useEffect} from 'react';
 import {getNewMessagesCount} from '../redux/dialogs-reducer';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {AppStateType} from '../redux/redux-store';
 
 export const withNewMessagesRequest = (Component: ComponentType) => {
     return (props: any) => {
         const dispatch = useDispatch();
+        const isAuth = useSelector<AppStateType, boolean>(state => state.auth.isAuth);
 
         useEffect(() => {
-            dispatch(getNewMessagesCount());
-        }, [dispatch]);
+            if (isAuth) {
+                dispatch(getNewMessagesCount());
+            }
+        }, [dispatch, isAuth]);
 
         return <Component {...props} />;
     };

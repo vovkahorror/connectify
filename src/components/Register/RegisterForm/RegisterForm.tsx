@@ -15,19 +15,19 @@ const RegisterForm: FC<InjectedFormProps<FormDataType>> = ({handleSubmit, error}
 
     return (
         <form className={styles.form} onSubmit={handleSubmit}>
-            <div>
+            <div className={styles.fieldWrapper}>
                 <span className={`${styles.fieldTitle} ${themeClassName}`}>{t('login')}</span>
                 {createField(t('yourLogin'), 'login', 'text', [required], Input, 'new-password')}
             </div>
-            <div>
+            <div className={styles.fieldWrapper}>
                 <span className={`${styles.fieldTitle} ${themeClassName}`}>Email</span>
                 {createField(t('yourEmail'), 'email', 'text', [required], Input, 'new-password')}
             </div>
-            <div>
+            <div className={styles.fieldWrapper}>
                 <span className={`${styles.fieldTitle} ${themeClassName}`}>{t('password')}</span>
                 {createField(t('createPassword'), 'password', 'password', [required], Input, 'new-password')}
             </div>
-            <div>
+            <div className={styles.fieldWrapper}>
                 <span className={`${styles.fieldTitle} ${themeClassName}`}>{t('confirmPassword')}</span>
                 {createField(t('confirmYourPassword'), 'confirmPassword', 'password', [required], Input, 'new-password')}
             </div>
