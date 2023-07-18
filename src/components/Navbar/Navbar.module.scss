@@ -30,6 +30,7 @@
       list-style-type: none;
 
       .link {
+        position: relative;
         display: flex;
         align-items: center;
         gap: 20px;
@@ -45,7 +46,7 @@
           font-size: 14px;
         }
 
-        span {
+        span:not(.newMessagesCount) {
           @media (max-width: 576px) {
             display: none;
           }
@@ -81,6 +82,11 @@
           color: #ffffff;
           background: #ff5630;
           border-radius: 4px;
+
+          @media (max-width: 768px) {
+            position: absolute;
+            right: 0;
+          }
         }
       }
     }
