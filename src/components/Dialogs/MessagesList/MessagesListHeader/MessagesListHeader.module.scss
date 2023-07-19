@@ -58,12 +58,25 @@
 
   .buttons {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     width: 100%;
 
+    @media (max-width: 1200px) {
+      justify-content: center;
+    }
+
+    @media (max-width: 768px) {
+      justify-content: space-between;
+    }
+
     .backIcon {
       width: 40px;
+      cursor: pointer;
+
+      @media (min-width: 769px) {
+        display: none;
+      }
 
       &.dark * {
         fill: $textColorDarkTheme;
