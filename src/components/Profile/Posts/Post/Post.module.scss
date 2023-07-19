@@ -22,15 +22,19 @@
 
     .photoLink {
       grid-area: a;
+      margin-right: 20px;
+      width: max-content;
+
+      @media (max-width: 576px) {
+        margin-right: 0;
+      }
 
       .photo {
-        margin-right: 20px;
         width: 80px;
         height: 80px;
         border-radius: 50%;
 
         @media (max-width: 576px) {
-          margin-right: 0;
           width: 50px;
           height: 50px;
         }
@@ -38,8 +42,10 @@
     }
 
     .nameLink {
+      grid-area: n;
+      width: max-content;
+
       .name {
-        grid-area: n;
         @include text($fontSize: 18px);
 
         @media (max-width: 576px) {
@@ -52,7 +58,7 @@
     .date {
       grid-area: d;
       display: flex;
-      gap: 15px;
+      gap: 10px;
       margin-top: -20px;
       @include text($fontSize: 12px, $lineHeight: 16px);
     }
