@@ -1,9 +1,9 @@
 {
   "files": {
     "main.css": "/connectify/static/css/main.75b8b50b.css",
-    "main.js": "/connectify/static/js/main.3c026a39.js",
-    "static/css/122.174ab333.chunk.css": "/connectify/static/css/122.174ab333.chunk.css",
-    "static/js/122.006dd1cd.chunk.js": "/connectify/static/js/122.006dd1cd.chunk.js",
+    "main.js": "/connectify/static/js/main.058f8e49.js",
+    "static/css/122.cf5bad1c.chunk.css": "/connectify/static/css/122.cf5bad1c.chunk.css",
+    "static/js/122.d8103ae0.chunk.js": "/connectify/static/js/122.d8103ae0.chunk.js",
     "static/css/827.6e47a316.chunk.css": "/connectify/static/css/827.6e47a316.chunk.css",
     "static/js/827.fe0358ec.chunk.js": "/connectify/static/js/827.fe0358ec.chunk.js",
     "static/css/764.130ff941.chunk.css": "/connectify/static/css/764.130ff941.chunk.css",
@@ -74,9 +74,9 @@
     "static/media/arrowRight.svg": "/connectify/static/media/arrowRight.f22cda78b6e11abab5ec8cf947c36bfe.svg",
     "static/media/arrowLeft.svg": "/connectify/static/media/arrowLeft.a5756a50b41ed84f8dc5444e2f7e412c.svg",
     "main.75b8b50b.css.map": "/connectify/static/css/main.75b8b50b.css.map",
-    "main.3c026a39.js.map": "/connectify/static/js/main.3c026a39.js.map",
-    "122.174ab333.chunk.css.map": "/connectify/static/css/122.174ab333.chunk.css.map",
-    "122.006dd1cd.chunk.js.map": "/connectify/static/js/122.006dd1cd.chunk.js.map",
+    "main.058f8e49.js.map": "/connectify/static/js/main.058f8e49.js.map",
+    "122.cf5bad1c.chunk.css.map": "/connectify/static/css/122.cf5bad1c.chunk.css.map",
+    "122.d8103ae0.chunk.js.map": "/connectify/static/js/122.d8103ae0.chunk.js.map",
     "827.6e47a316.chunk.css.map": "/connectify/static/css/827.6e47a316.chunk.css.map",
     "827.fe0358ec.chunk.js.map": "/connectify/static/js/827.fe0358ec.chunk.js.map",
     "764.130ff941.chunk.css.map": "/connectify/static/css/764.130ff941.chunk.css.map",
@@ -103,6 +103,6 @@
   },
   "entrypoints": [
     "static/css/main.75b8b50b.css",
-    "static/js/main.3c026a39.js"
+    "static/js/main.058f8e49.js"
   ]
 }
