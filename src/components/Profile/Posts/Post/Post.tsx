@@ -18,6 +18,7 @@ import {useTranslation} from 'react-i18next';
 import {useTheme} from '../../../../theme/useTheme';
 import userLight from '../../../../assets/images/userLight.svg';
 import userDark from '../../../../assets/images/userDark.svg';
+import {NavLink} from 'react-router-dom';
 
 export const Post: FC<PostPropsType> = memo(({userID, post, profile, onPutReaction, onDeletePost}) => {
     const {t, i18n} = useTranslation('profile');
@@ -68,8 +69,12 @@ export const Post: FC<PostPropsType> = memo(({userID, post, profile, onPutReacti
     return (
         <article className={`${styles.post} ${themeClassName}`}>
             <div className={styles.postHeader}>
-                <img className={styles.photo} src={senderPhoto || userNoPhoto} alt=""/>
-                <h3 className={`${styles.name} ${themeClassName}`}>{senderName}</h3>
+                <NavLink className={styles.photoLink} to={`/profile/${post.senderUserID}`}>
+                    <img className={styles.photo} src={senderPhoto || userNoPhoto} alt=""/>
+                </NavLink>
+                <NavLink className={styles.nameLink} to={`/profile/${post.senderUserID}`}>
+                    <h3 className={`${styles.name} ${themeClassName}`}>{senderName}</h3>
+                </NavLink>
                 <time className={`${styles.date} ${themeClassName}`} dateTime={post.date}>
                     <span>{date}</span>
                     <span>{time}</span>

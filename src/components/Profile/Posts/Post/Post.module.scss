@@ -15,33 +15,46 @@
       gap: 20px;
     }
 
-    .photo {
-      grid-area: a;
-      margin-right: 20px;
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
+    .photoLink,
+    .nameLink {
+      text-decoration: none;
+    }
 
-      @media (max-width: 576px) {
-        margin-right: 0;
-        width: 40px;
-        height: 40px;
+    .photoLink {
+      grid-area: a;
+
+      .photo {
+        margin-right: 20px;
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+
+        @media (max-width: 576px) {
+          margin-right: 0;
+          width: 50px;
+          height: 50px;
+        }
       }
     }
 
-    .name {
-      @include text($fontSize: 18px);
+    .nameLink {
+      .name {
+        grid-area: n;
+        @include text($fontSize: 18px);
 
-      @media (max-width: 576px) {
-        font-size: 14px;
+        @media (max-width: 576px) {
+          font-size: 14px;
+          line-height: 22px;
+        }
       }
     }
 
     .date {
+      grid-area: d;
       display: flex;
       gap: 15px;
       margin-top: -20px;
-      @include text($fontSize: 12px, $lineHeight: 18px);
+      @include text($fontSize: 12px, $lineHeight: 16px);
     }
   }
 
