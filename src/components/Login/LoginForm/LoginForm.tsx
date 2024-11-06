@@ -21,7 +21,7 @@ const LoginForm: FC<InjectedFormProps<FormDataType>> = ({initialValues: {captcha
             </div>
             <div className={styles.fieldWrapper}>
                 <span className={`${styles.fieldTitle} ${themeClassName}`}>{t('password')}</span>
-                {createField(t('interPassword'), 'password', 'password', [required], Input)}
+                {createField(t('enterPassword'), 'password', 'password', [required], Input)}
             </div>
 
             <label className={`${styles.rememberMe} ${themeClassName}`}>
